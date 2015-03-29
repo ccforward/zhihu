@@ -2,7 +2,7 @@
 // var url = require('url');
 var request = require('request');
 var jade = require('jade');
-var jQuery = require('jQuery');
+var $ = require('cheerio');
 
 var dailyAPI = {
     getStart: function(req,res){
@@ -34,16 +34,16 @@ var dailyAPI = {
         });
     },
     getArticle: function(req,res){
-        var $ = jQuery;
         var articleId = req.params.id;
         if(articleId) {
             var url = 'http://news-at.zhihu.com/api/4/news/'+articleId;
             request(url, function(err,response,body){
                 if(!err) {
                     var article = JSON.parse(body);
-                    var content = window.$(article.body);
-                    console.log(content);
-                    // res.render('article', { 'article': article});
+                    var content = $(article.body);
+                    // console.log(content.text());
+                    console.log(article.body);
+                    res.render('article', { 'title': article.title});
                 }
             })
         }else {
