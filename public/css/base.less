@@ -1,0 +1,56 @@
+/* ==========================================================================
+   有即是无，无即是有
+   ========================================================================== */
+body, dl, dd, /* dt, 默认没边距 */
+ul, ol, /*li, 默认没边距 */
+h1, h2, h3, h4, h5, h6, pre, /* code, 默认没边距 */
+form, fieldset, legend, input, textarea, optgroup,
+p, blockquote, figure, hr, menu, dir,
+thead, tbody, tfoot, th, td /* th, td 默认 padding:1px */
+{
+    margin:0;
+    padding:0;
+
+}
+* {
+  -webkit-box-sizing: border-box;
+}
+
+/**
+ * 非大面积文字排版网站通常不需要列表项，如果需要可单独设置
+ */
+ul, ol {
+    list-style-type: none;
+    list-style-image: none;
+}
+
+
+/* ==========================================================================
+   链接
+   ========================================================================== */
+
+/**
+ * 去除链接默认的下划线，提高文字可读性
+ */
+a {
+    text-decoration: none;
+}
+
+/**
+* 去掉 IE 10+ 点击链接时的灰色背景
+*/
+a:active {
+    background-color: transparent;
+}
+
+/**
+ * 去掉点击时的焦点框，同时保证使用键盘可以显示焦点框
+ */
+a:active,
+a:hover {
+    outline: 0 none;
+}
+
+img {
+  width: 100%;
+}
