@@ -5,7 +5,8 @@ var jade = require('jade');
 var $ = require('cheerio');
 
 var dailyAPI = {
-    getStart: function(req,res){
+    // 获取最新内容
+    getLatest: function(req,res){
 
         // 启动图品 尺寸： 320*432 480*728 720*1184 1080*1776
         // request('http://news-at.zhihu.com/api/4/start-image/720*1184',function(err,response,body){
@@ -33,6 +34,7 @@ var dailyAPI = {
             }
         });
     },
+    // 文章详情
     getArticle: function(req,res){
         var articleId = req.params.id;
         if(articleId) {
@@ -50,7 +52,18 @@ var dailyAPI = {
 
         }
         
+    },
+    // 历史内容
+    getHistory: function(req,res){
+        var date = req.params.date;
+        if(date){
+            var url = 'http://news.at.zhihu.com/api/4/news/before/' + date;
+        }else {
+
+        }
     }
+
+    // 合集内容
 
 }
 module.exports = dailyAPI;
