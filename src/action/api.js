@@ -3,6 +3,7 @@
 var request = require('request');
 var jade = require('jade');
 var $ = require('cheerio');
+var zhData = require('data.js')
 
 var dailyAPI = {
     // 获取最新内容

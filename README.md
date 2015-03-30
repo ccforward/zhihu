@@ -1,5 +1,9 @@
 # 知乎日报收集
 
+## 功能 TODO
+* 爬下所有文章 离线存储
+* 
+
 ## API
 代理之乎日报的HTTP请求后发现的之乎日报的部分API，如下：
 
@@ -50,7 +54,7 @@
 
 
 ### 9、合集
-合集纵览 `http://news-at.zhihu.com/api/3/sections`
+合集总览 `http://news-at.zhihu.com/api/3/sections`
 
 * 深夜惊奇
 	* URL `http://news-at.zhihu.com/api/4/section/1`
