@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var dailyAPI = require('./../src/action/api')
+var home = require('./../controller/home')
 
 /* GET home page. */
 // dailyData.getArticle();
@@ -11,8 +11,8 @@ var dailyAPI = require('./../src/action/api')
 //     res.render('index', { title: 'Daily' });
 // });
 
-router.get('/', dailyAPI.getStart);
-router.get('/index', dailyAPI.getStart);
-router.get('/article/:id', dailyAPI.getArticle);
+router.get('/', home.getLatest);
+router.get('/index.htm', home.getLatest);
+// router.get('/article/:id', dailyAPI.getArticle);
 
 module.exports = router;

@@ -1,5 +1,5 @@
 // 通过API 获取数据
-
+var Promise = require('es6-promise').Promise;
 var request = require('request');
 
 var API = {
@@ -10,33 +10,33 @@ var API = {
 }
 
 var data = {
-
     getStartPic: function(){
         var url = API.startPic;
-        request(url ,function(err,response,body){
-            if(!err){
-                var pic = JSON.parse(body);
-                pic.img = 'http://gtms03.alicdn.com/tps/i3/TB117YzHpXXXXXLXXXXWZMJJXXX-720-1280.jpg';
-                return pic;
-                // res.render('index', { 'title': 'Daily', 'pic': pic});
-            }else {
-                return null;
-                console.log(err);
-            }
+        return new Promise(function(resolve, reject){
+            request(url ,function(err,response,body){
+                var pic = null;
+                if(!err){
+                    var pic = JSON.parse(body);
+                    pic.img = 'http://gtms03.alicdn.com/tps/i3/TB117YzHpXXXXXLXXXXWZMJJXXX-720-1280.jpg';
+                }
+                resolve(pic);
+            });    
         });
     },
 
     // 最新内容
     getLatest: function(){
         var url = API.latest;
-        request(url, function(err, response, body){
-            if(!err){
-                var latest = JSON.parse(body);
-                return latest.stories;
-            }else {
-                return null;
-            }
-        });        
+        return new Promise(function(resolve, reject){
+            request(url, function(err, response, body){
+                var latest = null;
+                if(!err){
+                    var latest = JSON.parse(body);
+                }
+                resolve(latest);
+            });        
+            
+        });
     },
     // 文章详情
     getArticle: function(articleId){
@@ -52,13 +52,13 @@ var data = {
             return null;
         }
     },   
-    getHistory: function(date){
+    getHistory: function(date,callback){
         if(date){
             var url = API.history + date;
             request(url, function(err, response, body){
                 if(!err){
-                    var history = JSON.parse(body)
-                    return history.stories;
+                    var history = JSON.parse(body);
+                    callback(history.stories);
                 }
             })
         }else {
