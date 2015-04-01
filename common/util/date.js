@@ -1,8 +1,6 @@
-
-
-// 日期计算 date: 2015-04-01
+// 日期计算 date: 20150401
 function DateCalc(date,bef,aft){
-    this.date = date;
+    this.date = date.substr(0,4) + '-' + date.substr(4,2) + '-' + date.substr(-2);
     this.bef = bef || 0;
     this.aft = aft || 0;
 }
