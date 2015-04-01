@@ -8,6 +8,9 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
+// 每日23点爬知乎日报的latest
+require('./common/util/zh');
+
 var app = express();
 
 // view engine setup

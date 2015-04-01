@@ -1,15 +1,21 @@
+/*
+ * 文章详情 model
+ * 
+*/
 var mongodb = require('../connect');
 var Schema = mongodb.mongoose.Schema;
 var Promise = require('es6-promise').Promise;
 
 var ArticleSchema = new Schema({
-    title: String,
-    body: String,
-    image: String,
-    image_source: String,
-    css: [String],
-    js: [String],
-    dtime: Date
+    id    : String,
+    title : String,
+    theme : Number,
+    body  : String,
+    image : String,
+    css   : [String],
+    js    : [String],
+    dtime : Date,
+    image_source: String
 });
 
 var ArticleDAO = function(){};
