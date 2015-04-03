@@ -1,21 +1,29 @@
-// 日期计算 date: 20150401
+// 日期计算 
+// 格式 date: 20150401
 function DateCalc(date,bef,aft){
-    this.date = date.substr(0,4) + '-' + date.substr(4,2) + '-' + date.substr(-2);
+    if(date){
+        this.date = [date.substr(0,4), '-', date.substr(4,2), '-', date.substr(-2)].join('')
+    }else{
+        var d = new Date(); 
+        this.date = [d.getFullYear(), '-', d.getMonth()+1, '-', d.getDate()].join('')
+    }
+    // this.date = date ? [date.substr(0,4), '-', date.substr(4,2), '-', date.substr(-2)].join('') : (var d = new Date(); return [d.getFullYear(), '-', d.getMonth()+1, '-', d.getDate()].join(''));
     this.bef = bef || 0;
     this.aft = aft || 0;
 }
+
 DateCalc.prototype = {
     constructor: DateCalc,
     
-    before: function(days){
-        return this._calc(days,'before');
-    },
-    after: function(days){
-        return this._calc(days,'after');
-    },
     now: function(){
         var d = new Date();
-        return [d.getFullYear(), this._cover(d.getMonth()+1), this._cover(d.getDate())].join('')
+        return [d.getFullYear(), this._cover(d.getMonth()+1), this._cover(d.getDate())].join('');     
+    },
+    before: function(days){
+        return days ? this._calc(days,'before') : this.now();
+    },
+    after: function(days){
+        return days ? this._calc(days,'after') : this.now();
     },
     // days 前后的天数
     // type before 或 after
