@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var home = require('./../controller/home')
+var home = require('./../controller/home');
 
 /* GET home page. */
 // dailyData.getArticle();
