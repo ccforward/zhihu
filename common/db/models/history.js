@@ -10,7 +10,8 @@ var HistorySchema = new Schema({
     id   : String,
     title: String,
     image: String,
-    dtime: Date
+    theme: String,
+    dtime: String
 });
 
 var HistoryDAO = function(){};

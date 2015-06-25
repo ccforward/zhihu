@@ -62,6 +62,7 @@ var data = {
         return new Promise(function(resolve, reject){
             if(date){
                 var url = API.history + date;
+                console.log(url);
                 request({
                     method: 'GET',
                     uri: url,

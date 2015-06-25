@@ -20,10 +20,10 @@ DateCalc.prototype = {
         return [d.getFullYear(), this._cover(d.getMonth()+1), this._cover(d.getDate())].join('');     
     },
     before: function(days){
-        return days ? this._calc(days,'before') : this.now();
+        return days ? this._calc(days,'before') : this._calc(1, 'before');
     },
     after: function(days){
-        return days ? this._calc(days,'after') : this.now();
+        return days ? this._calc(days,'after') : this._calc(1, 'after');
     },
     // days 前后的天数
     // type before 或 after
