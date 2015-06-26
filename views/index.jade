@@ -10,10 +10,11 @@ block content
     div.articles(data-artiles="#{latest.length}")
         if latest.length>0
             each item in latest
-                p.article
-                    a(href="http://daily.zhihu.com/story/#{item.id}") #{item.title} 
+                a.article(href="http://daily.zhihu.com/story/#{item.id}")
+                    span #{item.title} 
                     if(item && item.images)
-                        img(src="#{item.images[0]}")                     
+                        img(src="#{item.images[0]}").J_Lazyload                   
+    div.calendar
 
 block append footer
     script(src="/js/index.js")

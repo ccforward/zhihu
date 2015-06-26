@@ -29,40 +29,28 @@ var Home = {
                     var article = JSON.parse(body);
                     var content = $(article.body);
                     // console.log(content.text());
-                    console.log(article.body);
+                    // console.log(article.body);
                     res.render('article', { 'title': article.title});
                 }
-            })
-        }else {
-
+            });
         }
         
     },
-    search: function(req, res){
-        var _self = this,
-            historyDAO = new HistoryDAO(),
-            key = req.params.key,
-            query = {title: new RegExp(key)};
 
-        if(!key){
-            _self.getLatest();
-        }else {
-            _self.so(key, query);
-        }
-    },
-    // 搜索通用方法
-    so: function(key, query){
+    // 搜索
+    so: function(req, res){
+        var key = req.params.key,
+            query = {title: new RegExp(key)};        
         var historyDAO = new HistoryDAO();
         historyDAO.so(query).then(function(result){
             res.render('list', {'title': key+'_知乎搜索', 'list': result});
-        });        
+        });
     },
 
     // temp列表内容
     list: function(req, res){
         var historyDAO = new HistoryDAO();
         historyDAO.list().then(function(list){
-            console.log(list);
             res.render('list', {'list':list});
         });
     }

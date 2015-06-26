@@ -29,9 +29,9 @@ HistoryDAO.prototype =  {
             });
         });
     },
-    so: function(obj){
+    so: function(query){
         return new Promise(function(resolve, reject){
-            History.find(obj, function(err, d){
+            History.find(query, function(err, d){
                 resolve && resolve(d);
             });
         });

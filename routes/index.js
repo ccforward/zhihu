@@ -14,7 +14,7 @@ var home = require('./../controller/home');
 router.get('/', home.getLatest);
 router.get('/index.htm', home.getLatest);
 router.get('/list.htm', home.list);
-router.get('/s/:key', home.search);
+router.get('/s/:key', home.so);
 // router.get('/article/:id', dailyAPI.getArticle);
 
 module.exports = router;
