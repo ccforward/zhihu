@@ -19,7 +19,7 @@ var DateCalc = require('./date');
 // }, null, true, 'Asia/Shanghai')
 
 var start = '20150625',
-    end = '20150610';
+    end = '20150620';
 // var dateCalc = new DateCalc(start);
 // console.log(dateCalc.before());
 
@@ -31,9 +31,7 @@ var Spider = {
         this.loopData(start, end)
     },
     // 一天的数据
-    day: function(date){
-        console.log(date);
-        return;
+    day: function(date, fn){
         zhAPI.getHistory(date).then(function(history){
             var date = history.date,
                 d = history.stories;
@@ -69,14 +67,17 @@ var Spider = {
             console.log('last');
             _self.day(date);
         }else {
-            _self.loopData(date,end);
+            setTimeout(function(){
+                _self.loopData(date,end);
+            },1000)
         }
     }
 
 }
 
 
-Spider.init(start, end);
+// Spider.init(start, end);
+// Spider.day(start);
 
 
 // new CronJob('* * * * * *', function(){

@@ -1,0 +1,13 @@
+extends layout
+
+block append head
+    link(rel='stylesheet', href='/css/index/index.css')
+
+block content
+    div.list
+        if list.length>0
+            each item in list
+                p.title #{item.title}
+
+block append footer
+    script(src="/js/index.js")

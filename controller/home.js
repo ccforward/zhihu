@@ -1,7 +1,9 @@
 var request = require('request');
 var Promise = require('es6-promise').Promise;
 var $ = require('cheerio');
-var zhAPI = require('./../common/api/index')
+var zhAPI = require('./../common/api/index');
+var HistoryDAO = require('../common/db/models/history');
+
 
 var Home = {
     // 获取最新内容
@@ -35,7 +37,17 @@ var Home = {
 
         }
         
+    },
+
+    // temp列表内容
+    list: function(req, res){
+        var historyDAO = new HistoryDAO();
+        historyDAO.list().then(function(list){
+            console.log(list);
+            res.render('list', {'list':list});
+        });
     }
+
 
 }
 module.exports = Home;

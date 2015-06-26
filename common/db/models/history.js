@@ -27,6 +27,14 @@ HistoryDAO.prototype =  {
                 resolve && resolve(err);
             });
         });
+    },
+    list: function(){
+        return new Promise(function(resolve, reject){
+            History.find(function(err, d){
+                resolve && resolve(d);
+            });
+            
+        });
     }
     
 };
