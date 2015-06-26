@@ -1,7 +1,9 @@
+var CronJob = require('cron').CronJob;
+var Promise = require('es6-promise').Promise;
+
 var ArticleDAO = require('../db/models/article');
 var HistoryDAO = require('../db/models/history');
 var zhAPI = require('../api/index');
-var CronJob = require('cron').CronJob;
 var DateCalc = require('./date');
 // Asia/Shanghai
 
@@ -31,7 +33,7 @@ var Spider = {
         this.loopData(start, end)
     },
     // 一天的数据
-    day: function(date, fn){
+    day: function(date){
         zhAPI.getHistory(date).then(function(history){
             var date = history.date,
                 d = history.stories;
@@ -50,7 +52,8 @@ var Spider = {
                     title: d[i].title,
                     image: img,
                     theme: theme,
-                    dtime: date
+                    dtime: date,
+                    dyear: date.substr(0,4)
                 };
                 // console.log(theme);
                 historyDAO.save(data);
@@ -62,14 +65,14 @@ var Spider = {
         var date = start;
         var dateCalc = new DateCalc(start);
         _self.day(date);
-        date = dateCalc.before();
+        date = dateCalc.before();  
+
         if(date === end){
-            console.log('last');
             _self.day(date);
         }else {
             setTimeout(function(){
                 _self.loopData(date,end);
-            },1000)
+            }, 100);
         }
     }
 
@@ -77,7 +80,6 @@ var Spider = {
 
 
 // Spider.init(start, end);
-// Spider.day(start);
 
 
 // new CronJob('* * * * * *', function(){
@@ -98,7 +100,8 @@ var Spider = {
 //                     id   : d[i].id,
 //                     title: d[i].title,
 //                     image: img,
-//                     dtime: date
+//                     dtime: date,
+//                     dyear: date.substr(0,4)
 //                 }
 //                 historyDAO.save(data);
 //             }

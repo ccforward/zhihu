@@ -38,6 +38,25 @@ var Home = {
         }
         
     },
+    search: function(req, res){
+        var _self = this,
+            historyDAO = new HistoryDAO(),
+            key = req.params.key,
+            query = {title: new RegExp(key)};
+
+        if(!key){
+            _self.getLatest();
+        }else {
+            _self.so(key, query);
+        }
+    },
+    // 搜索通用方法
+    so: function(key, query){
+        var historyDAO = new HistoryDAO();
+        historyDAO.so(query).then(function(result){
+            res.render('list', {'title': key+'_知乎搜索', 'list': result});
+        });        
+    },
 
     // temp列表内容
     list: function(req, res){
