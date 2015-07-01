@@ -4,9 +4,9 @@ block append head
     link(rel='stylesheet', href='/css/index/index.css')
 
 block content
-    //- div.start-img(style="")
-    //-     div.back-img(style="background-image: url(#{pic.img})" data-img="#{pic.img}")
-    //-     p.author #{pic.text}
+    div.start-img(style="")
+        div.back-img(style="background-image: url(#{pic.img})" data-img="#{pic.img}")
+        p.author #{pic.text}
     div.articles(data-artiles="#{latest.length}")
         if latest.length>0
             each item in latest
