@@ -9,7 +9,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 // 每日23点爬知乎日报的latest并存储
-require('./common/util/zh');
+require('./common/util/index');
 
 var app = express();
 

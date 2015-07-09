@@ -46,6 +46,15 @@ var Home = {
             res.render('list', {'title': key+'_知乎搜索', 'list': result});
         });
     },
+    // 按日期查询
+    so: function(req, res){
+        var key = req.params.key,
+            query = {title: new RegExp(key)};        
+        var historyDAO = new HistoryDAO();
+        historyDAO.so(query).then(function(result){
+            res.render('list', {'title': key+'_知乎搜索', 'list': result});
+        });
+    },
 
     // temp列表内容
     list: function(req, res){

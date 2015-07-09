@@ -7,12 +7,13 @@ var Schema = mongodb.mongoose.Schema;
 var Promise = require('es6-promise').Promise;
 
 var HistorySchema = new Schema({
-    id   : String,
+    id: String,
     title: String,
     image: String,
     theme: String,
-    dyear: String,
-    dtime: String
+    dtime: String,
+    dmonth: String,
+    dyear: String
 });
 
 var HistoryDAO = function(){};
