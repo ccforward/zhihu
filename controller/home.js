@@ -40,19 +40,32 @@ var Home = {
     // 搜索
     so: function(req, res){
         var key = req.params.key,
-            query = {title: new RegExp(key)};        
+            query = {title: new RegExp(key)}; 
+        console.log(query);       
         var historyDAO = new HistoryDAO();
         historyDAO.so(query).then(function(result){
             res.render('list', {'title': key+'_知乎搜索', 'list': result});
         });
     },
     // 按日期查询
-    so: function(req, res){
-        var key = req.params.key,
-            query = {title: new RegExp(key)};        
+    soDate: function(req, res){
+        var param = req.params,
+            query = {},
+            title = '';
+        if(param.day) {
+            query = {dtime: param.day};
+            title = param.day;
+        }else if(param.month){
+            title = param.month.substr(0,6);
+            query = {dmonth: title}
+
+        }else if(param.year){
+            title = param.year.substr(0,4);
+            query = {dyear: title}
+        }
         var historyDAO = new HistoryDAO();
         historyDAO.so(query).then(function(result){
-            res.render('list', {'title': key+'_知乎搜索', 'list': result});
+            res.render('list', {'title': '知乎日报_' + title, 'list': result});
         });
     },
 

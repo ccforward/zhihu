@@ -5,13 +5,15 @@ var ArticleDAO = require('../db/models/article');
 var HistoryDAO = require('../db/models/history');
 var zhAPI = require('../api/index');
 var DateCalc = require('./date');
-// Asia/Shanghai
 
 
-// var dao = new ArticleDAO();
+// cronjob 测试
+// var i = 0;
 
-// console.log(dao.save(obj));
-// articleDAO.save(obj);
+// new CronJob('* * * * * *', function(){
+
+//     console.log('i : ' + ++i);
+// }, null, true, 'Asia/Shanghai')
 
 
 var historyDAO = new DateCalc();
@@ -64,16 +66,15 @@ var Spider = {
             }, 100);
         }
     },
+    // 爬取每日的 latest 数据
     daily: function(){
-        new CronJob('* * * * * *', function(){
+        new CronJob('00 30 23 * * *', function(){
             if(x == 2){
                 console.log('===========  begin request  ===========');
                 zhAPI.getLatest().then(function(latest){
                     var d = latest.stories,
                         date = latest.date;
-                    // console.dir(latest);
                     console.log('===========  over request  ===========');
-                    console.log(x);
                     for(var i=0,len=d.length; i<len; i++){
                         var img = '';
                         if(d[i].images){
