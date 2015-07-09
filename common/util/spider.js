@@ -13,22 +13,11 @@ var DateCalc = require('./date');
 // console.log(dao.save(obj));
 // articleDAO.save(obj);
 
-// var i = 0;
 
-// new CronJob('* * * * * *', function(){
-
-//     console.log('i : ' + ++i);
-// }, null, true, 'Asia/Shanghai')
-
-var start = '20150708',
-    end = '20150707';
-
-var x = 1;
-var historyDAO = new HistoryDAO();
-
+var historyDAO = new DateCalc();
 var Spider = {
     init: function(start, end){
-        console.log(start, end);
+        console.log(start,end);
         // this.loopData(start, end)
     },
     // 一天的数据
@@ -74,12 +63,44 @@ var Spider = {
                 _self.loopData(date,end);
             }, 100);
         }
+    },
+    daily: function(){
+        new CronJob('* * * * * *', function(){
+            if(x == 2){
+                console.log('===========  begin request  ===========');
+                zhAPI.getLatest().then(function(latest){
+                    var d = latest.stories,
+                        date = latest.date;
+                    // console.dir(latest);
+                    console.log('===========  over request  ===========');
+                    console.log(x);
+                    for(var i=0,len=d.length; i<len; i++){
+                        var img = '';
+                        if(d[i].images){
+                            img = d[i].images[0];
+                        }
+                        var data = {
+                            id   : d[i].id,
+                            title: d[i].title,
+                            image: img,
+                            dtime: date,
+                            dyear: date.substr(0,4)
+                        }
+                        historyDAO.save(data);
+                    }
+                });
+            }
+            ++x;
+            // console.log('x : ' + ++x);
+        }, function(){
+            console.log('cron-job over')
+        }, true, 'Asia/Shanghai')
     }
 
 }
 
 module.exports = Spider;
-Spider.init(start, end);
+
 
 
 
