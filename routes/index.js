@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 
 var home = require('./../controller/home');
-var imgProxy = require('./../common/util/img');
 
 /* GET home page. */
 // dailyData.getArticle();
@@ -20,11 +19,11 @@ router.get('/list.htm', home.list);
 router.get('/s/:key', home.so);
 
 // 按日期搜索
-router.get('/d/:day', home.soDate);
-router.get('/m/:month', home.soDate);
-router.get('/y/:year', home.soDate);
+router.get('/d/:day', home.soByDate);
+router.get('/m/:month', home.soByDate);
+router.get('/y/:year', home.soByDate);
 
-// 图片代理
-router.get('/img', imgProxy.proxy);
+router.get('/test', home.test)
+
 
 module.exports = router;

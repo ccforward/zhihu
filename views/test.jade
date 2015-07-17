@@ -1,0 +1,15 @@
+extends layout
+
+block append head
+    link(rel='stylesheet', href='/css/index/index.css')
+    link(rel='stylesheet', href='/c/calendar/index.css')
+    link(rel='stylesheet', href='http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css')
+    //- link(rel='stylesheet', href='#{article.css}')
+
+block content
+    div.zh-calendar#J_ZHCalender
+
+
+block append footer
+    script(src="/c/calendar/index.js")
+    script(src="/p/test/index.js")

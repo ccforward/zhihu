@@ -16,10 +16,10 @@ var DateCalc = require('./date');
 // }, null, true, 'Asia/Shanghai')
 
 
-var historyDAO = new DateCalc();
+var historyDAO = new HistoryDAO();
 var Spider = {
     init: function(start, end){
-        console.log(start,end);
+        // end一定要比start小
         // this.loopData(start, end)
     },
     // 一天的数据
@@ -52,47 +52,44 @@ var Spider = {
         });
     },
     loopData: function(start, end){
-        var _self = this;
-        var date = start;
-        var dateCalc = new DateCalc(start);
+        var _self = this,
+            date = start,
+            dateCalc = new DateCalc(start);
+
         _self.day(date);
         date = dateCalc.before();  
-
-        if(date === end){
+        if(date == end){
             _self.day(date);
+            console.log('over');
         }else {
             setTimeout(function(){
                 _self.loopData(date,end);
             }, 100);
         }
     },
-    // 爬取每日的 latest 数据
+    // 每天23:30 爬取每日的 latest 数据
     daily: function(){
         new CronJob('00 30 23 * * *', function(){
-            if(x == 2){
-                console.log('===========  begin request  ===========');
-                zhAPI.getLatest().then(function(latest){
-                    var d = latest.stories,
-                        date = latest.date;
-                    console.log('===========  over request  ===========');
-                    for(var i=0,len=d.length; i<len; i++){
-                        var img = '';
-                        if(d[i].images){
-                            img = d[i].images[0];
-                        }
-                        var data = {
-                            id   : d[i].id,
-                            title: d[i].title,
-                            image: img,
-                            dtime: date,
-                            dyear: date.substr(0,4)
-                        }
-                        historyDAO.save(data);
+            console.log('===========  begin request  ===========');
+            zhAPI.getLatest().then(function(latest){
+                var d = latest.stories,
+                    date = latest.date;
+                console.log('===========  over request  ===========');
+                for(var i=0,len=d.length; i<len; i++){
+                    var img = '';
+                    if(d[i].images){
+                        img = d[i].images[0];
                     }
-                });
-            }
-            ++x;
-            // console.log('x : ' + ++x);
+                    var data = {
+                        id   : d[i].id,
+                        title: d[i].title,
+                        image: img,
+                        dtime: date,
+                        dyear: date.substr(0,4)
+                    }
+                    historyDAO.save(data);
+                }
+            });
         }, function(){
             console.log('cron-job over')
         }, true, 'Asia/Shanghai')

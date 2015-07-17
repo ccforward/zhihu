@@ -48,7 +48,7 @@ var Home = {
         });
     },
     // 按日期查询
-    soDate: function(req, res){
+    soByDate: function(req, res){
         var param = req.params,
             query = {},
             title = '';
@@ -75,7 +75,19 @@ var Home = {
         historyDAO.list().then(function(list){
             res.render('list', {'list':list});
         });
-    }
+    },
+
+    // test页面
+    test: function(req, res){
+        var data = {
+            days: []
+        };
+        for(var i=1;i<=31;i++){
+            data.days[i] = i;
+        }
+        data.days = data.days.slice(1);
+        res.render('test', {'data': data});
+    } 
 
 
 }
