@@ -70,11 +70,9 @@ var Spider = {
     // 每天23:30 爬取每日的 latest 数据
     daily: function(){
         new CronJob('00 30 23 * * *', function(){
-            console.log('===========  begin request  ===========');
             zhAPI.getLatest().then(function(latest){
                 var d = latest.stories,
                     date = latest.date;
-                console.log('===========  over request  ===========');
                 for(var i=0,len=d.length; i<len; i++){
                     var img = '';
                     if(d[i].images){
@@ -88,6 +86,7 @@ var Spider = {
                         dyear: date.substr(0,4)
                     }
                     historyDAO.save(data);
+                    console.log('cron-job daily over')
                 }
             });
         }, function(){
