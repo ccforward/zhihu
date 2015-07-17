@@ -65,7 +65,10 @@ var Home = {
         }
         var historyDAO = new HistoryDAO();
         historyDAO.so(query).then(function(result){
-            res.render('list', {'title': '知乎日报_' + title, 'list': result});
+            // res.render('list', {'title': '知乎日报_' + title, 'list': result});
+            console.log(result);
+            res.json(result);
+            return;
         });
     },
 
@@ -86,7 +89,7 @@ var Home = {
             data.days[i] = i;
         }
         data.days = data.days.slice(1);
-        res.render('test', {'data': data});
+        res.render('test', {'title': '知乎 日报', 'data': data});
     } 
 
 

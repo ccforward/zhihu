@@ -22,9 +22,19 @@ Calendar.prototype = {
     },
     init: function(){
         var _self = this;
+        _self._renderControl();
         _self._renderWeek();
         _self._renderDays();
         
+    },
+    _renderControl: function(){
+        var _self = this;
+        var year = '<div class="year-box dib">2015</div>';
+        var month = '<div class="month-box dib"><a href="#" class="prev"><</a>07<a href="#" class="next">></a></div>';
+        var ctrl = '<div class="control">'+year+month+'</div>';
+
+
+        // $('#J_ZHCalendar').append(ctrl);
     },
     _renderWeek: function(){
         var _self = this;
@@ -33,8 +43,8 @@ Calendar.prototype = {
             weekBody.push('<li>'+_self._CONST.weekDays[i]+'</li>')
         }
         var week = '<ul class="week">' + weekBody.join('') + '</ul>';
-        $('#J_ZHCalender').append(week);
-        $('#J_ZHCalender .week').width($('#J_ZHCalender .week li').width()*7)
+        $('#J_ZHCalendar').append(week);
+        $('#J_ZHCalendar .week').width($('#J_ZHCalendar .week li').width()*7)
     },
     _renderDays: function(){
         var _self = this;
@@ -54,17 +64,24 @@ Calendar.prototype = {
             }else {
                 var day = '';
                 if(d == _self.day){
-                    day = '<li class="current">'
+                    day = '<li class="J_DailyData current" data-date="'
                 }else {
-                    day = '<li>'
+                    day = '<li class="J_DailyData" data-date="'
                 }
-                daysBody.push(day + d + '</li>');
+                var dailyDate = _self.year + '' + _self._coverDay(_self.month);
+                daysBody.push(day + dailyDate + _self._coverDay(d) + '">' + d + '</li>');
                 d++;
             }
         }
         var days = '<ul class="days">' + daysBody.join('') + '</ul>';
-        $('#J_ZHCalender').append(days);  
-        $('#J_ZHCalender .days').width($('#J_ZHCalender .week').width());      
+        $('#J_ZHCalendar').append(days);  
+        $('#J_ZHCalendar .days').width($('#J_ZHCalendar .week').width());      
+    },
+    _coverDay: function(d){
+        return d = d<10 ? '0'+d : d;
+    },
+    _changeMonth: function(){
+
     }
 };
 

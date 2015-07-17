@@ -1,5 +1,9 @@
 .zh-calendar {
-    width: 50%;
+    // width: 50%;
+    .control {
+        height: 40px;
+        line-height: 40px;
+    }
     li {
         display: inline-block;
         width: 80px;
@@ -9,13 +13,14 @@
         background: #ccc;
         color: #fff;
         border: 1px solid #fff;
-        cursor: pointer;
+        
     }
     .week{
         
     }
     .days {
         li {
+            cursor: pointer;
             &.current {
                 background: #9c0
             }

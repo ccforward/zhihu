@@ -23,6 +23,7 @@ router.get('/d/:day', home.soByDate);
 router.get('/m/:month', home.soByDate);
 router.get('/y/:year', home.soByDate);
 
+// test
 router.get('/test', home.test)
 
 
