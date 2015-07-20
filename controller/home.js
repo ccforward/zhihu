@@ -66,7 +66,7 @@ var Home = {
         var historyDAO = new HistoryDAO();
         historyDAO.so(query).then(function(result){
             // res.render('list', {'title': '知乎日报_' + title, 'list': result});
-            console.log(result);
+            // console.log(result);
             res.json(result);
             return;
         });

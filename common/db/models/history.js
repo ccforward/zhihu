@@ -33,7 +33,7 @@ HistoryDAO.prototype =  {
     so: function(query){
         return new Promise(function(resolve, reject){
             History.find(query, function(err, d){
-                resolve && resolve(d);
+                resolve && resolve(err, d);
             });
         });
     },

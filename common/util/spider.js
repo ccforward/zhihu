@@ -3,6 +3,7 @@ var Promise = require('es6-promise').Promise;
 
 var ArticleDAO = require('../db/models/article');
 var HistoryDAO = require('../db/models/history');
+var LogDAO = require('../db/models/log');
 var zhAPI = require('../api/index');
 var DateCalc = require('./date');
 
@@ -17,6 +18,7 @@ var DateCalc = require('./date');
 
 
 var historyDAO = new HistoryDAO();
+var logDAO = new HistoryDAO();
 var Spider = {
     init: function(start, end){
         // end一定要比start小
@@ -47,7 +49,16 @@ var Spider = {
                     dyear: date.substr(0,4)
                 };
                 // console.log(theme);
-                historyDAO.save(data);
+                historyDAO.save(data).then(function(err){
+                    if(err){
+                        // 写入存储error的log
+                        var error = {
+                            id: data.id,
+                            msg: JSON.parse(err)
+                        }
+                        logDAO.save(error);
+                    }
+                });
             }
         });
     },

@@ -19,7 +19,7 @@
         zhData: function(date){
             var _self = this;
             if(_self._CONSTDATA.history[date]){
-                _self.render(_self._CONSTDATA.history[date]);
+                _self._render(_self._CONSTDATA.history[date]);
             }else {
                 $.ajax({
                     type: 'GET',
