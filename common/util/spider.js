@@ -96,7 +96,16 @@ var Spider = {
                         dtime: date,
                         dyear: date.substr(0,4)
                     }
-                    historyDAO.save(data);
+                    historyDAO.save(data).then(function(err){
+                        if(err){
+                            // 写入存储error的log
+                            var error = {
+                                id: data.id,
+                                msg: JSON.parse(err)
+                            }
+                            logDAO.save(error);
+                        }
+                    });
                     console.log('cron-job daily over')
                 }
             });
