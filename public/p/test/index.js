@@ -26,11 +26,13 @@
                     url: '/d/'+date,
                     success: function(data){
                         // 存储已请求内容
-                        var d = JSON.parse(data);
-                        if(!_self._CONSTDATA.history[date]){
-                            _self._CONSTDATA.history[date] = d;
+                        if(data){
+                            var d = JSON.parse(data);
+                            if(!_self._CONSTDATA.history[date]){
+                                _self._CONSTDATA.history[date] = d;
+                            }
+                            _self._render(d);
                         }
-                        _self._render(d);
                     }
                 });
 
@@ -39,7 +41,7 @@
         _render: function(d){
             var list = '';
             for(var i=0,len=d.length;i<len;i++){
-                list += '<p>'+d[i].title+'</p>';
+                list += '<p><a target="_blank" href="http://daily.zhihu.com/story/' + d[i].id + '">'+d[i].title+'</p>';
             }
             $('.right-list').html(list);            
         }

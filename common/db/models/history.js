@@ -33,7 +33,17 @@ HistoryDAO.prototype =  {
     so: function(query){
         return new Promise(function(resolve, reject){
             History.find(query, function(err, d){
-                resolve && resolve(err, d);
+                var data = [];
+                for(var i=0,len=d.length;i<len;i++){
+                    var re = {
+                        id: d[i].id,
+                        title: d[i].title,
+                        image: d[i].image,
+                        theme: d[i].theme
+                    }
+                    data.push(re);
+                }
+                resolve && resolve(data);
             });
         });
     },

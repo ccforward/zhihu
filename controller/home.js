@@ -3,6 +3,7 @@ var Promise = require('es6-promise').Promise;
 var $ = require('cheerio');
 var zhAPI = require('./../common/api/index');
 var HistoryDAO = require('../common/db/models/history');
+var URL = require('url');
 
 
 var Home = {
@@ -43,33 +44,38 @@ var Home = {
             query = {title: new RegExp(key)}; 
         console.log(query);       
         var historyDAO = new HistoryDAO();
-        historyDAO.so(query).then(function(result){
+        historyDAO.so(query).then(function(err, result){
             res.render('list', {'title': key+'_知乎搜索', 'list': result});
         });
     },
     // 按日期查询
     soByDate: function(req, res){
-        var param = req.params,
-            query = {},
-            title = '';
-        if(param.day) {
-            query = {dtime: param.day};
-            title = param.day;
-        }else if(param.month){
-            title = param.month.substr(0,6);
-            query = {dmonth: title}
-
-        }else if(param.year){
-            title = param.year.substr(0,4);
-            query = {dyear: title}
-        }
-        var historyDAO = new HistoryDAO();
-        historyDAO.so(query).then(function(result){
-            // res.render('list', {'title': '知乎日报_' + title, 'list': result});
-            // console.log(result);
-            res.json(result);
+        // 判断 referer 中断请求 
+        var host = URL.parse(req.headers.referer).hostname;
+        if(host.indexOf('zhihu.com')<0 || host.indexOf('zhihuhu.duapp.com')<0){
+            res.json([]);
             return;
-        });
+        }else {
+            var param = req.params,
+                query = {},
+                title = '';
+            if(param.day) {
+                query = {dtime: param.day};
+                title = param.day;
+            }else if(param.month){
+                title = param.month.substr(0,6);
+                query = {dmonth: title}
+
+            }else if(param.year){
+                title = param.year.substr(0,4);
+                query = {dyear: title}
+            }
+            var historyDAO = new HistoryDAO();
+            historyDAO.so(query).then(function(result){
+                res.json(result);
+                return;
+            });
+        }
     },
 
     // temp列表内容
