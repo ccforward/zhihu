@@ -30,6 +30,13 @@ HistoryDAO.prototype =  {
             });
         });
     },
+    count: function(query){
+        return new Promise(function(resolve, reject){
+            History.count(query, function(err, d){
+                resolve && resolve(d)
+            })
+        });
+    },
     so: function(query){
         return new Promise(function(resolve, reject){
             History.find(query, function(err, d){

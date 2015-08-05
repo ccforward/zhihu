@@ -21,6 +21,11 @@ var historyDAO = new HistoryDAO();
 var logDAO = new HistoryDAO();
 var Spider = {
     init: function(start, end){
+        var dateCalc = new DateCalc(start)
+        historyDAO.count({dtime: dateCalc.before()}).then(function(d){
+            // end一定要比start小
+            d == 0 && Spider.loopData(start, end);
+        });
         // end一定要比start小
         // this.loopData(start, end)
     },
