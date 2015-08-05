@@ -40,6 +40,14 @@
 	* 返回的字段 没有body、img、image-source等字段
 	* share_url 字段会跳转到站外文章
 
+#### 4.1、文章详情的点赞数、长评论、短评论数量
+* URL `http://news-at.zhihu.com/api/4/story-extra/7033320`
+* 返回信息：
+	* long_comments： 长评论
+	* popularity：点赞数
+	* short_comments：短评论数
+	* comments：总评论数
+
 ### 5、文章长评论
 * URL `http://news-at.zhihu.com/api/4/story/4628696/long-comments` 
 * story后面即为文章的id

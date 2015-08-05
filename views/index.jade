@@ -4,6 +4,8 @@ block append head
     link(rel='stylesheet', href='/css/index/index.css')
 
 block content
+    header
+        a#forkme_banner(href="https://github.com/ccforward/zhihu") View on GitHub
     div.start-img(style="")
         div.back-img(style="background-image: url(#{pic.img})" data-img="#{pic.img}")
         p.author #{pic.text}

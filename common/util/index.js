@@ -46,17 +46,17 @@ var opt = {
         // registe_ip: '0.1.0.123'
     }
 }
-request(opt, function(err, response, body){
-    // console.log(err);return;
-    var salt = 'bmlnZXNoYWJpamluZ3JhbmdlaXBvbGU=';
+// request(opt, function(err, response, body){
+//     // console.log(err);return;
+//     var salt = 'bmlnZXNoYWJpamluZ3JhbmdlaXBvbGU=';
 
-    var code = md5(md5(opt.form.secret)+salt);
-    console.log(body);
-    // console.log(code);
+//     var code = md5(md5(opt.form.secret)+salt);
+//     console.log(body);
+//     // console.log(code);
 
-});
+// });
 
 
-// Spider.init('20150730', '20150729');
+Spider.init('20150730', '20150729');
 
 
