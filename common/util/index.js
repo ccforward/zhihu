@@ -8,11 +8,9 @@ var request = require('request');
 
 
 var opt = {
-    // uri: 'http://api.ishenka.com/art/web/index.php?r=user/resetpwdsms',
     uri: 'http://service.winic.org:8009/sys_port/gateway/?id=heivr.sms.new.oa&pwd=admin123&to=18661982110&content=111&time=',
-    // uri: 'http://http://api.ishenka.com/art/web/index.php?r=user/register',
     form: {
-        
+      
     }
 }
 
