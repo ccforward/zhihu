@@ -7,7 +7,8 @@ var API = {
     'startPic'  : 'http://news-at.zhihu.com/api/4/start-image/720*1184',
     'latest'    : 'http://news-at.zhihu.com/api/4/news/latest',
     'article'   : 'http://news-at.zhihu.com/api/4/news/',
-    'history'   : 'http://news.at.zhihu.com/api/4/news/before/'
+    'history'   : 'http://news.at.zhihu.com/api/4/news/before/',
+    'cmtCount'  : 'http://news-at.zhihu.com/api/4/story-extra/'
 }
 
 var data = {
@@ -18,7 +19,7 @@ var data = {
                 var pic = null;
                 if(!err){
                     var pic = JSON.parse(body);
-                    pic.img = 'http://gtms03.alicdn.com/tps/i3/TB117YzHpXXXXXLXXXXWZMJJXXX-720-1280.jpg';
+                    pic.img = 'http://gw.alicdn.com/tps/i3/TB117YzHpXXXXXLXXXXWZMJJXXX-720-1280.jpg';
                 }
                 resolve(pic);
             });    
@@ -57,12 +58,36 @@ var data = {
         }else {
             return null;
         }
-    },   
+    },
+    // 评论数点赞数
+    getCmtcount: function(articleId){
+        return new Promise(function(resolve, reject){
+            if(articleId){
+                var url = API.cmtCount + articleId;
+                request({
+                    method: 'GET',
+                    uri: url,
+                    headers:{
+                        'Authorization': config.auth
+                    }
+                }, function(err, response, body){
+                    var count = null;
+                    if(!err){
+                        count = JSON.parse(body);
+                    }
+                    resolve(count);
+                });
+            }else {
+                console.log('null')
+                resolve(null);
+            }
+
+        });               
+    },
     getHistory: function(date){
         return new Promise(function(resolve, reject){
             if(date){
                 var url = API.history + date;
-                console.log(url);
                 request({
                     method: 'GET',
                     uri: url,
@@ -81,7 +106,7 @@ var data = {
             }
 
         });
-    } 
+    }
 }
 
 module.exports = data;
