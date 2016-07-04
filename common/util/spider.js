@@ -10,13 +10,14 @@ var DateCalc = require('./date');
 
 
 // cronjob 测试
-// var i = 0;
+let i = 0;
 
-// new CronJob('* * * * * *', function(){
+new CronJob('* * * * * *', function(){
 
-//     console.log('i : ' + ++i);
-// }, null, true, 'Asia/Shanghai')
+    console.log('i : ' + ++i);
+}, null, true, 'Asia/Shanghai')
 
+return;
 
 var historyDAO = new HistoryDAO(),
     logDAO = new LogDAO(),

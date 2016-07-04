@@ -1,5 +1,5 @@
 // 爬虫入口
-// var Spider = require('./spider');
+var Spider = require('./spider');
 
 
 var request = require('request');
@@ -7,17 +7,17 @@ var request = require('request');
 // console.log(md5('qau'));return;
 
 
-var opt = {
-    uri: 'http://service.winic.org:8009/sys_port/gateway/?id=heivr.sms.new.oa&pwd=admin123&to=18661982110&content=111&time=',
-    form: {
+// var opt = {
+//     uri: 'http://service.winic.org:8009/sys_port/gateway/?id=heivr.sms.new.oa&pwd=admin123&to=18661982110&content=111&time=',
+//     form: {
       
-    }
-}
+//     }
+// }
 
 
-request(opt, function(err, response, body){
-    console.log(body);
-});
+// request(opt, function(err, response, body){
+//     console.log(body);
+// });
 
 // Spider.init('20150819', '20150810');
 

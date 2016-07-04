@@ -1,6 +1,6 @@
 var request = require('request');
 var Promise = require('es6-promise').Promise;
-var $ = require('cheerio');
+// var $ = require('cheerio');
 var zhAPI = require('./../common/api/index');
 var HistoryDAO = require('../common/db/models/history');
 var URL = require('url');
@@ -28,7 +28,7 @@ var Home = {
             request(url, function(err,response,body){
                 if(!err) {
                     var article = JSON.parse(body);
-                    var content = $(article.body);
+                    // var content = $(article.body);
                     // console.log(content.text());
                     // console.log(article.body);
                     res.render('article', { 'title': article.title});
