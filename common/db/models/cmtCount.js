@@ -8,17 +8,16 @@ var Promise = require('es6-promise').Promise;
 
 var CmtCountSchema = new Schema({
     id: String,
+    comments: Number,
     longComments: Number,
-    popularity: Number,
     shortComments: Number,
-    comments: Number
+    popularity: Number
 });
 
 var CmtCountDAO = function(){};
 var CmtCount = mongodb.mongoose.model('CmtCount', CmtCountSchema);
 
 CmtCountDAO.prototype =  {
-
     constructor: CmtCountDAO,
     save: function(obj){
         return new Promise(function(resolve, reject){

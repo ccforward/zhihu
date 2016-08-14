@@ -20,5 +20,9 @@ module.exports = {
                 auto_reconnect: true
             }
         }
+    },
+    spider: {
+        errHistory: 1,
+        errArticle: 2
     }
 }

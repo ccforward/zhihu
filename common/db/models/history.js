@@ -11,6 +11,7 @@ var HistorySchema = new Schema({
     title: String,
     image: String,
     theme: String,
+    type: String,
     dtime: String,
     dmonth: String,
     dyear: String
@@ -26,18 +27,18 @@ HistoryDAO.prototype =  {
         return new Promise(function(resolve, reject){
             var instance = new History(obj);
             instance.save(function(err){
-                resolve && resolve(err);
+                return resolve(err);
             });
         });
     },
     count: function(query){
         return new Promise(function(resolve, reject){
             History.count(query, function(err, d){
-                resolve && resolve(d)
+                return resolve(d)
             })
         });
     },
-    so: function(query){
+    search: function(query){
         return new Promise(function(resolve, reject){
             History.find(query, function(err, d){
                 var data = [];

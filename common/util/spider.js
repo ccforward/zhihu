@@ -1,25 +1,27 @@
 var CronJob = require('cron').CronJob;
 var Promise = require('es6-promise').Promise;
 
+var config = require('../../config');
+
 var ArticleDAO = require('../db/models/article');
 var HistoryDAO = require('../db/models/history');
 var CmtCountDAO = require('../db/models/cmtCount');
 var LogDAO = require('../db/models/log');
+
 var zhAPI = require('../api/index');
 var DateCalc = require('./date');
 
 
 // cronjob 测试
-let i = 0;
+// var i = 0;
+// new CronJob('* * * * * *', function(){
 
-new CronJob('* * * * * *', function(){
-
-    console.log('i : ' + ++i);
-}, null, true, 'Asia/Shanghai')
-
-return;
+//     console.log('i : ' + ++i);
+// }, null, true, 'Asia/Shanghai')
+// return;
 
 var historyDAO = new HistoryDAO(),
+    articleDAO = new ArticleDAO(),
     logDAO = new LogDAO(),
     cmtCountDAO = new CmtCountDAO();
 
@@ -27,70 +29,126 @@ var x = 0;
 
 var Spider = {
     init: function(start, end){
-        Spider.daily();
-        return;
-        // log save 测试
-        // var d = new Date();
-        // var log = {
-        //     id: '123',
-        //     err: '2',
-        //     date: [d.getFullYear(), '-', Spider._cover(d.getMonth()+1), '-', Spider._cover(d.getDate())].join(''),
-        //     msg: 'msg'
-        // };
-        // logDAO.save(log).then(function(d){
-        //     console.log(d);
-        // });
+        start = new DateCalc(start).after();
+        end = new DateCalc(end).after();
+        // Spider.daily();
         // return;
-
 
         var dateCalc = new DateCalc(start);
         historyDAO.count({dtime: dateCalc.before()}).then(function(d){
             // end一定要比start靠前
-            // d == 0 && Spider.loopData(start, end);
+            d == 0 && Spider.loopDayData(start, end);
         });
     },
     // 一天的数据
-    day: function(date){
+    day: function(date, callback){
         zhAPI.getHistory(date).then(function(history){
             var date = history.date,
-                d = history.stories;
+                d = history.stories,
+                promiseAll = [];
             for(var i = 0, len = d.length;i<len;i++){
-                var img = '',
-                    theme = 0;
-                if(d[i].images){
-                    img = d[i].images[0];
-                }
-                if(d[i].theme){
-                    theme = d[i].theme.id;
-                    t = d[i].theme.name;
-                }
-                var data = {
+                let data = {
                     id: d[i].id,
                     title: d[i].title,
-                    image: img,
-                    theme: theme,
+                    image: d[i].images.length ? d[i].images[0] : '',
+                    theme: d[i].theme ? d[i].theme.id : 0,
+                    type: d[i].type || '0',
                     dtime: date,
                     dmonth: date.substr(0,6),
                     dyear: date.substr(0,4)
                 };
-                // console.log(theme);
-                historyDAO.save(data).then(function(err){
+                let p = historyDAO.save(data)
+                        .then(function(err){
+                            if(err){
+                                var log = {
+                                    id: data.id,
+                                    err: config.spider.errHistory,
+                                    date: date,
+                                    msg: JSON.parse(err)
+                                };
+                                console.log('get history error ' + data.id);
+                                return logDAO.save(error);
+                            }else {
+                                return Promise.resolve(data.id);
+                            }
+                        })
+                        .then(function(aid){
+                            return Spider.article(aid)
+                        })
+                        .then(function(aid){
+
+                        })
+                promiseAll.push(p);
+            }
+
+            Promise.all(promiseAll).then(function(err){
+                callback();
+            });
+
+        });
+    },
+    // 正文
+    article: function(aid){
+        zhAPI.getArticle(aid).then(function(article){
+            var data = {
+                id: article.id,
+                title: article.title,
+                body: article.body,
+                image: article.image,
+                css: article.css,
+                js: article.js,
+                imageSource: article.image_source,
+                shareUrl: article.share_url
+            }
+            articleDAO.save(data)
+                .then(function(err){
                     if(err){
-                        // 写入存储error的log
                         var log = {
                             id: data.id,
-                            err: 1,
-                            date: date,
+                            err: config.spider.errArticle,
+                            date: '',
                             msg: JSON.parse(err)
                         };
-                        logDAO.save(error);
+                        console.log('article save error: ' + data.id)
+                        return logDAO.save(error);
+                    }else {
+                        return Promise.resolve(aid);
                     }
                 });
+        });
+    },
+    // 长评论
+    cmtLong: function(aid){
+        zhAPI.getArticle(aid).then(function(article){
+            var data = {
+                id: article.id,
+                title: article.title,
+                body: article.body,
+                image: article.image,
+                css: article.css,
+                js: article.js,
+                imageSource: article.image_source,
+                shareUrl: article.share_url
             }
+            articleDAO.save(data)
+                .then(function(err){
+                    if(err){
+                        var log = {
+                            id: data.id,
+                            err: config.spider.errArticle,
+                            date: '',
+                            msg: JSON.parse(err)
+                        };
+                        console.log('article save error: ' + data.id)
+                        return logDAO.save(error);
+                    }else {
+                        return Promise.resolve(aid);
+                    }
+                });
         });
     },
     // 评论数
-    comment: function(articleId){
+    cmtCount: function(articleId){
         zhAPI.getCmtcount(articleId).then(function(count){
             var d = {
                 id: articleId,
@@ -114,26 +172,28 @@ var Spider = {
             })
         });
     },
-    _cover:function(num){
+    _cover: function(num){
         var n = parseInt(num, 10);
         return n < 10 ? '0' + n : n;
     },
-    loopData: function(start, end){
+    loopDayData: function(start, end){
         var _self = this,
             date = start,
             dateCalc = new DateCalc(start);
 
-        _self.day(date);
-        date = dateCalc.before();  
-        if(date == end){
-            _self.day(date);
-            console.log('over');
-        }else {
-            setTimeout(function(){
-                _self.loopData(date,end);
-            }, 100);
-        }
+        // _self.day(date);
+        
+        _self.day(date, function(){
+            date = dateCalc.before();
+            if(date == end){
+                _self.day(date);
+            }else {
+                _self.loopDayData(date,end);
+            }
+        });
     },
+
+
     // 每天23:30 爬取每日的 latest 数据
     daily: function(){
         // new CronJob('00 30 23 * * *', function(){
@@ -185,8 +245,8 @@ var Spider = {
             logDAO.save(log);
         });
     }
-
 }
+
 
 module.exports = Spider;
 
