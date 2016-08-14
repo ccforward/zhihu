@@ -8,7 +8,7 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
-// 每天23点爬知乎日报的latest并存储
+// 每天23点爬知乎日报的 latest 并存储
 require('./common/util/index');
 
 var app = express();

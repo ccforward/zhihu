@@ -9,13 +9,12 @@ var Promise = require('es6-promise').Promise;
 var ArticleSchema = new Schema({
     id    : String,
     title : String,
-    theme : Number,
     body  : String,
     image : String,
     css   : [String],
     js    : [String],
-    dtime : Date,
-    image_source: String
+    imageSource: String,
+    shareUrl: String
 });
 
 var ArticleDAO = function(){};
@@ -28,7 +27,7 @@ ArticleDAO.prototype =  {
         return new Promise(function(resolve, reject){
             var instance = new Article(obj);
             instance.save(function(err){
-                resolve && resolve(err);
+                return resolve(err);
             });
         });
     }

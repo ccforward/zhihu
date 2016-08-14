@@ -1,5 +1,5 @@
 module.exports = {
-    'auth':'Bearer aJv94tghSBKRW1TEFvvrwQ',
+    'auth':'',
     mongo: {
         name: 'zhihu',
         host: '127.0.0.1',
