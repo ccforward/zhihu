@@ -23,6 +23,7 @@ module.exports = {
     },
     spider: {
         errHistory: 1,
-        errArticle: 2
+        errArticle: 2,
+        errComments: 3
     }
 }

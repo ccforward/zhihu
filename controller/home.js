@@ -1,6 +1,7 @@
 var request = require('request');
 var Promise = require('es6-promise').Promise;
 // var $ = require('cheerio');
+// console.log($);
 var zhAPI = require('./../common/api/index');
 var HistoryDAO = require('../common/db/models/history');
 var URL = require('url');
