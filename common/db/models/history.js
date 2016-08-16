@@ -26,9 +26,13 @@ HistoryDAO.prototype =  {
     save: function(obj){
         return new Promise(function(resolve, reject){
             var instance = new History(obj);
-            instance.save(function(err){
-                return resolve(err);
-            });
+            try{
+                instance.save(function(err){
+                    resolve(err);
+                });
+            }catch(e){
+                resolve(e);
+            }
         });
     },
     count: function(query){

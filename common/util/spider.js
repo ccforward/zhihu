@@ -13,13 +13,7 @@ var zhAPI = require('../api/index');
 var DateCalc = require('./date');
 
 
-// cronjob 测试
-// var i = 0;
-// new CronJob('* * * * * *', function(){
 
-//     console.log('i : ' + ++i);
-// }, null, true, 'Asia/Shanghai')
-// return;
 
 var historyDAO = new HistoryDAO(),
     articleDAO = new ArticleDAO(),
@@ -32,17 +26,36 @@ var x = 0;
 var Spider = {
     init: function(start, end){
         // Spider.daily();
-        // return;
-        start = new DateCalc(start).after();
-        end = new DateCalc(end).after();
-
+        
         historyDAO.count({dtime: start}).then(function(d){
-            if(start == end){
-                d == 0 && Spider.day(start);
-            }else {
-                // end一定要比start靠前
-                d == 0 && Spider.loopDayData(start, end);
-            }
+            start = new DateCalc(start).after();
+            end = new DateCalc(end).after();
+            // if(start == end){
+            //     d == 0 && Spider.day(start);
+            // }else {
+            //     // end一定要比start靠前
+            //     d == 0 && Spider.loopDayData(start, end);
+            //     // Spider.loopDayData(start, end);
+            // }
+
+            // 每20秒一次
+            var spiderJob = new CronJob('*/20 * * * * *', function(){
+                if(d == 0){
+                    Spider.day(start);
+                    var dateCalc = new DateCalc(start);
+                    start = dateCalc.before();
+                    if(start == end){
+                        setTimeout(function(){
+                            Spider.day(end);
+                        },20*1000)
+                        spiderJob.stop()
+                    }
+                }else {
+                    spiderJob.stop()
+                }
+
+            }, null, true, 'Asia/Shanghai');
+
         });
     },
     loopDayData: function(start, end){
@@ -55,7 +68,7 @@ var Spider = {
             if(date == end){
                 _self.day(date);
             }else {
-                _self.loopDayData(date,end);
+                _self.loopDayData(date, end);
             }
         });
     },
@@ -66,7 +79,7 @@ var Spider = {
                 d = history.stories,
                 promiseAll = [];
             for(var i = 0, len = d.length;i<len;i++){
-                let data = {
+                var data = {
                     id: d[i].id,
                     title: d[i].title,
                     image: d[i].images.length ? d[i].images[0] : '',
@@ -76,12 +89,18 @@ var Spider = {
                     dmonth: date.substr(0,6),
                     dyear: date.substr(0,4)
                 };
-                let p = Spider.history(data)
+                var p = Spider.history(data)
                         .then(function(aid){
-                            Spider.article(aid);
-                            Spider.cmtLong(aid);
-                            Spider.cmtShort(aid);
-                            Spider.cmtCount(aid);
+                            return Spider.article(aid);
+                        })
+                        .then(function(aid){
+                            return Spider.cmtLong(aid);
+                        })
+                        .then(function(aid){
+                            return Spider.cmtShort(aid);
+                        })
+                        .then(function(aid){
+                            return Spider.cmtCount(aid);
                         })
                         .catch(function(e){
                             console.log('day history data error id:' + data.id, e);
@@ -90,9 +109,10 @@ var Spider = {
             }
 
             Promise.all(promiseAll).then(function(err){
+                console.log('\nday history data over @: ' + date);
                 callback && callback();
             }).catch(function(error){
-                console.log('get day data error: ',error)
+                console.log('get day data error: ', error)
             });;
 
         });
@@ -139,6 +159,7 @@ var Spider = {
                             console.log('article save error: ' + data.id)
                             return logDAO.save(error);
                         }else {
+                            // console.log('article over ' + aid);
                             return Promise.resolve(data.id);
                         }
                     });
@@ -164,6 +185,7 @@ var Spider = {
                             console.log('long comments save error: ' + data.id)
                             return logDAO.save(error);
                         }else {
+                            // console.log('cmtLong over ' + aid);
                             return Promise.resolve(aid);
                         }
                     });
@@ -189,6 +211,7 @@ var Spider = {
                             console.log('short comments save error: ' + data.id)
                             return logDAO.save(error);
                         }else {
+                            // console.log('cmtShort over ' + aid);
                             return Promise.resolve(aid);
                         }
                     });
@@ -216,6 +239,7 @@ var Spider = {
                             console.log('comments count save error: ' + data.id)
                             return logDAO.save(error);                   
                         }else {
+                            // console.log('cmtCount over ' + aid);
                             return Promise.resolve(aid);
                         }
                     })
