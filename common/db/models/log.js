@@ -21,13 +21,14 @@ LogDAO.prototype =  {
     constructor: LogDAO,
     save: function(obj){
         return new Promise(function(resolve, reject){
-            console.log(obj)
             var instance = new Log(obj);
-            console.log(instance.save());
-            return;
-            instance.save(function(err){
-                resolve && resolve(err);
-            });
+            try{
+                instance.save(function(err){
+                    resolve(err);
+                });
+            }catch(e){
+                resolve(e);
+            }
         });
     }
     
