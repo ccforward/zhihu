@@ -23,34 +23,35 @@ var x = 0;
 var Spider = {
     init: function(start, end){
         // Spider.daily();
-        
-        historyDAO.count({dtime: start}).then(function(d){
-            start = new DateCalc(start).after();
-            end = new DateCalc(end).after();
+        Spider.day(start);
 
-            // 每20秒一次 config.spider.interval == 20
-            var interval = '*/' + config.spider.interval + ' * * * * *';
-            // var interval = '*/5 * * * * *';
-            var spiderJob = new CronJob(interval, function(){
-                if(d == 0){
-                    Spider.day(start);
-                    var dateCalc = new DateCalc(start);
-                    start = dateCalc.before();
-                    if(start == end){
-                        setTimeout(function(){
-                            Spider.day(end);
-                        }, config.spider.interval * 1000)
-                        spiderJob.stop()
-                    }
-                }else {
-                    spiderJob.stop()
-                }
-            }, null, true, 'Asia/Shanghai');
+        // historyDAO.count({dtime: start}).then(function(d){
+        //     start = new DateCalc(start).after();
+        //     end = new DateCalc(end).after();
 
-        });
+        //     // 每20秒一次 config.spider.interval == 20
+        //     var interval = '*/' + config.spider.interval + ' * * * * *';
+        //     // var interval = '*/5 * * * * *';
+        //     var spiderJob = new CronJob(interval, function(){
+        //         if(d == 0){
+        //             Spider.day(start);
+        //             var dateCalc = new DateCalc(start);
+        //             start = dateCalc.before();
+        //             if(start == end){
+        //                 setTimeout(function(){
+        //                     Spider.day(end);
+        //                 }, config.spider.interval * 1000)
+        //                 spiderJob.stop()
+        //             }
+        //         }else {
+        //             spiderJob.stop()
+        //         }
+        //     }, null, true, 'Asia/Shanghai');
+        // });
+
     },
     // 一天的数据
-    day: function(date, callback){
+    day: function(date){
         zhAPI.getHistory(date).then(function(history){
             var hDate = history.date,
                 d = history.stories,
@@ -85,18 +86,17 @@ var Spider = {
                 promiseAll.push(p);
             }
 
-            Promise.all(promiseAll).then(function(err){
-                console.log('\nday history data over @: ' + hDate);
-                callback && callback();
+            Promise.all(promiseAll).then(function(){
+                console.log('\nday history data over @: ' + date);
             }).catch(function(error){
-                console.log('get day data error: ', error)
-            });
+                console.log('get ' + hDate + ' data error: ', error)
+            });;
 
         });
     },
     history: function(data){
         return historyDAO.save(data)
-                .then(function(){
+                .then(function(err){
                     return Promise.resolve({aid:data.id, dtime: data.dtime});
                 })
                 .catch(function(err){
@@ -104,17 +104,17 @@ var Spider = {
                         id: data.id,
                         err: config.spider.errHistory,
                         date: data.dtime,
-                        msg: JSON.parse(err)
+                        msg: err
                     };
                     console.log('get history error @id: ' + data.id);
-                    return logDAO.save(error);
+                    return logDAO.save(log);
                 })
     },
     // 正文
     article: function(aid, dtime){
         return zhAPI.getArticle(aid).then(function(article){
             var data = {
-                id: article.id,
+                id: aid,
                 title: article.title,
                 body: article.body,
                 image: article.image,
@@ -133,13 +133,13 @@ var Spider = {
                     })
                     .catch(function(err){
                         var log = {
-                            id: data.id,
+                            id: aid,
                             err: config.spider.errArticle,
-                            date: '',
-                            msg: JSON.parse(err)
+                            date: dtime,
+                            msg: err
                         };
                         console.log('article save error @aid: ' + aid)
-                        logDAO.save(error);
+                        logDAO.save(log);
                         return Spider.article(aid, dtime);
                     });
         });
@@ -165,10 +165,10 @@ var Spider = {
                             id: aid,
                             err: config.spider.errComments,
                             date: dtime,
-                            msg: JSON.parse(err)
+                            msg: err
                         };
                         console.log('long comments save error @aid: ' + aid)
-                        logDAO.save(error);
+                        logDAO.save(log);
                         return Spider.cmtLong(aid, dtime);
                     });
         });
@@ -186,7 +186,7 @@ var Spider = {
             }
             return commentsDAO.save(data)
                     .then(function(){
-                        console.log('cmtShort over ' + aid);
+                        // console.log('cmtShort over ' + aid);
                         return Promise.resolve({aid: aid, dtime: dtime});
                     })
                     .catch(function(err){
@@ -194,10 +194,10 @@ var Spider = {
                             id: aid,
                             err: config.spider.errComments,
                             date: dtime,
-                            msg: JSON.parse(err)
+                            msg: err
                         };
                         console.log('short comments save error @aid: ' + aid)
-                        logDAO.save(error);
+                        logDAO.save(log);
                         return Spider.cmtShort(aid, dtime);
                     });
         });
@@ -221,14 +221,14 @@ var Spider = {
                         return Promise.resolve({aid: aid, dtime: dtime});
                     })
                     .catch(function(err){
-                        var error = {
+                        var log = {
                             id: aid,
                             err: config.spider.errComments,
                             date: dtime,
-                            msg: JSON.parse(err)
+                            msg: err
                         };
                         console.log('comments count save error @aid: ' + aid)
-                        logDAO.save(error);
+                        logDAO.save(log);
                         return Spider.cmtCount(aid, dtime);
                     });
         });

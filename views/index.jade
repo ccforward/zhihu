@@ -15,7 +15,7 @@ block content
                 a.article(href="http://daily.zhihu.com/story/#{item.id}")
                     span #{item.title} 
                     if(item && item.images)
-                        img(src="#{item.images[0]}").J_Lazyload                   
+                        img(src="/proxyImg/#{item.images[0]}")                   
     div.calendar
 
 block append footer
