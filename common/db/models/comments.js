@@ -25,13 +25,9 @@ CommentsDAO.prototype =  {
     save: function(obj){
         return new Promise(function(resolve, reject){
             var instance = new Comments(obj);
-            try{
-                instance.save(function(err){
-                    resolve(err);
-                });
-            }catch(e){
-                reject(e);
-            }
+            instance.save(function(err){
+                err ? reject(err) : resolve();
+            });
         });
     }
     
