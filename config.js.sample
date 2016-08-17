@@ -1,5 +1,5 @@
 module.exports = {
-    'auth':'',
+    'auth':'', 
     mongo: {
         name: 'zhihu',
         host: '127.0.0.1',
@@ -22,7 +22,11 @@ module.exports = {
         }
     },
     spider: {
+        start: '20160101',
+        end: '20150101',
+        interval: 20,
         errHistory: 1,
-        errArticle: 2
+        errArticle: 2,
+        errComments: 3
     }
 }

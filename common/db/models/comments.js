@@ -11,7 +11,10 @@ var Promise = require('es6-promise').Promise;
 var CommentsSchema = new Schema({
     aid: String,
     comments: Array,
-    type: Number
+    type: Number,
+    dtime: String,
+    dmonth: String,
+    dyear: String
 });
 
 var CommentsDAO = function(){};
@@ -27,7 +30,7 @@ CommentsDAO.prototype =  {
                     resolve(err);
                 });
             }catch(e){
-                resolve(e);
+                reject(e);
             }
         });
     }

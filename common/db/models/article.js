@@ -14,7 +14,10 @@ var ArticleSchema = new Schema({
     css   : [String],
     js    : [String],
     imageSource: String,
-    shareUrl: String
+    shareUrl: String,
+    dtime: String,
+    dmonth: String,
+    dyear: String
 });
 
 var ArticleDAO = function(){};
@@ -31,7 +34,7 @@ ArticleDAO.prototype =  {
                     resolve(err);
                 });
             }catch(e){
-                resolve(e);
+                reject(e);
             }
         });
     }

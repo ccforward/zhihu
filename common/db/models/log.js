@@ -27,7 +27,7 @@ LogDAO.prototype =  {
                     resolve(err);
                 });
             }catch(e){
-                resolve(e);
+                reject(e);
             }
         });
     }

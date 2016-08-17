@@ -8,8 +8,11 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
-// 每天23点爬知乎日报的 latest 并存储
-require('./common/util/index');
+// 爬虫入口 每天23点爬知乎日报的 latest 
+var config = require('./config');
+var Spider = require('./common/util/spider');
+Spider.init(config.spider.start, config.spider.end);
+
 
 var app = express();
 
