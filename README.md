@@ -1,12 +1,16 @@
-# 知乎日报收集
+# 知乎日报的 Spider-Man
 
-## 功能 TODO
-* 爬下所有文章 离线到本地
-* 添加搜索引擎，全文检索
-* 文章保存为pdf/jpg
+## 关于config.js
+config.js.sample 重命名为 config.js
 
+* auth 知乎日报用来验证用户的key 用于http的请求头(真正的key叫做 `Authorization`)
+* spider.interval 爬虫间隔时间
+* spider.start spider.end   爬历史数据的开始结束时间 （之乎日报生日: 20130519）
+
+如果HTTP的请求头里想加入 auth 和 referer 可以用我写的这个 [chrome扩展](https://github.com/ccforward/C-Header) （PS：半成品，凑合用。如下图，操作简单）
+
+![](http://ww2.sinaimg.cn/large/7853084cjw1f6wvzw1utxj208w0bhjrp.jpg)
 ## API
-代理之乎日报的HTTP请求后发现的之乎日报的部分API，如下：
 
 ### 1、启动界面图像
 

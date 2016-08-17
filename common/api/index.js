@@ -19,10 +19,11 @@ var data = {
             request(url ,function(err,response,body){
                 var pic = null;
                 if(!err){
-                    var pic = JSON.parse(body);
-                    pic.img = 'http://gw.alicdn.com/tps/i3/TB117YzHpXXXXXLXXXXWZMJJXXX-720-1280.jpg';
+                    var latest = JSON.parse(body);
+                    resolve(latest);
+                }else {
+                    reject(err)
                 }
-                resolve(pic);
             });    
         });
     },
@@ -38,8 +39,10 @@ var data = {
                 var latest = null;
                 if(!err){
                     var latest = JSON.parse(body);
+                    resolve(latest);
+                }else {
+                    reject(err)
                 }
-                resolve(latest);
             });        
             
         });
@@ -54,11 +57,14 @@ var data = {
                     uri: url,
                     headers: { 'Authorization': config.auth }
                 }, function(err, response, body){
-                    var article = err ? null : JSON.parse(body);
-                    resolve(article);
+                    if(err){
+                        reject(err);
+                    }else {
+                        resolve(JSON.parse(body));
+                    }
                 });
             }else {
-                resolve(null);
+                reject(null);
             }
         })
     },
@@ -72,11 +78,14 @@ var data = {
                     uri: url,
                     headers: { 'Authorization': config.auth }
                 }, function(err, response, body){
-                    var count = err ? null : JSON.parse(body);
-                    resolve(count);
+                    if(err){
+                        reject(err);
+                    }else {
+                        resolve(JSON.parse(body));
+                    }
                 });
             }else {
-                resolve(null);
+                reject(null);
             }
 
         });               
@@ -91,11 +100,14 @@ var data = {
                     uri: url,
                     headers: { 'Authorization': config.auth }
                 }, function(err, response, body){
-                    var comments = err ? null : JSON.parse(body);
-                    resolve(comments);
+                    if(err){
+                        reject(err);
+                    }else {
+                        resolve(JSON.parse(body));
+                    }
                 });
             }else {
-                resolve(null);
+                reject(null);
             }
 
         });               
@@ -110,11 +122,14 @@ var data = {
                     uri: url,
                     headers: { 'Authorization': config.auth }
                 }, function(err, response, body){
-                    var comments = err ? null : JSON.parse(body);
-                    resolve(comments);
+                    if(err){
+                        reject(err);
+                    }else {
+                        resolve(JSON.parse(body));
+                    }
                 });
             }else {
-                resolve(null);
+                reject(null);
             }
 
         });               
@@ -128,11 +143,14 @@ var data = {
                     uri: url,
                     headers: { 'Authorization': config.auth }
                 }, function(err, response, body){
-                    var history = err ? null : JSON.parse(body);
-                    resolve(history);
+                    if(err){
+                        reject(err);
+                    }else {
+                        resolve(JSON.parse(body));
+                    }
                 });
             }else {
-                resolve(null);
+                reject(null);
             }
 
         });

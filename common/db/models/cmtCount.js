@@ -11,7 +11,10 @@ var CmtCountSchema = new Schema({
     comments: Number,
     longComments: Number,
     shortComments: Number,
-    popularity: Number
+    popularity: Number,
+    dtime: String,
+    dmonth: String,
+    dyear: String
 });
 
 var CmtCountDAO = function(){};
@@ -27,7 +30,7 @@ CmtCountDAO.prototype =  {
                     resolve(err);
                 });
             }catch(e){
-                resolve(e);
+                reject(e);
             }
         });
     }
