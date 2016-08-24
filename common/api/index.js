@@ -16,7 +16,7 @@ var data = {
     getStartPic: function(){
         var url = API.startPic;
         return new Promise(function(resolve, reject){
-            request(url ,function(err,response,body){
+            request(url, function(err,response,body){
                 var pic = null;
                 if(!err){
                     var latest = JSON.parse(body);

@@ -3,6 +3,7 @@ var router = express.Router();
 
 var home = require('./../controller/home');
 
+
 /* GET home page. */
 // dailyData.getArticle();
 

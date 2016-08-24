@@ -27,6 +27,7 @@ module.exports = {
         interval: 20,
         errHistory: 1,
         errArticle: 2,
-        errComments: 3
+        errComments: 3,
+        errDaily: 4
     }
 }
