@@ -33,7 +33,29 @@ ArticleDAO.prototype =  {
                 err ? reject(err) : resolve();
             });
         });
-    }
+    },
+    search: function(aid){
+        return new Promise(function(resolve, reject){
+            Article.find({id: aid}, function(err, data){
+                if(err) return reject(err)
+                var d = {};
+                if(data.length>0){
+                    d = {
+                        id: data[0].id,
+                        title : data[0].title,
+                        body  : data[0].body,
+                        image : data[0].image,
+                        imageSource: data[0].imageSource,
+                        shareUrl: data[0].shareUrl,
+                        dtime: data[0].dtime,
+                        dmonth: data[0].dmonth,
+                        dyear: data[0].dyear
+                    }
+                }
+                resolve(d);
+            });
+        });
+    },
     
 };
 

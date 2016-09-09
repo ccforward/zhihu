@@ -11,7 +11,7 @@ var users = require('./routes/users');
 // 爬虫入口 每天23点爬知乎日报的 latest 
 var config = require('./config');
 var Spider = require('./common/util/spider');
-Spider.init(config.spider.start, config.spider.end);
+// Spider.init(config.spider.start, config.spider.end);
 
 
 var app = express();
@@ -19,7 +19,8 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-//
+
+
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json());

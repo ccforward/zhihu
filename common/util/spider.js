@@ -1,6 +1,5 @@
 var CronJob = require('cron').CronJob;
 var Promise = require('es6-promise').Promise;
-var log4js = require('log4js'); 
 
 var config = require('../../config');
 
@@ -10,7 +9,7 @@ var CmtCountDAO = require('../db/models/cmtCount');
 var CommentsDAO = require('../db/models/comments');
 var LogDAO = require('../db/models/log');
 
-var zhAPI = require('../api/index');
+var zhAPI = require('../api/index-promise');
 var DateCalc = require('./date');
 
 var historyDAO = new HistoryDAO(),
@@ -24,29 +23,29 @@ var Spider = {
         Spider.daily();
         // Spider.day(start);
 
-        historyDAO.count({dtime: start}).then(function(d){
-            start = new DateCalc(start).after();
-            end = new DateCalc(end).after();
+        // historyDAO.count({dtime: start}).then(function(d){
+        //     start = new DateCalc(start).after();
+        //     end = new DateCalc(end).after();
 
-            // 每20秒一次 config.spider.interval == 20
-            var interval = '*/' + config.spider.interval + ' * * * * *';
-            // var interval = '*/5 * * * * *';
-            var spiderJob = new CronJob(interval, function(){
-                if(d == 0){
-                    Spider.day(start);
-                    var dateCalc = new DateCalc(start);
-                    start = dateCalc.before();
-                    if(start == end){
-                        setTimeout(function(){
-                            Spider.day(end);
-                        }, config.spider.interval * 1000)
-                        spiderJob.stop()
-                    }
-                }else {
-                    spiderJob.stop()
-                }
-            }, null, true, 'Asia/Shanghai');
-        });
+        //     // 每20秒一次 config.spider.interval == 20
+        //     var interval = '*/' + config.spider.interval + ' * * * * *';
+        //     // var interval = '*/5 * * * * *';
+        //     var spiderJob = new CronJob(interval, function(){
+        //         if(d == 0){
+        //             Spider.day(start);
+        //             var dateCalc = new DateCalc(start);
+        //             start = dateCalc.before();
+        //             if(start == end){
+        //                 setTimeout(function(){
+        //                     Spider.day(end);
+        //                 }, config.spider.interval * 1000)
+        //                 spiderJob.stop()
+        //             }
+        //         }else {
+        //             spiderJob.stop()
+        //         }
+        //     }, null, true, 'Asia/Shanghai');
+        // });
 
     },
     // 一天的数据
@@ -127,7 +126,7 @@ var Spider = {
             }
             return articleDAO.save(data)
                     .then(function(){
-                        // console.log('article over ' + aid);
+                        console.log('article over ' + aid);
                         return Promise.resolve({aid: aid, dtime: dtime});
                     })
                     .catch(function(err){
@@ -287,18 +286,18 @@ var Spider = {
     },
     _dailySave: function(date, data){
         var his = {
-            id   : data.id,
-            title: data.title,
-            image: data.images.length ? data.images[0] : '',
-            theme: data.theme ? data.theme.id : 0,
-            type: data.type || '0',
-            dtime: date,
+            id    : data.id,
+            title : data.title,
+            image : data.images.length ? data.images[0] : '',
+            theme : data.theme ? data.theme.id : 0,
+            type  : data.type || '0',
+            dtime : date,
             dmonth: date.substr(0,6),
-            dyear: date.substr(0,4)
+            dyear : date.substr(0,4)
         };
 
         historyDAO.save(his)
-            .then(function(data){
+            .then(function(){
                 return Spider.article(data.id, date);
             })
             .catch(function(err){
