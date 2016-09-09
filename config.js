@@ -1,5 +1,5 @@
 module.exports = {
-    'auth':'Bearer aJv94tghSBKRW1TEFvvrwQ',
+    'auth':'',
     mongo: {
         name: 'zhihu',
         host: '127.0.0.1',
@@ -22,8 +22,8 @@ module.exports = {
         }
     },
     spider: {
-        start: '20160815',
-        end: '20160813',
+        start: '20160906',
+        end: '20160901',
         interval: 20,
         errHistory: 1,
         errArticle: 2,

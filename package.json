@@ -2,11 +2,15 @@
   "name": "zhihu-daily",
   "version": "0.2.0",
   "private": true,
+  "author": "cc",
+  "license": "ISC",
   "scripts": {
     "start": "node ./bin/zh.js"
   },
   "dependencies": {
     "body-parser": "~1.15.2",
+    "cheerio": "^0.22.0",
+    "co": "^4.6.0",
     "cookie-parser": "~1.4.3",
     "cron": "~1.1.0",
     "debug": "~2.2.0",
@@ -17,8 +21,6 @@
     "mongoose": "~4.5.3",
     "morgan": "~1.7.0",
     "request": "~2.72.0",
-    "serve-favicon": "~2.3.0",
-  },
-  "author": "cc",
-  "license": "ISC"
+    "serve-favicon": "~2.3.0"
+  }
 }

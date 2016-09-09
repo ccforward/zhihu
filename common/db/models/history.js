@@ -41,17 +41,20 @@ HistoryDAO.prototype =  {
     search: function(query){
         return new Promise(function(resolve, reject){
             History.find(query, function(err, d){
+                if(err) return reject(err)
                 var data = [];
-                for(var i=0,len=d.length;i<len;i++){
-                    var re = {
-                        id: d[i].id,
-                        title: d[i].title ? d[i].title : '',
-                        image: d[i].image ? d[i].image : '',
-                        theme: d[i].theme ? d[i].theme : ''
+                if(d.length > 0){
+                    for(var i=0,len=d.length;i<len;i++){
+                        var re = {
+                            id: d[i].id,
+                            title: d[i].title,
+                            image: d[i].image,
+                            dtime: d[i].dtime
+                        }
+                        data.push(re);
                     }
-                    data.push(re);
                 }
-                resolve && resolve(data);
+                resolve(data);
             });
         });
     },

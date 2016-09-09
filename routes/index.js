@@ -4,28 +4,24 @@ var router = express.Router();
 var home = require('./../controller/home');
 
 
-/* GET home page. */
-// dailyData.getArticle();
-
-// router.get('/', function(req, res) {
-//     dailyData.getArticle();
-//     res.render('index', { title: 'Daily' });
-// });
-
 // 每日的latest数据
 router.get('/', home.getLatest);
-router.get('/index.htm', home.getLatest);
+router.get('/index.html', home.getLatest);
 
-router.get('/list.htm', home.list);
-router.get('/s/:key', home.so);
+// 按日期查询
+router.get('/d/:day', home.searchDate);
+router.get('/m/:month', home.searchDate);
+// router.get('/y/:year', home.searchDate);
 
-// 按日期搜索
-router.get('/d/:day', home.soByDate);
-router.get('/m/:month', home.soByDate);
-router.get('/y/:year', home.soByDate);
+// 文章detail 
+router.get('/article/:aid', home.getArticle);
 
-// test
-router.get('/test', home.test)
+// 评论
+router.get('/cmt/count/:aid', home.getCmtCount);
+router.get('/cmt/long/:aid', home.getCmtLong);
+router.get('/cmt/short/:aid', home.getCmtShort);
+
+
 
 
 module.exports = router;
