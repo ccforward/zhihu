@@ -20,32 +20,32 @@ var historyDAO = new HistoryDAO(),
 
 var Spider = {
     init: function(start, end){
-        Spider.daily();
+        // Spider.daily();
         // Spider.day(start);
 
-        // historyDAO.count({dtime: start}).then(function(d){
-        //     start = new DateCalc(start).after();
-        //     end = new DateCalc(end).after();
+        historyDAO.count({dtime: start}).then(function(d){
+            start = new DateCalc(start).after();
+            end = new DateCalc(end).after();
 
-        //     // 每20秒一次 config.spider.interval == 20
-        //     var interval = '*/' + config.spider.interval + ' * * * * *';
-        //     // var interval = '*/5 * * * * *';
-        //     var spiderJob = new CronJob(interval, function(){
-        //         if(d == 0){
-        //             Spider.day(start);
-        //             var dateCalc = new DateCalc(start);
-        //             start = dateCalc.before();
-        //             if(start == end){
-        //                 setTimeout(function(){
-        //                     Spider.day(end);
-        //                 }, config.spider.interval * 1000)
-        //                 spiderJob.stop()
-        //             }
-        //         }else {
-        //             spiderJob.stop()
-        //         }
-        //     }, null, true, 'Asia/Shanghai');
-        // });
+            // 每20秒一次 config.spider.interval == 20
+            // var interval = '*/' + config.spider.interval + ' * * * * *';
+            var interval = '*/5 * * * * *';
+            var spiderJob = new CronJob(interval, function(){
+                if(d == 0){
+                    Spider.day(end);
+                    var dateCalc = new DateCalc(end);
+                    end = dateCalc.after();
+                    if(start == end){
+                        setTimeout(function(){
+                            Spider.day(end);
+                        }, config.spider.interval * 1000)
+                        spiderJob.stop()
+                    }
+                }else {
+                    spiderJob.stop()
+                }
+            }, null, true, 'Asia/Shanghai');
+        });
 
     },
     // 一天的数据
@@ -166,7 +166,6 @@ var Spider = {
                             date: dtime,
                             msg: err
                         };
-                        console.log('long comments save error @aid: ' + aid)
                         logDAO.save(log);
                         return Spider.cmtLong(aid, dtime);
                     });

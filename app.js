@@ -1,7 +1,9 @@
+var fs = require('fs');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
-var logger = require('morgan');
+var morgan = require('morgan');
+var FileStreamRotator = require('file-stream-rotator');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
@@ -13,16 +15,37 @@ var config = require('./config');
 var Spider = require('./common/util/spider');
 // Spider.init(config.spider.start, config.spider.end);
 
-
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-
 app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
+
+
+var log4js = require('log4js');
+
+log4js.loadAppender('file');
+log4js.configure({
+    appenders: [
+        // { type: 'console' },
+        { type: 'file', filename: './log/cheese.log', category: 'cheese' }
+    ]
+});
+
+// ============== HTTP log ==============
+var logDirectory = path.join(__dirname, 'log');
+fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
+var accessLogStream = FileStreamRotator.getStream({
+    date_format: 'YYYYMMDD',
+    filename: path.join(logDirectory, 'access-%DATE%.log'),
+    frequency: 'daily',
+    verbose: false
+});
+app.use(morgan('combined', { stream: accessLogStream }));
+// ============== HTTP log ==============
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());

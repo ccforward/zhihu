@@ -1,7 +1,5 @@
 var request = require('request');
 var Promise = require('es6-promise').Promise;
-// var $ = require('cheerio');
-// console.log($);
 var zhAPI = require('./../common/api/index-promise');
 var HistoryDAO = require('../common/db/models/history');
 var ArticleDAO = require('../common/db/models/article');
@@ -10,6 +8,7 @@ var CommentsDAO = require('../common/db/models/comments');
 var cheerio = require('cheerio')
 var URL = require('url');
 
+var logger = require('log4js').getLogger('cheese');
 
 var Home = {
     // 获取最新内容
@@ -55,6 +54,8 @@ var Home = {
     },
     getCmtLong: function(req, res){
         var aid = req.params.aid;
+        logger.info('getCmtLong @' + aid);
+        logger.error('error getCmtLong @' + aid);
         if(aid) {
             var commentsDAO = new CommentsDAO();
             commentsDAO.search({aid:aid, type: 1}).then(function(result){
