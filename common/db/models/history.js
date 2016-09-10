@@ -27,7 +27,8 @@ HistoryDAO.prototype =  {
         return new Promise(function(resolve, reject){
             var instance = new History(obj);
             instance.save(function(err){
-                err ? reject(err) : resolve();
+                if(err) return reject(err);
+                resolve();
             });
         });
     },
