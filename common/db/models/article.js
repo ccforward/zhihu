@@ -35,6 +35,14 @@ ArticleDAO.prototype =  {
             });
         });
     },
+    delete: function(aid){
+        return new Promise(function(resolve, reject){
+            Article.remove({id: aid}, function(err, data){
+                if(err) return reject(err)
+                resolve(d);
+            });
+        });
+    },
     search: function(aid){
         return new Promise(function(resolve, reject){
             Article.findOne({id: aid}, function(err, data){
