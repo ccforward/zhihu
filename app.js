@@ -11,9 +11,9 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 
 // 爬虫入口 每天23点爬知乎日报的 latest 
-var config = require('./config');
+var CONFIG = require('./config');
 var Spider = require('./common/util/spider');
-// Spider.init(config.spider.start, config.spider.end);
+// Spider.init(CONFIG.spider.start, CONFIG.spider.end);
 
 var app = express();
 
@@ -23,27 +23,32 @@ app.set('view engine', 'jade');
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
 
+// ============== log4js init ==============
+if(CONFIG.log.isOpenningNode){
+    var log4js = require('log4js');
+    log4js.loadAppender('file');
+    log4js.configure({
+        appenders: [
+            { type: 'console' },
+            { type: 'file', filename: './log/cheese.log', category: 'cheese' }
+        ]
+    });
+}
+// ============== log4js init ==============
 
-var log4js = require('log4js');
-
-log4js.loadAppender('file');
-log4js.configure({
-    appenders: [
-        // { type: 'console' },
-        { type: 'file', filename: './log/cheese.log', category: 'cheese' }
-    ]
-});
 
 // ============== HTTP log ==============
-var logDirectory = path.join(__dirname, 'log');
-fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
-var accessLogStream = FileStreamRotator.getStream({
-    date_format: 'YYYYMMDD',
-    filename: path.join(logDirectory, 'access-%DATE%.log'),
-    frequency: 'daily',
-    verbose: false
-});
-app.use(morgan('combined', { stream: accessLogStream }));
+if(CONFIG.log.isOpenningHTTP){
+    var logDirectory = path.join(__dirname, 'log');
+    fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
+    var accessLogStream = FileStreamRotator.getStream({
+        date_format: 'YYYYMMDD',
+        filename: path.join(logDirectory, 'access-%DATE%.log'),
+        frequency: 'daily',
+        verbose: false
+    });
+    app.use(morgan('combined', { stream: accessLogStream }));
+}
 // ============== HTTP log ==============
 
 app.use(bodyParser.json());
@@ -57,7 +62,11 @@ app.use('/', routes);
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
     err.status = 404;
-    next(err);
+    // next(err);
+    res.render('error', {
+        message: err.message,
+        error: err
+    });
 });
 
 /// error handlers

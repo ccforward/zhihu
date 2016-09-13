@@ -31,6 +31,14 @@ CommentsDAO.prototype =  {
             });
         });
     },
+    delete: function(cmt){
+        return new Promise(function(resolve, reject){
+            Comments.remove({aid: cmt.aid, type: cmt.type}, function(err, data){
+                if(err) return reject(err)
+                resolve(d);
+            });
+        });
+    },
     search: function(cmt){
         return new Promise(function(resolve, reject){
             Comments.findOne({aid: cmt.aid, type: cmt.type}, function(err, data){

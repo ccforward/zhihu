@@ -21,9 +21,14 @@ module.exports = {
             }
         }
     },
+    log: {
+        isOpenningHTTP: true,
+        isOpenningNode: true,
+        openBae: false
+    },
     spider: {
-        start: '20160815',
-        end: '20160813',
+        start: '20160908',
+        end: '20160901',
         interval: 20,
         errHistory: 1,
         errArticle: 2,

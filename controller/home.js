@@ -8,8 +8,6 @@ var CommentsDAO = require('../common/db/models/comments');
 var cheerio = require('cheerio')
 var URL = require('url');
 
-var logger = require('log4js').getLogger('cheese');
-
 var Home = {
     // 获取最新内容
     getLatest: function(req, res){
@@ -18,9 +16,6 @@ var Home = {
             var latest = result[1];
             res.render('index', { 'title': 'Daily', 'pic':pic, 'latest':latest.stories});
         });
-        // zhAPI.getLatest().then(function(latest){
-        //     console.log(latest);
-        // });
     },
     
     // 文章详情
@@ -54,8 +49,6 @@ var Home = {
     },
     getCmtLong: function(req, res){
         var aid = req.params.aid;
-        logger.info('getCmtLong @' + aid);
-        logger.error('error getCmtLong @' + aid);
         if(aid) {
             var commentsDAO = new CommentsDAO();
             commentsDAO.search({aid:aid, type: 1}).then(function(result){
@@ -96,9 +89,6 @@ var Home = {
         });
         
     },
-
-
-
 
     // temp列表内容
     list: function(req, res){

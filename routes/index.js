@@ -9,17 +9,17 @@ router.get('/', home.getLatest);
 router.get('/index.html', home.getLatest);
 
 // 按日期查询
-router.get('/d/:day', home.searchDate);
-router.get('/m/:month', home.searchDate);
+router.get('/day/:day', home.searchDate);
+router.get('/month/:month', home.searchDate);
 // router.get('/y/:year', home.searchDate);
 
-// 文章detail 
+// 文章detail
 router.get('/article/:aid', home.getArticle);
 
 // 评论
-router.get('/cmt/count/:aid', home.getCmtCount);
-router.get('/cmt/long/:aid', home.getCmtLong);
-router.get('/cmt/short/:aid', home.getCmtShort);
+router.get('/article/:aid/comment/count', home.getCmtCount);
+router.get('/article/:aid/comment/long', home.getCmtLong);
+router.get('/article/:aid/comment/short', home.getCmtShort);
 
 
 
