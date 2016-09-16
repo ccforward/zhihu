@@ -1,7 +1,6 @@
 var path = require('path');
-// var nib = require('nib');
+var nib = require('nib');
 var webpack = require('webpack');
-var WriteFilePlugin = require('write-file-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var utils = require('./utils');
 var config = require('../config/index.js')
@@ -54,8 +53,7 @@ module.exports = {
                 loader: 'url',
                 query: {
                     limit: 10000,
-                    // name: utils.assetsPath('img/[name].[hash:7].[ext]')
-                    name: path.posix.join('static', 'img/[name].[hash:7].[ext]')
+                    name: utils.assetsPath('img/[name].[hash:5].[ext]')
                 }
             },
             {
@@ -63,17 +61,16 @@ module.exports = {
                 loader: 'url',
                 query: {
                     limit: 10000,
-                    // name: utils.assetsPath('fonts/[name].[hash:7].[ext]')
-                    name: path.posix.join('static', 'fonts/[name].[hash:7].[ext]')
+                    name: utils.assetsPath('fonts/[name].[hash:5].[ext]')
                 }
             }
         ]
     },
-    // stylus: {
-    //     use: [nib()],
-    //     import: ['~nib/lib/nib/index.styl'],
-    //     "include css": true
-    // },
+    stylus: {
+        use: [nib()],
+        import: ['~nib/lib/nib/index.styl'],
+        "include css": true
+    },
     babel: {
         presets: ['es2015'],
         plugins: ['transform-runtime']
@@ -83,24 +80,8 @@ module.exports = {
         // webpack 1.x
         // new webpack.optimize.OccurenceOrderPlugin(),
         // webpack 2.0
-        new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 15 }),
-        new webpack.HotModuleReplacementPlugin(),
-        // new webpack.SourceMapDevToolPlugin(),
-        // new ExtractTextPlugin("[name].css"),
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name: 'vendor',
-        //     minChunks: function(module, count) {
-        //         // any required modules inside node_modules are extracted to vendor
-        //         return (
-        //             module.resource &&
-        //             /\.js$/.test(module.resource) &&
-        //             module.resource.indexOf(
-        //                 path.join(__dirname, '../node_modules')
-        //             ) === 0
-        //         )
-        //     }
-        // }),
-        // new WriteFilePlugin()
+        // new webpack.optimize.OccurrenceOrderPlugin(),
+        // new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 15 }),
+        // new webpack.HotModuleReplacementPlugin(),
     ]
 };
