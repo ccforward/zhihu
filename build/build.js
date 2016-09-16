@@ -8,7 +8,6 @@ var ora = require('ora')
 var webpack = require('webpack')
 var webpackConfig = require('./webpack.prod.conf')
 
-console.log(webpackConfig);
 
 console.log(
   '  Tip:\n' +
@@ -16,12 +15,10 @@ console.log(
   '  Opening index.html over file:// won\'t work.\n'
 )
 
-var assetsPath = path.join(config.build.assetsRoot, config.build.assetsSubDirectory)
-console.log(assetsPath)
-
 var spinner = ora('building for production...')
 spinner.start()
 
+var assetsPath = path.join(config.build.assetsRoot, config.build.assetsSubDirectory)
 rm('-rf', assetsPath)
 mkdir('-p', assetsPath)
 cp('-R', 'static/', assetsPath)
