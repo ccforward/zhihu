@@ -15,17 +15,20 @@
     "cookie-parser": "~1.4.3",
     "cron": "~1.1.0",
     "debug": "~2.2.0",
+    "ejs": "^2.5.2",
     "es6-promise": "~3.2.1",
     "express": "~4.14.0",
     "file-stream-rotator": "0.0.7",
-    "jade": "~1.11.0",
     "log4js": "^0.6.38",
     "md5": "~2.1.0",
     "mongoose": "~4.5.3",
     "morgan": "~1.7.0",
+    "nodejieba": "^2.2.3",
     "request": "~2.72.0",
     "serve-favicon": "~2.3.0",
-    "vue": "^1.0.26"
+    "vue": "^1.0.26",
+    "vue-router": "^0.7.13",
+    "vuex": "^1.0.0-rc.2"
   },
   "devDependencies": {
     "babel-loader": "^6.2.5",

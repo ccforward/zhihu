@@ -4,6 +4,7 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var utils = require('./utils');
 var config = require('../config/index.js')
+var HelloWorldPlugin = require('./t')
 var projectRoot = path.resolve(__dirname, '../');
 
 
@@ -52,7 +53,7 @@ module.exports = {
                 test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
                 loader: 'url',
                 query: {
-                    limit: 10000,
+                    limit: 1,
                     name: utils.assetsPath('img/[name].[hash:5].[ext]')
                 }
             },
@@ -74,14 +75,5 @@ module.exports = {
     babel: {
         presets: ['es2015'],
         plugins: ['transform-runtime']
-    },
-
-    plugins: [
-        // webpack 1.x
-        // new webpack.optimize.OccurenceOrderPlugin(),
-        // webpack 2.0
-        // new webpack.optimize.OccurrenceOrderPlugin(),
-        // new webpack.optimize.LimitChunkCountPlugin({ maxChunks: 15 }),
-        // new webpack.HotModuleReplacementPlugin(),
-    ]
+    }
 };

@@ -1,5 +1,6 @@
 config.js
 test.js
+demo.js
 node_modules
 *.log
 *.DS_Store
