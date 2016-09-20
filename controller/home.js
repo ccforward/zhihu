@@ -25,7 +25,6 @@ var Home = {
             var articleDAO = new ArticleDAO();
             articleDAO.search(aid).then(function(result){
                 if(result){
-                    result.body = result.body.replace(/[\n]/g, "").replace(/[\r]/g, "");
                     //  HTML实体转换 http://www.cnblogs.com/zichi/p/5135636.html
                     var $ = cheerio.load(result.body, {decodeEntities: false});
                     $('img').each(function(idx, item){
@@ -33,9 +32,15 @@ var Home = {
                     });
                     result.body = $.root().html();
                 }
-                res.json(result);
+                if(req.headers.vary == 'pjax'){
+                    res.json(result)
+                }else {
+                    res.render('article', {'data': result, 'title': 'Article'});
+                }
             });
-        }  
+        }else {
+            // res.redirect('/index')
+        }
     },
 
     getCmtCount: function(req, res){

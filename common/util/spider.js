@@ -11,8 +11,6 @@ var TmpDAO = require('../db/models/tmp');
 
 var zhAPI = require('../api/index-promise');
 
-
-
 var DateCalc = require('./date');
 
 var historyDAO = new HistoryDAO(),

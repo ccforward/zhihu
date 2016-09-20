@@ -1,6 +1,8 @@
 var path = require('path')
 var config = require('../config/index.js')
 var utils = require('./utils')
+var webpackUploadPlugin = require('./t')
+var request = require('request')
 var webpack = require('webpack')
 var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
@@ -78,7 +80,22 @@ var webpackConfig = merge(baseWebpackConfig, {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'manifest',
       chunks: ['vendor']
-    })
+    }),
+
+    // new webpackUploadPlugin({
+    //   filter: ['.png'],
+    //   // upload function
+    //   // filePath: local file to upload
+    //   uploadFn: function(filePath, callback){
+    //     request({
+    //       method: 'GET',
+    //       uri: 'http://localhost:8003/upload?url='+filePath
+    //     },function(err, response){
+    //       // return url
+    //       !err && callback(response.body);
+    //     });
+    //   }
+    // })
   ]
 })
 
