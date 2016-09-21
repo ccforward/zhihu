@@ -31,15 +31,15 @@ CmtCountDAO.prototype =  {
             });
         });
     },
-    delete: function(aid){
+    delete: function(query){
         return new Promise(function(resolve, reject){
-            CmtCount.remove({id: aid}, function(err, data){
+            CmtCount.remove(query, function(err, data){
                 if(err) return reject(err)
-                resolve(d);
+                resolve(data);
             });
         });
     },
-    search: function(aid){
+    searchOne: function(aid){
         return new Promise(function(resolve, reject){
             CmtCount.findOne({aid: aid}, function(err, data){
                 if(err) return reject(err)
@@ -57,6 +57,30 @@ CmtCountDAO.prototype =  {
                     }
                 }
                 resolve(d);
+            });
+        });
+    },
+    search: function(query){
+        return new Promise(function(resolve, reject){
+            CmtCount.find(query, function(err, data){
+                if(err) return reject(err)
+                var result = [];
+                if(data){
+                    for(var i=0,len=data.length;i<len;i++){
+                        var d = {
+                            aid: data[i].aid,
+                            comments: data[i].comments,
+                            longComments: data[i].longComments,
+                            shortComments: data[i].shortComments,
+                            popularity: data[i].popularity,
+                            dtime: data[i].dtime,
+                            dmonth: data[i].dmonth,
+                            dyear: data[i].dyear
+                        }
+                        result.push(d);
+                    }
+                }
+                resolve(result);
             });
         });
     }
