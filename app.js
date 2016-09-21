@@ -33,12 +33,13 @@ var app = express();
 
 // 爬虫入口 每天23点爬知乎日报的 latest 
 var CONFIG = require('./config');
-// var Spider = require('./common/util/spider');
-// Spider.init(CONFIG.spider.start, CONFIG.spider.end);
+var Task = require('./common/util/task');
+var SpiderMan = require('./common/util/spider');
+// Task.weekly();
+// SpiderMan.fire(CONFIG.spider.start, CONFIG.spider.end);
 
 // var tag = require('./common/util/tag');
-// tag.searchTags({aid:8743531});
-// tag.saveTags(8743531);
+// tag.saveTags(8765676);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

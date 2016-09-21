@@ -46,8 +46,10 @@ var Tag = {
                     return articleDAO.search(aid);
                 })
                 .then(function(result){
-                    var $ = cheerio.load(result.body, {decodeEntities: false});
-                    var wordsArr = jieba.extract($.root().text(), 10),
+                    var $ = cheerio.load(result.body),
+                        title = $('.question .question-title').length && $('.question .question-title').text()
+                        content = $('.question .content').length && $('.question .content').text();
+                    var wordsArr = jieba.extract(title+content, 10),
                         tagArr = [];
                     for(var i=0,len=wordsArr.length;i<len;i++){
                         tagArr.push(wordsArr[i]['word'])
@@ -71,7 +73,6 @@ var Tag = {
                     return Promise.resolve(result)
                 })
                 .catch(function(){
-                    console.log('-----')
                     return Promise.reject([]);
                 })
     }

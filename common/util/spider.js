@@ -37,8 +37,7 @@ if(CONFIG.log.openBae){
 
 
 var Spider = {
-    init: function(start, end){
-        Spider.daily();
+    fire: function(start, end){
         // Spider.day(start);
 
         historyDAO.count({dtime: start}).then(function(d){
@@ -81,12 +80,12 @@ var Spider = {
                     dmonth: hDate.substr(0,6),
                     dyear: hDate.substr(0,4)
                 };
-                var p = Spider.dataOne(data);
+                var p = Spider.dataOne(data, date);
                 promiseAll.push(p);
             }
 
             Promise.all(promiseAll).then(function(){
-                logger.info('day history data over @: ' + date);
+                logger.info('day history data over @: ' + new DateCalc(date).before());
             }).catch(function(err){
                 logger.error('get ' + hDate + ' data error: ', err);
             });;
@@ -94,7 +93,7 @@ var Spider = {
         });
     },
 
-    dataOne: function(data){
+    dataOne: function(data, date){
         return Spider.history(data)
             .then(function(d){
                 return Spider.article(d.aid, d.dtime);
@@ -126,6 +125,7 @@ var Spider = {
     // 正文
     article: function(aid, dtime){
         return zhAPI.getArticle(aid).then(function(article){
+            var section = article.section || {id: null, name: null}
             var data = {
                 id: aid,
                 title: article.title,
@@ -135,6 +135,9 @@ var Spider = {
                 js: article.js,
                 imageSource: article.image_source,
                 shareUrl: article.share_url,
+                section: article.section || {},
+                sectionId: section.id || '',
+                sectionName: section.name || '',
                 dtime: dtime,
                 dmonth: dtime.substr(0,6),
                 dyear: dtime.substr(0,4)
@@ -215,7 +218,6 @@ var Spider = {
             }
             return cmtCountDAO.save(data)
                     .then(function(){
-                        // console.log('cmtCount over ' + aid);
                         return Promise.resolve({aid: aid, dtime: dtime});
                     })
                     .catch(function(err){
@@ -225,46 +227,6 @@ var Spider = {
         .catch(function(err){
             logger.error('comments count save error @aid: ' + aid, err);
         });
-    },
-    
-
-
-    daily: function(){
-        // 每天23:30 爬取每日的 latest 数据
-        new CronJob('00 30 23 * * *', function(){
-            zhAPI.getLatest().then(function(latest){
-                var d = latest.stories,
-                    date = latest.date;
-                for(var i=0,len=d.length; i<len; i++){
-                    Spider._dailySave(date, d[i]);
-                }
-            });
-        }, function(){
-            console.log('cron-job over @date:' + date)
-        }, true, 'Asia/Shanghai');
-
-        // 扫描 tmp 表中的id 重新爬数据
-        
-    },
-    _dailySave: function(date, data){
-        var his = {
-            id    : data.id,
-            title : data.title,
-            image : data.images.length ? data.images[0] : '',
-            theme : data.theme ? data.theme.id : 0,
-            type  : data.type || '0',
-            dtime : date,
-            dmonth: date.substr(0,6),
-            dyear : date.substr(0,4)
-        };
-
-        historyDAO.save(his)
-            .then(function(){
-                return Spider.article(data.id, date);
-            })
-            .catch(function(err){
-                logger.error('daily save error @aid:  ' + data.id, err);
-            });
     }
 }
 
