@@ -39,27 +39,6 @@ CmtCountDAO.prototype =  {
             });
         });
     },
-    searchOne: function(aid){
-        return new Promise(function(resolve, reject){
-            CmtCount.findOne({aid: aid}, function(err, data){
-                if(err) return reject(err)
-                var d = {};
-                if(data){
-                    d = {
-                        aid: data.aid,
-                        comments: data.comments,
-                        longComments: data.longComments,
-                        shortComments: data.shortComments,
-                        popularity: data.popularity,
-                        dtime: data.dtime,
-                        dmonth: data.dmonth,
-                        dyear: data.year
-                    }
-                }
-                resolve(d);
-            });
-        });
-    },
     search: function(query){
         return new Promise(function(resolve, reject){
             CmtCount.find(query, function(err, data){

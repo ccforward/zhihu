@@ -46,26 +46,31 @@ ArticleDAO.prototype =  {
             });
         });
     },
-    search: function(aid){
+    search: function(query){
         return new Promise(function(resolve, reject){
-            Article.findOne({id: aid}, function(err, data){
+            Article.find(query, function(err, data){
                 if(err) return reject(err)
-                var d = {};
+                var result = [];
                 if(data) {
-                    d = {
-                        id: data.id,
-                        title : data.title,
-                        body  : data.body,
-                        image : data.image,
-                        imageSource: data.imageSource,
-                        shareUrl: data.shareUrl,
-                        section: data.section,
-                        dtime: data.dtime,
-                        dmonth: data.dmonth,
-                        dyear: data.dyear
+                    for(var i=0,len=data.length;i<len;i++){
+                        d = {
+                            id: data[i].id,
+                            title: data[i].title,
+                            body: data[i].body,
+                            image: data[i].image,
+                            imageSource: data[i].imageSource,
+                            shareUrl: data[i].shareUrl,
+                            section: data[i].section,
+                            sectionId: data[i].sectionId,
+                            sectionName: data[i].sectionName,
+                            dtime: data[i].dtime,
+                            dmonth: data[i].dmonth,
+                            dyear: data[i].dyear
+                        }
+                        result.push(d)
                     }
                 } 
-                resolve(d);
+                resolve(result);
             });
         });
     },

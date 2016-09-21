@@ -23,8 +23,9 @@ var Home = {
         var aid = req.params.aid;
         if(aid) {
             var articleDAO = new ArticleDAO();
-            articleDAO.search(aid).then(function(result){
-                if(result){
+            articleDAO.search({id: aid}).then(function(data){
+                if(data.length){
+                    var result = data[0]
                     //  HTML实体转换 http://www.cnblogs.com/zichi/p/5135636.html
                     var $ = cheerio.load(result.body, {decodeEntities: false});
                     $('img').each(function(idx, item){
@@ -47,8 +48,8 @@ var Home = {
         var aid = req.params.aid;
         if(aid) {
             var cmtCountDAO = new CmtCountDAO();
-            cmtCountDAO.search(aid).then(function(result){
-                res.json(result);
+            cmtCountDAO.search({aid:aid}).then(function(result){
+                res.json(result.length ? result[0]: {});
             });
         }
     },
