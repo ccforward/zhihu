@@ -31,11 +31,11 @@ var app = express();
 
 
 
-// 爬虫入口 每天23点爬知乎日报的 latest 
+// 爬虫任务 
 var CONFIG = require('./config');
-var Task = require('./common/util/task');
+var Job = require('./common/util/task');
 var SpiderMan = require('./common/util/spider');
-// Task.weekly();
+// Job.fire();
 // SpiderMan.fire(CONFIG.spider.start, CONFIG.spider.end);
 
 // var tag = require('./common/util/tag');
