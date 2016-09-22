@@ -7,6 +7,7 @@ var ArticleDAO = require('../db/models/article');
 var HistoryDAO = require('../db/models/history');
 var CmtCountDAO = require('../db/models/cmtCount');
 var CommentsDAO = require('../db/models/comments');
+var LatestDAO = require('../db/models/latest');
 var TmpDAO = require('../db/models/tmp');
 
 var zhAPI = require('../api/index-promise');
@@ -15,8 +16,9 @@ var DateCalc = require('./date');
 
 var historyDAO = new HistoryDAO(),
     articleDAO = new ArticleDAO(),
-    commentsDAO = new CommentsDAO(),
     cmtCountDAO = new CmtCountDAO(),
+    commentsDAO = new CommentsDAO(),
+    latestDAO = new LatestDAO(),
     tmpDAO = new TmpDAO();
 
 
@@ -80,12 +82,12 @@ var Spider = {
                     dmonth: hDate.substr(0,6),
                     dyear: hDate.substr(0,4)
                 };
-                var p = Spider.dataOne(data, date);
+                var p = Spider.dataOne(data, hDate);
                 promiseAll.push(p);
             }
 
             Promise.all(promiseAll).then(function(){
-                logger.info('day history data over @: ' + new DateCalc(date).before());
+                // logger.info('day history data over @: ' + new DateCalc(date).before());
             }).catch(function(err){
                 logger.error('get ' + hDate + ' data error: ', err);
             });;
@@ -227,6 +229,83 @@ var Spider = {
         .catch(function(err){
             logger.error('comments count save error @aid: ' + aid, err);
         });
+    },
+
+    // 评论数更新
+    updateCmtCount: function(start, end){
+        var aidsArr = [];
+        return cmtCountDAO.search({dtime: start})
+            .then(function(d){
+                if(d.length){
+                    for(var i=0;i<d.length;i++){
+                        aidsArr.push(d[i].aid);
+                    }
+                    return cmtCountDAO.delete({aid: {$in: aidsArr}}) 
+                }else {
+                    return Promise.reject('delete over')
+                }
+            })
+            .then(function(){
+                // logger.info('delete over @: ' + start);
+                var promiseArr = [];
+                while(aidsArr.length>0){
+                    var aid = aidsArr.pop();
+                    promiseArr.push(Spider.cmtCount(aid, start));
+                }
+                return Promise.all(promiseArr);
+            })
+            .then(function(){
+                var date = new DateCalc(start).before();
+                if(date != end){
+                    Spider.updateCmtCount(date, end)
+                }
+                return Promise.resolve(start);
+            })
+            .catch(function(err){
+                logger.error('update error : ' + err);
+                return Promise.resolve(start);
+            })
+    },
+
+    // 每日最新内容 latest
+    latest: function(){
+        var dtime = new DateCalc().before();
+        latestDAO.delete({dtime: dtime})
+            .then(function(){
+                return zhAPI.getLatest()
+            })
+            .then(function(d){
+                var dtime = d.date,
+                    stories = d.stories,
+                    top = d.top_stories,
+                    promiseAll = [];
+                for(var i = 0, len = top.length;i<len;i++){
+                    var data = {
+                        id: top[i].id,
+                        title: top[i].title,
+                        image: top[i].image,
+                        top: true,
+                        dtime: dtime
+                    };
+                    var p = latestDAO.save(data);
+                    promiseAll.push(p)
+                }
+                for(var i = 0, len = stories.length;i<len;i++){
+                    var data = {
+                        id: stories[i].id,
+                        title: stories[i].title,
+                        image: stories[i].images.length ? stories[i].images[0] : '',
+                        top: false,
+                        dtime: dtime
+                    };
+                    var p = latestDAO.save(data);
+                    promiseAll.push(p)
+                }
+                return Promise.all(promiseAll);
+            })
+            .catch(function(err){
+                logger.error('get lastest data error: ', err);
+            })
     }
 }
 
