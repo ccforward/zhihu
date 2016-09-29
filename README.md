@@ -1,15 +1,32 @@
 # 知乎日报的 Spider-Man
 
+## About
+
+社区里好多同学爬取过知乎日报，这个基于 Node.js 的爬虫项目完全是兴趣+练手，断断续续一直在慢慢做的小项目。
+
+## 技术栈
+
+#### 后端
+
+Node.js + Express + MongoDB
+
+用了中文最好的 [结巴分词-node](https://github.com/fxsjy/jieba) 来提取正文的关键字做数据分析
+
+#### 前端
+
+ES6 + Vue + Webpack
+
 ## 关于config.js
 config.js.sample 重命名为 config.js
 
 * auth 知乎日报用来验证用户的key 用于http的请求头(真正的key叫做 `Authorization`)
 * spider.interval 爬虫间隔时间
-* spider.start spider.end   爬历史数据的开始结束时间 （之乎日报生日: 20130519）
+* spider.start spider.end  爬历史数据的开始结束时间 （知乎日报生日: 20130519）
 
 如果HTTP的请求头里想加入 auth 和 referer 可以用我写的这个 [chrome扩展](https://github.com/ccforward/C-Header) （PS：半成品，凑合用。如下图，操作简单）
 
 ![](http://ww2.sinaimg.cn/large/7853084cjw1f6wvzw1utxj208w0bhjrp.jpg)
+
 ## API
 
 ### 1、启动界面图像

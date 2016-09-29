@@ -1,7 +1,6 @@
 {
   "name": "zhihu-daily",
   "version": "0.2.0",
-  "private": true,
   "author": "cc",
   "license": "ISC",
   "scripts": {

@@ -5,7 +5,7 @@ var home = require('./../controller/home');
 
 
 // 每日的latest数据
-router.get('/index', home.getLatest);
+router.get('/latest', home.getLatest);
 
 // 按日期查询
 router.get('/day/:day', home.searchDate);
