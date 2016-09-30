@@ -35,6 +35,7 @@ app.use(hotMiddleware);
 var CONFIG = require('./config');
 var Job = require('./common/util/task');
 var SpiderMan = require('./common/util/spider');
+// SpiderMan.latest();
 // Job.fire();
 // SpiderMan.fire(CONFIG.spider.start, CONFIG.spider.end);
 

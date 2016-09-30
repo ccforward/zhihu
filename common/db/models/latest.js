@@ -36,6 +36,15 @@ LatestDAO.prototype =  {
                 resolve(data);
             });
         });
+    },
+    all: function(){
+        return new Promise(function(resolve, reject){
+            Latest.find(function(err, data){
+                if(err) return reject(err)
+                resolve(data);
+            });
+            
+        });
     }
     
 };
