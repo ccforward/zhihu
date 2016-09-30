@@ -269,7 +269,7 @@ var Spider = {
 
     // 每日最新内容 latest
     latest: function(){
-        var dtime = new DateCalc().before();
+        var dtime = new DateCalc().now();
         latestDAO.delete({dtime: dtime})
             .then(function(){
                 return zhAPI.getLatest()

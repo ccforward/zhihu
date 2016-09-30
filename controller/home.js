@@ -5,17 +5,26 @@ var HistoryDAO = require('../common/db/models/history');
 var ArticleDAO = require('../common/db/models/article');
 var CmtCountDAO = require('../common/db/models/cmtCount');
 var CommentsDAO = require('../common/db/models/comments');
+var LatestDAO = require('../common/db/models/latest');
 var cheerio = require('cheerio')
 var URL = require('url');
 
 var Home = {
     // 获取最新内容
     getLatest: function(req, res){
-        Promise.all([zhAPI.getStartPic(), zhAPI.getLatest()]).then(function(result){
-            var pic = result[0];
-            var latest = result[1];
-            res.render('index', { 'title': 'Daily', 'pic':pic, 'latest':latest.stories});
-        });
+        // Promise.all([zhAPI.getStartPic(), zhAPI.getLatest()]).then(function(result){
+        //     var pic = result[0];
+        //     var latest = result[1];
+        //     res.render('index', { 'title': 'Daily', 'pic':pic, 'latest':latest.stories});
+        // });
+        var latestDAO = new LatestDAO();
+        latestDAO.all().then(function(result){
+            if(result.length){
+                res.json(result)
+            }
+        })
+
+
     },
     
     // 文章详情

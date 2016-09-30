@@ -1,8 +1,13 @@
 {
   "name": "zhihu-daily",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "cc",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ccforward/zhihu.git"
+  },
+  "homepage": "https://github.com/ccforward/zhihu#readme",
   "scripts": {
     "start": "node ./bin/zh.js",
     "build": "node ./build/build.js"
@@ -26,10 +31,12 @@
     "request": "~2.72.0",
     "serve-favicon": "~2.3.0",
     "vue": "^1.0.26",
+    "vue-resource": "^1.0.3",
     "vue-router": "^0.7.13",
     "vuex": "^1.0.0-rc.2"
   },
   "devDependencies": {
+    "babel-core": "^6.8.0",
     "babel-loader": "^6.2.5",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-preset-es2015": "^6.14.0",
@@ -48,9 +55,9 @@
     "vue-html-loader": "^1.2.3",
     "vue-loader": "^8.5.2",
     "vue-style-loader": "^1.0.0",
-    "webpack": "^2.1.0-beta.22",
-    "webpack-dev-middleware": "^1.7.0",
-    "webpack-hot-middleware": "^2.12.2",
-    "webpack-merge": "^0.14.1"
+    "webpack": "2.1.0-beta.22",
+    "webpack-dev-middleware": "1.7.0",
+    "webpack-hot-middleware": "2.12.2",
+    "webpack-merge": "0.14.1"
   }
 }
