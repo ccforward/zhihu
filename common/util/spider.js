@@ -41,8 +41,10 @@ if(CONFIG.log.openBae){
 var Spider = {
     fire: function(start, end){
         // Spider.day(start);
-
         historyDAO.count({dtime: start}).then(function(d){
+            if(d>0){
+                return ;
+            }
             start = new DateCalc(start).after();
             end = new DateCalc(end).after();
 
@@ -63,7 +65,6 @@ var Spider = {
                 }
             }, null, true, 'Asia/Shanghai');
         });
-
     },
     // 一天的数据
     day: function(date){
@@ -87,7 +88,7 @@ var Spider = {
             }
 
             Promise.all(promiseAll).then(function(){
-                // logger.info('day history data over @: ' + new DateCalc(date).before());
+                logger.info('day history data over @: ' + new DateCalc(date).before());
             }).catch(function(err){
                 logger.error('get ' + hDate + ' data error: ', err);
             });;
@@ -110,7 +111,7 @@ var Spider = {
                 return Spider.cmtCount(d.aid, d.dtime);
             })
             .catch(function(e){
-                tmpDAO.save({aid: this.id, dtime: data.dtime});
+                tmpDAO.save({aid: '', dtime: data.dtime});
                 logger.error('day @' + date + 'history data error @id: ' + data.id, e);
             });
     },
@@ -121,6 +122,7 @@ var Spider = {
                     return Promise.resolve({aid:data.id, dtime: data.dtime});
                 })
                 .catch(function(err){
+                    tmpDAO.save({aid: '', dtime: dtime});
                     logger.error('get history error @id: ' + data.id, err);
                 });
     },
@@ -152,6 +154,10 @@ var Spider = {
                     .catch(function(err){
                         logger.error('article save error @aid: ' + aid, err);
                     });
+        })
+        .catch(function(err){
+            tmpDAO.save({aid: aid, dtime: dtime});
+            logger.error('article save error @id: ' + aid, err);
         });
     },
     // 长评论
@@ -176,6 +182,7 @@ var Spider = {
                     });
         })
         .catch(function(err){
+            tmpDAO.save({aid: aid, dtime: dtime});
             logger.error('long comments save error @id: ' + aid, err);
         });
     },
@@ -201,6 +208,7 @@ var Spider = {
                     });
         })
         .catch(function(err){
+            tmpDAO.save({aid: aid, dtime: dtime});
             logger.error('short comments save error @aid: ' + aid, err);
         });
     },
@@ -227,6 +235,7 @@ var Spider = {
                     });
         })
         .catch(function(err){
+            tmpDAO.save({aid: aid, dtime: dtime});
             logger.error('comments count save error @aid: ' + aid, err);
         });
     },

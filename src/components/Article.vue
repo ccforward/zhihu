@@ -1,9 +1,8 @@
 <template>
   <div class="article">
-    <img class="logo" src="../assets/logo.png">
     <h1>{{ article.title }}</h1>
-    <article>{{{ article.body }}}</article>
-    <a v-link="{ path: '/' }"> Home </a>
+    <article v-html="article.body"></article>
+    <router-link to='/'> 返回首页 </router-link>
   </div>
 </template>
 
@@ -18,14 +17,13 @@ export default {
       article: {}
     };
   },
-  ready(){
-    this.$http.get('/article/8809959', {}, {
+  mounted(){
+    this.$http.get('/article/8660483', {}, {
       headers: {
         vary: 'pjax'
       }
     }).then(function(res){
       this.article = res.body;
-      console.log(this.article)
     }, function(){
       // error
     })
@@ -33,9 +31,14 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style scoped lang="stylus">
 h1 {
-  color: #9c0
+  color #f06
+}
+article {
+  font-size 15px
+}
+.view-more {
+  display none
 }
 </style>

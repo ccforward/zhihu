@@ -1,13 +1,22 @@
 <template>
-  <div class="home">
+<div id="app-home">
+  <ul>
+    <li v-for="item in latest">
+      <p class="title">
+        <router-link to='/article' query={aid: item.id}> {{item.title}} <router-link>
+      </p>
+    </li>
+  </ul>
+  <div class="history" v-for="day in history">
+    <p class="dtime">{{ day.dtime }}</p>
     <ul>
-      <li v-for="item in latest">
-        <p class="title">
-          <a v-link="{ path: '/article', query:{aid: item.id} }"> {{item.title}} </a>
-        </p>
+      <li v-for="d in day.data">
+        <img :src="d.image">
+        <a v-link="{ path: '/article', query:{aid: d.id} }">{{ d.title }}</a>
       </li>
     </ul>
   </div>
+</div>
 </template>
 
 <script>
@@ -16,25 +25,11 @@ import vueResource from 'vue-resource';
 Vue.use(vueResource);
 
 export default {
-  el(){
-    return '.home'
-  },
   data() {
     return {
       latest: {},
+      history: []
     };
-  },
-  ready(){
-    this.$http.get('/latest', {}, {
-      headers: {
-        vary: 'pjax'
-      }
-    }).then(function(res){
-      this.latest = res.body
-      console.log(res.body)
-    }, function(){
-      // error
-    })
   }
 };
 </script>
