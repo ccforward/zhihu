@@ -13,7 +13,8 @@ function DateCalc(date,bef,aft){
 
 DateCalc.prototype = {
     constructor: DateCalc,
-    
+
+    monthArr: ['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
     now: function(){
         var d = this.date ? new Date(this.date) : new Date();
         return [d.getFullYear(), this._cover(d.getMonth()+1), this._cover(d.getDate())].join('');     
@@ -23,6 +24,34 @@ DateCalc.prototype = {
     },
     after: function(days){
         return this._calc(days || 1,'after');
+    },
+    month: function(){
+        var d = this.date ? new Date(this.date) : new Date();
+        return [d.getFullYear(), this._cover(d.getMonth()+1)].join('');     
+    },
+    beforeMonth: function(){
+        var y = parseInt(this.month().substr(0,4), 10),
+            m = this.month().substr(4,2),
+            idx = this.monthArr.indexOf(m);
+        if(idx == 1){
+            m = '12';
+            y--;
+        }else {
+            m = this.monthArr[idx-1];
+        }
+        return y + '' + m;
+    },
+    afterMonth: function(){
+        var y = parseInt(this.month().substr(0,4), 10),
+            m = this.month().substr(4,2),
+            idx = this.monthArr.indexOf(m);
+        if(idx == 12){
+            m = '01';
+            y++;
+        }else {
+            m = this.monthArr[idx+1];
+        }
+        return y + '' + m;
     },
     // days 前后的天数
     // type before 或 after

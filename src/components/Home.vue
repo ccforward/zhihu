@@ -3,19 +3,10 @@
   <ul>
     <li v-for="item in latest">
       <p class="title">
-        <router-link to='/article' query={aid: item.id}> {{item.title}} <router-link>
+        <router-link :to="{path: 'article', query:{aid: item.id}}"> {{item.title}} </router-link>
       </p>
     </li>
   </ul>
-  <div class="history" v-for="day in history">
-    <p class="dtime">{{ day.dtime }}</p>
-    <ul>
-      <li v-for="d in day.data">
-        <img :src="d.image">
-        <a v-link="{ path: '/article', query:{aid: d.id} }">{{ d.title }}</a>
-      </li>
-    </ul>
-  </div>
 </div>
 </template>
 
@@ -30,6 +21,19 @@ export default {
       latest: {},
       history: []
     };
+  },
+  created(){
+    this.$http.get('/latest', {}, {
+      headers: {
+        vary: 'pjax'
+      }
+    }).then(function(res){
+      this.latest = res.body;
+    }, function(){
+      this.latest = [];
+    });
+  },
+  methods(){
   }
 };
 </script>

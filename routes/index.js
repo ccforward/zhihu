@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 var home = require('./../controller/home');
+var ana = require('./../controller/ana');
 
 
 // 每日的latest数据
@@ -20,6 +21,10 @@ router.get('/article/:aid', home.getArticle);
 router.get('/article/:aid/comment/count', home.getCmtCount);
 router.get('/article/:aid/comment/long', home.getCmtLong);
 router.get('/article/:aid/comment/short', home.getCmtShort);
+
+
+
+router.get('/analysis', ana.index);
 
 
 
