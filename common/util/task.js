@@ -23,12 +23,18 @@ if(CONFIG.log.openBae){
 var Task = {
     fire: function(){
         this.hourly();
-        this.daily();
-        this.weekly();
+        // this.daily();
+        // this.weekly();
     },
     // 07:30 - 21:30 每两个小时爬取一次lastest
     hourly: function(){
-        new CronJob('00 30 7-21/2 * * *', function(){
+        // new CronJob('00 30 7-21/2 * * *', function(){
+        //     Spider.latest();
+        // }, function(){
+        //     logger.info('hourly cron-job over')
+        // }, true, 'Asia/Shanghai');
+
+        new CronJob('*/20 * * * * *', function(){
             Spider.latest();
         }, function(){
             logger.info('hourly cron-job over')

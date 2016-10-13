@@ -29,16 +29,19 @@ TmpDAO.prototype =  {
     },
     search: function(query){
         return new Promise(function(resolve, reject){
-            Tmp.find(query, function(err, data){
+            Tmp.find(query, function(err, d){
                 if(err) return reject(err)
-                var d = {};
-                if(data){
-                    d = {
-                        aid: data.aid,
-                        dtime: data.dtime
+                var data = [];
+                if(d.length > 0){
+                    for(var i=0,len=d.length;i<len;i++){
+                        var re = {
+                            id: d[i].aid,
+                            dtime: d[i].dtime
+                        }
+                        data.push(re);
                     }
                 }
-                resolve(d);
+                resolve(data);
             });
         });
     }

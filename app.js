@@ -19,7 +19,7 @@ var webpackDevMiddleware = require('webpack-dev-middleware');
 var compiler = webpack(webpackConfig);
 var devMiddleware = webpackDevMiddleware(compiler, {
     publicPath: webpackConfig.output.publicPath,
-    stats: { 
+    stats: {
         colors: true,
         chunks: true,
         progress: true 
@@ -35,8 +35,8 @@ app.use(hotMiddleware);
 var CONFIG = require('./config');
 var Job = require('./common/util/task');
 var SpiderMan = require('./common/util/spider');
-// SpiderMan.latest();
 // Job.fire();
+// SpiderMan.latest();
 // SpiderMan.fire(CONFIG.spider.start, CONFIG.spider.end);
 
 // var tag = require('./common/util/tag');
