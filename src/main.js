@@ -11,6 +11,7 @@ Vue.config.debug = true;
 
 // 路由配置
 const router = new VueRouter({
+    // mode: 'history',
     routes
 });
 

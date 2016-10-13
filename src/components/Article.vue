@@ -1,6 +1,7 @@
 <template>
   <div class="article">
     <h1>{{ article.title }}</h1>
+    <img :src="article.image" width="50%">
     <article v-html="article.body"></article>
     <router-link to='/'> 返回首页 </router-link>
   </div>
@@ -17,7 +18,7 @@ export default {
       article: {}
     };
   },
-  mounted(){
+  created(){
     this.$http.get('/article/8660483', {}, {
       headers: {
         vary: 'pjax'

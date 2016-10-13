@@ -23,6 +23,7 @@
     "es6-promise": "~3.2.1",
     "express": "~4.14.0",
     "file-stream-rotator": "0.0.7",
+    "lodash": "^4.16.4",
     "log4js": "^0.6.38",
     "md5": "~2.1.0",
     "mongoose": "~4.5.3",
