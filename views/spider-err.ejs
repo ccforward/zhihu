@@ -1,0 +1,31 @@
+<h1>Spider Error List</h1>
+
+<% if(data.length){%>
+<ul>
+<% for (var i=0;i<data.length;i++){ %>
+    <li>
+        aid: <%= data[i].aid  %>
+        dtime: <%= data[i].dtime  %> 
+        <button data-dtime="<%= data[i].dtime  %>">clear</button>
+    </li>
+<% } %>
+</ul>
+<% }else{ %>
+<h2>All Errors Cleared</h2>
+<% } %>
+
+<script src="http://lib.sinaapp.com/js/zepto/1.0rc/zepto.min.js"></script>
+<script>
+(function(){
+    $('button').on('click', function(){
+        $.ajax({
+            type: 'POST',
+            url: '/clear-error/'+ $(this).attr('data-dtime'),
+            dataType: 'json',
+            success: function(data){
+                alert(data)
+            }
+        })
+    })
+})()
+</script>

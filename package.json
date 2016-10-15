@@ -10,6 +10,7 @@
   "homepage": "https://github.com/ccforward/zhihu#readme",
   "scripts": {
     "start": "node ./bin/zh.js",
+    "dev": "nodejs-dashboard supervisor ./bin/zh.js",
     "build": "node ./build/build.js"
   },
   "dependencies": {
@@ -49,6 +50,7 @@
     "html-webpack-plugin": "^2.22.0",
     "json-loader": "^0.5.4",
     "nib": "^1.1.2",
+    "nodejs-dashboard": "^0.1.1",
     "ora": "^0.3.0",
     "shelljs": "^0.7.4",
     "sinon": "^1.17.6",

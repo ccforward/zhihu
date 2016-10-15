@@ -32,11 +32,11 @@ HistoryDAO.prototype =  {
             });
         });
     },
-    delete: function(aid){
+    delete: function(query){
         return new Promise(function(resolve, reject){
-            History.remove({id: aid}, function(err, data){
+            History.remove(query, function(err, data){
                 if(err) return reject(err)
-                resolve(d);
+                resolve(data);
             });
         });
     },

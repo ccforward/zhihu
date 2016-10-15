@@ -27,6 +27,22 @@ TmpDAO.prototype =  {
             });
         });
     },
+    delete: function(query){
+        return new Promise(function(resolve, reject){
+            Tmp.remove(query, function(err, data){
+                if(err) return reject(err)
+                resolve(data);
+            });
+        });
+    },
+    list: function(){
+        return new Promise(function(resolve, reject){
+            Tmp.find(function(err, d){
+                resolve && resolve(d);
+            });
+            
+        });
+    },
     search: function(query){
         return new Promise(function(resolve, reject){
             Tmp.find(query, function(err, d){

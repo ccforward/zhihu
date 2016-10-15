@@ -6,6 +6,7 @@ var morgan = require('morgan');
 var FileStreamRotator = require('file-stream-rotator');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+require("nodejs-dashboard");
 
 var routes = require('./routes/index');
 var app = express();

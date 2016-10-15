@@ -38,11 +38,11 @@ ArticleDAO.prototype =  {
             });
         });
     },
-    delete: function(aid){
+    delete: function(query){
         return new Promise(function(resolve, reject){
-            Article.remove({id: aid}, function(err, data){
+            Article.remove(query, function(err, data){
                 if(err) return reject(err)
-                resolve(d);
+                resolve(data);
             });
         });
     },
