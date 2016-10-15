@@ -31,11 +31,11 @@ CommentsDAO.prototype =  {
             });
         });
     },
-    delete: function(cmt){
+    delete: function(query){
         return new Promise(function(resolve, reject){
-            Comments.remove({aid: cmt.aid, type: cmt.type}, function(err, data){
+            Comments.remove(query, function(err, data){
                 if(err) return reject(err)
-                resolve(d);
+                resolve(data);
             });
         });
     },

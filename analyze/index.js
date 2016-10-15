@@ -37,7 +37,8 @@ var Analyze = {
                 var sortComment = _.orderBy(d, ['comments'],['desc'])
                 // console.log(popular)
                 // console.log(popularSum)
-                console.log(sortComment[0])
+                _.slice(sortComment, 0, 5)
+                console.log(sortComment.length)
             })
     }
 }

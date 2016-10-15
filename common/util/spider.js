@@ -66,9 +66,9 @@ var Spider = {
             }, null, true, 'Asia/Shanghai');
         });
     },
-    // 一天的数据
+    // date.before() 的数据 
     day: function(date){
-        zhAPI.getHistory(date).then(function(history){
+        return zhAPI.getHistory(date).then(function(history){
             var hDate = history.date,
                 d = history.stories,
                 promiseAll = [];
@@ -89,11 +89,34 @@ var Spider = {
 
             Promise.all(promiseAll).then(function(){
                 logger.info('day history data over @: ' + new DateCalc(date).before());
+                return Promise.resolve('day history data over @: ' + new DateCalc(date).before());
             }).catch(function(err){
                 logger.error('get ' + hDate + ' data error: ', err);
-            });;
-
+            });
         });
+    },
+
+    dayRefresh: function(dtime){
+        var query = {dtime: dtime};
+        return historyDAO.delete(query)
+            .then(function(){
+                return articleDAO.delete(query);
+            })
+            .then(function(){
+                return commentsDAO.delete(query);
+            })
+            .then(function(){
+                return cmtCountDAO.delete(query);
+            })
+            .then(function(){
+                Spider.day(new DateCalc(dtime).after())
+                    .then(function(){
+                        return tmpDAO.delete(query);
+                    })
+            }).
+            catch(function(err){
+                console.log(err)
+            })
     },
 
     dataOne: function(data, date){
