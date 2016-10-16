@@ -1,6 +1,7 @@
 <template>
 <div class="home">
-  <Latest :latest="latest"></Latest>
+  <Latest :latest="latest" :top="top"></Latest>
+  
   <template v-for="item in history">
     <History :day="item"></History>
   </template>
@@ -18,12 +19,13 @@ import DateCalc from '../../common/util/date';
 Vue.use(vueResource);
 
 export default {
+  name: 'home',
   data() {
     return {
       top: [],
       latest: [],
       history: [],
-      date: '20161001'
+      date: '20161002'
     };
   },
   components: {
@@ -44,19 +46,11 @@ export default {
       this.latest = [];
     });
 
-    this.$http.get('/day/20161001', {}, {
-      headers: {
-        vary: 'pjax'
-      }
-    }).then(function(res){
-      let day = {
-        month: new DateCalc().monthEN(this.date) + this.date.substr(4,2),
-        date: new DateCalc().CHN(this.date),
-        data: res.body
-      }
-      this.history.push(day);
-    }, function(){
-    });
+    this.nextDay();
+  },
+  beforeRouteLeave (to, from, next) {
+    sessionStorage.setItem('scrollTop', document.body.scrollTop)
+    next()
   },
   methods: {
     nextDay: function(){

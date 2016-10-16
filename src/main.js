@@ -1,25 +1,24 @@
 import Vue from 'vue';
-import VueRouter from 'vue-router';
 import App from './App';
-import routes from './router/index';
+import store from './store'
+import router from './router/index';
+import { sync } from 'vuex-router-sync'
+import vueResource from 'vue-resource';
 
-Vue.use(VueRouter);
+Vue.use(vueResource);
+sync(store, router);
 
 
 // 开启debug模式
 Vue.config.debug = true;
 
-// 路由配置
-const router = new VueRouter({
-    // mode: 'history',
-    routes
-});
-
-
-
 const app = new Vue({
+    name: 'app',
     router,
+    store,
     render(h) {
         return h(App)
     }
 }).$mount('#entry')
+
+export { app, router, store }
