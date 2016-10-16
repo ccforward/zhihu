@@ -1,7 +1,7 @@
 <template>
   <div class="article">
     <h1>{{ article.title }}</h1>
-    <img :src="article.image" width="50%">
+    <img :src="article.image">
     <article v-html="article.body"></article>
     <router-link to='/'> 返回首页 </router-link>
   </div>
@@ -34,11 +34,18 @@ export default {
 
 <style scoped lang="stylus">
 h1 {
-  color #f06
+  color #42b983
 }
-article {
+.article {
+  img {
+    width 100%
+  }
+}
+article 
   font-size 15px
-}
+  p 
+    line-height 1.3
+
 .view-more {
   display none
 }

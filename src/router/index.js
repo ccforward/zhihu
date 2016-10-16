@@ -1,5 +1,5 @@
-import Home from '../components/Home.vue'
-import Article from '../components/Article.vue'
+import Home from '../views/Home.vue'
+import Article from '../views/Article.vue'
 
 const routers = [
     { path: '/', component: Home},

@@ -98,7 +98,14 @@ var Spider = {
 
     dayRefresh: function(dtime){
         var query = {dtime: dtime};
-        return historyDAO.delete(query)
+        return tmpDAO.count({dtime: start})
+            .then(function(){
+                if(d == 0){
+                    return Promise.reject('over');
+                }else {
+                    return historyDAO.delete(query) 
+                }
+            })
             .then(function(){
                 return articleDAO.delete(query);
             })
