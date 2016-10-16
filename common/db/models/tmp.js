@@ -35,6 +35,14 @@ TmpDAO.prototype =  {
             });
         });
     },
+    count: function(query){
+        return new Promise(function(resolve, reject){
+            Tmp.count(query, function(err, d){
+                if(err) return reject(err)
+                return resolve(d)
+            })
+        });
+    },
     list: function(){
         return new Promise(function(resolve, reject){
             Tmp.find(function(err, d){

@@ -7,6 +7,7 @@ var CmtCountDAO = require('../common/db/models/cmtCount');
 var CommentsDAO = require('../common/db/models/comments');
 var LatestDAO = require('../common/db/models/latest');
 var cheerio = require('cheerio')
+var _ = require('lodash')
 var URL = require('url');
 
 var Home = {
@@ -83,6 +84,8 @@ var Home = {
 
     // 按日期查询
     searchDate: function(req, res){
+        var historyDAO = new HistoryDAO();
+        var cmtCountDAO = new CmtCountDAO();
         var param = req.params,
             query = {},
             title = '';
@@ -97,11 +100,25 @@ var Home = {
             title = param.year.substr(0,4);
             query = {dyear: title}
         }
-        var historyDAO = new HistoryDAO();
-        historyDAO.search(query).then(function(result){
-            // res.render('index', {'title': key+'_知乎搜索', 'list': result});
-            res.json(result);
-        });
+        cmtCountDAO.search(query).then(function(cmts){
+            historyDAO.search(query).then(function(history){
+                // res.render('index', {'title': key+'_知乎搜索', 'list': result});
+                var result = []
+                _.each(history, function(item){
+                    _.each(cmts, function(cmt){
+                        if(cmt.aid == item.id){
+                            item.popularity = cmt.popularity;
+                            item.comments = cmt.comments;
+                            item.longComments = cmt.longComments;
+                            item.shortComments = cmt.shortComments;
+                            result.push(item);
+                        }
+                    })
+                })
+
+                res.json(result);
+            });
+        })
         
     },
 
