@@ -19,11 +19,11 @@ body {
 
 #app {
   margin-top 80px
-  padding 0 50px
-  width 700px
+  padding 0 25px
+  width 750px
   color #2c3e50
   background-color #fff
-  font-family: "Avenir Next", Avenir, "Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "PingFang SC", "Hiragino Sans GB", "Source Han Sans CN", "Source Han Sans SC", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
+  font-family: Lucida Grande,Helvetica Neue,Helvetica,Arial,Hiragino Sans GB,Hiragino Sans GB W3,WenQuanYi Micro Hei,Microsoft YaHei UI,Microsoft YaHei,sans-serif;
   font-size 15px
 }
 a {

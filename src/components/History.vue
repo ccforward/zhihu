@@ -6,7 +6,7 @@
       </div>
       <ul>
         <li v-for="item in day.data">
-          <router-link class="title" :to="{path: 'article', query:{aid: item.id}}"> {{item.title}} </router-link>
+          <router-link class="title" :to="{path: 'detail', query:{aid: item.id}}"> {{item.title}} </router-link>
           <img :src="item.image">
           <p class="sns">
             <i :class="item.popularity>500 && 'hot' ">{{ item.popularity }} stars</i> | 
@@ -45,12 +45,12 @@ export default {
   .date {
     padding 12px 0
     margin 10px 0
-    margin-left -34px
+    margin-left -59px
     font-size 0
     span {
       display inline-block
       padding 2px 0
-      margin-right 10px
+      margin-right 25px
       width 34px
       height 40px
       background #948CF1
