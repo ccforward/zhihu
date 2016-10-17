@@ -38,10 +38,25 @@ export default {
         vary: 'pjax'
       }
     }).then(function(res){
-      let latest = res.body
+      let latest = res.body;
+      let comments = [];
+
       for(let i=0,len=latest.length;i<len;i++){
-        latest[i].top ? this.top.push(latest[i]) : this.latest.push(latest[i])
+        if(latest[i].title) {
+          latest[i].top  ? this.top.push(latest[i]) : this.latest.push(latest[i])
+        }else {
+          comments.push(latest[i])
+        }
       }
+      for(let i=0,len=comments.length;i<len;i++){
+        for(let j=0,length=this.latest.length;j<length;j++){
+          if(comments[i].id == this.latest[j].id){
+            this.latest[j].comments = comments[i].comments
+            this.latest[j].popularity = comments[i].popularity
+          }
+        }
+      }
+
     }, function(){
       this.latest = [];
     });
