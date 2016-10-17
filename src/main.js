@@ -8,8 +8,6 @@ import vueResource from 'vue-resource';
 Vue.use(vueResource);
 sync(store, router);
 
-
-// 开启debug模式
 Vue.config.debug = true;
 
 const app = new Vue({
