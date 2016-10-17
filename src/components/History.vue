@@ -62,12 +62,13 @@ export default {
       font-style normal
       display block
       &.m {
-        text-transform uppercase
-        font-size 12px
         top 2px
+        font-size 12px
+        text-transform uppercase
+        letter-spacing 1px
       }
       &.d {
-        font-weight 600
+        margin-top 4px
         font-size 16px
       }
     }

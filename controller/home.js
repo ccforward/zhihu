@@ -11,6 +11,9 @@ var _ = require('lodash')
 var URL = require('url');
 
 var Home = {
+    index: function(req, res){
+        res.render('index');
+    },
     // 获取最新内容
     getLatest: function(req, res){
         // Promise.all([zhAPI.getStartPic(), zhAPI.getLatest()]).then(function(result){

@@ -11,6 +11,8 @@ var LatestSchema = new Schema({
     title: String,
     image: String,
     top: Boolean,
+    comments: Number,
+    popularity: Number,
     dtime: String,
 });
 

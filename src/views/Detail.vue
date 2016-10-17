@@ -1,5 +1,7 @@
 <template>
-  <Articles :article="article"></Articles>
+  <div class="detail">
+    <Articles :article="article"></Articles>
+  </div>
 </template>
 
 <script>

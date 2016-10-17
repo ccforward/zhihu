@@ -20,7 +20,8 @@ var ArticleSchema = new Schema({
     sectionName: String,
     dtime: String,
     dmonth: String,
-    dyear: String
+    dyear: String,
+    latest: Boolean
 });
 
 var ArticleDAO = function(){};

@@ -157,7 +157,7 @@ var Spider = {
                 });
     },
     // 正文
-    article: function(aid, dtime){
+    article: function(aid, dtime, latest){
         return zhAPI.getArticle(aid).then(function(article){
             var section = article.section || {id: null, name: null}
             var data = {
@@ -174,7 +174,8 @@ var Spider = {
                 sectionName: section.name || '',
                 dtime: dtime,
                 dmonth: dtime.substr(0,6),
-                dyear: dtime.substr(0,4)
+                dyear: dtime.substr(0,4),
+                latest: latest ? true : false
             }
             return articleDAO.save(data)
                     .then(function(){
@@ -247,7 +248,7 @@ var Spider = {
         return zhAPI.getCmtcount(aid)
         .then(function(count){
             var data = {
-                aid: aid,
+                aid: count.aid,
                 comments: count.comments || 0,
                 longComments: count.long_comments || 0,
                 shortComments: count.short_comments || 0,
@@ -308,9 +309,13 @@ var Spider = {
 
     // 每日最新内容 latest
     latest: function(){
-        var dtime = new DateCalc().now();
-        latestDAO.delete({dtime: dtime})
+        var dtime = new DateCalc().now(),
+            topID = [];
+            latestID = [];
+        articleDAO.delete({latest: true})
             .then(function(){
+                return latestDAO.delete({dtime: dtime})
+            }).then(function(){
                 return zhAPI.getLatest()
             })
             .then(function(d){
@@ -319,6 +324,7 @@ var Spider = {
                     top = d.top_stories,
                     promiseAll = [];
                 for(var i = 0, len = top.length;i<len;i++){
+                    topID.push(top[i].id);
                     var data = {
                         id: top[i].id,
                         title: top[i].title,
@@ -330,6 +336,7 @@ var Spider = {
                     promiseAll.push(p)
                 }
                 for(var i = 0, len = stories.length;i<len;i++){
+                    latestID.push(stories[i].id);
                     var data = {
                         id: stories[i].id,
                         title: stories[i].title,
@@ -341,6 +348,27 @@ var Spider = {
                     promiseAll.push(p)
                 }
                 return Promise.all(promiseAll);
+            })
+            .then(function(){
+                for(var x = 0, length = topID.length;x<length;x++){
+                    (function(aid){
+                        Spider.article(aid, dtime, true);
+                    })(topID[x])
+                }
+                for(var i = 0, len = latestID.length;i<len;i++){
+                    (function(aid){
+                        Spider.article(aid, dtime, true);
+                        zhAPI.getCmtcount(aid).then(function(count){
+                            var data = {
+                                id: aid,
+                                comments: count.comments || 0,
+                                popularity: count.popularity || 0,
+                                dtime: dtime
+                            }
+                            latestDAO.save(data);
+                        })
+                    })(latestID[i])
+                }
             })
             .catch(function(err){
                 logger.error('get lastest data error: ', err);
