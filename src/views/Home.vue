@@ -1,96 +1,89 @@
 <template>
 <div class="home">
-  <Latest :latest="latest" :top="top"></Latest>
-  
-  <template v-for="item in history">
+  <Latest :data="latest.latest"></Latest>
+
+  <template v-for="item in histories">
     <History :day="item"></History>
   </template>
   
-  <button @click="nextDay">Next Day</button>
+  <button @click="previousDay">Previous Day</button>
 </div>
 </template>
 
 <script>
 import Vue from 'vue';
-import vueResource from 'vue-resource';
 import Latest from '../components/Latest.vue'
 import History from '../components/History.vue'
 import DateCalc from '../../common/util/date';
-Vue.use(vueResource);
+
+const fetchLatest = store => {
+  return store.dispatch('FETCH_LATEST')
+}
+const fetchHistory = (store, dtime) => {
+  return store.dispatch('FETCH_HISTORY', dtime)
+}
 
 export default {
   name: 'home',
   data() {
     return {
-      top: [],
-      latest: [],
-      history: [],
-      date: '20161002'
+      date: '20161002',
+      histories: [],
+      h: []
     };
   },
   components: {
     Latest,
     History
   },
-  created(){
-    this.$http.get('/latest', {}, {
-      headers: {
-        vary: 'pjax'
-      }
-    }).then(function(res){
-      let latest = res.body;
+  preFetch: fetchLatest,
+  computed: {
+    latest(){
+      let data = {
+        top: [],
+        latest:[]
+      };
       let comments = [];
+      let d = this.$store.state.latest
 
-      for(let i=0,len=latest.length;i<len;i++){
-        if(latest[i].title) {
-          latest[i].top  ? this.top.push(latest[i]) : this.latest.push(latest[i])
+      for(let i=0,len=d.length;i<len;i++){
+        if(d[i].title) {
+          d[i].top ? data.top.push(d[i]) : data.latest.push(d[i])
         }else {
-          comments.push(latest[i])
+          comments.push(d[i])
         }
       }
       for(let i=0,len=comments.length;i<len;i++){
-        for(let j=0,length=this.latest.length;j<length;j++){
-          if(comments[i].id == this.latest[j].id){
-            this.latest[j].comments = comments[i].comments
-            this.latest[j].popularity = comments[i].popularity
+        for(let j=0,length=data.latest.length;j<length;j++){
+          if(comments[i].id == data.latest[j].id){
+            data.latest[j].comments = comments[i].comments
+            data.latest[j].popularity = comments[i].popularity
           }
         }
       }
-
-    }, function(){
-      this.latest = [];
-    });
-
-    this.nextDay();
+      return data;
+    },
+    histories() {
+      return this.$store.state.day
+    }
   },
-  beforeRouteLeave (to, from, next) {
-    sessionStorage.setItem('scrollTop', document.body.scrollTop)
-    next()
+  mounted(){
+    this.previousDay();
+  },
+  beforeMount () {
+    fetchLatest(this.$store);
   },
   methods: {
-    nextDay: function(){
+    previousDay: function(){
       this.date = new DateCalc(this.date).before();
-      let dtime = `/day/${this.date}`;
-      this.$http.get(dtime, {}, {
-        headers: {
-          vary: 'pjax'
-        }
-      }).then(function(res){
-        let day = {
-          month: new DateCalc().monthEN(this.date) + this.date.substr(4,2),
-          date: new DateCalc().CHN(this.date),
-          data: res.body
-        }
-        this.history.push(day);
-      }, function(){
-        this.latest = [];
-      });
+      fetchHistory(this.$store, `${this.date}`);
     }
   }
 };
 </script>
 
 <style lang="stylus">
+
 .home {
   li {
     width 100%

@@ -10,7 +10,7 @@ export default new Router({
   scrollBehavior: () => ({ y: 0 }),
   routes:[
     { name: 'home', path: '/', component: Home},
-    { name: 'detail', path: '/detail', component: Detail},
+    { name: 'detail', path: '/detail', component: Detail, meta: { scrollToTop: true }},
     { path: '*', redirect: '/' }
   ]
 })

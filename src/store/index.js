@@ -1,33 +1,28 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import * as api from './api'
+import DateCalc from '../../common/util/date'
 
 Vue.use(Vuex)
+
 
 const store = new Vuex.Store({
   state: {
     latest: [],
+    day: [],
     article: {}
-  },
-  scrollBehavior: (to, from, savedPosition) => {
-    if (savedPosition) {
-      return savedPosition
-    }
-
-    let position = {
-      x: 0,
-      y: 0
-    }
-    if (to.path === '/') {
-      position.y = +sessionStorage.getItem('scrollTop') || 0
-    }
-    return position
   },
   actions: {
     FETCH_LATEST ({ commit, state }) {
       return api.fetchLatest()
         .then(({data}) => {
-          commit('SET_LIST', [ data ])
+          commit('SET_LIST', data)
+        })
+    },
+    FETCH_HISTORY ({ commit, state }, dtime) {
+      return api.fetchHistory(dtime)
+        .then(({data}) => {
+          commit('SET_HISTORY', data)
         })
     },
     FETCH_ARTICLE ({ commit, state }, aid) {
@@ -40,6 +35,14 @@ const store = new Vuex.Store({
   mutations: {
     SET_LIST (state, data) {
       state.latest = data
+    },
+    SET_HISTORY (state, data) {
+      let day = {
+        month: new DateCalc().monthEN(data[0].dtime) + data[0].dtime.substr(4,2),
+        date: new DateCalc().CHN(data[0].dtime),
+        data: data
+      }
+      state.day.push(day)
     },
     SET_ARTICLE (state, data) {
       state.article = data
