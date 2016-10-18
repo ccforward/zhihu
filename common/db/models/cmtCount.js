@@ -7,13 +7,13 @@ var Schema = mongodb.mongoose.Schema;
 var Promise = require('es6-promise').Promise;
 
 var CmtCountSchema = new Schema({
-    aid: String,
+    aid: { type: [String], index: true },
     comments: Number,
     longComments: Number,
     shortComments: Number,
     popularity: Number,
     dtime: String,
-    dmonth: String,
+    dmonth: { type: [String], index: true },
     dyear: String
 });
 

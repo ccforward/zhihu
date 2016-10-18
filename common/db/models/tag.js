@@ -7,7 +7,7 @@ var Schema = mongodb.mongoose.Schema;
 var Promise = require('es6-promise').Promise;
 
 var TagSchema = new Schema({
-    aid    : String,
+    aid    : { type: [String], index: true },
     tags   : [String],
     dtime: String,
     dmonth: String

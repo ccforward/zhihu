@@ -12,7 +12,7 @@ var HistorySchema = new Schema({
     image: String,
     theme: String,
     type: String,
-    dtime: String,
+    dtime: { type: [String], index: true },
     dmonth: String,
     dyear: String
 });
