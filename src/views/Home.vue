@@ -68,7 +68,9 @@ export default {
     }
   },
   mounted(){
-    this.previousDay();
+    if(this.$store.state.day.length == 0){
+      this.previousDay();
+    }
   },
   beforeMount () {
     fetchLatest(this.$store);

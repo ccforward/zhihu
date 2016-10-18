@@ -42,8 +42,7 @@ DateCalc.prototype = {
             m = '12';
             y--;
         }else {
-            console.log(this.monthArr[1].num, this.monthArr[idx-1])
-            m = this.monthArr[idx-1].num;
+            m = this.monthArr[idx-1];
         }
         return y + '' + m;
     },
@@ -55,7 +54,7 @@ DateCalc.prototype = {
             m = '01';
             y++;
         }else {
-            m = this.monthArr[idx+1].num;
+            m = this.monthArr[idx+1];
         }
         return y + '' + m;
     },
