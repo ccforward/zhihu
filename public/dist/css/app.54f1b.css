@@ -5,6 +5,26 @@ li {
   margin: 0;
 }
 body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+#forkme_banner {
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 10px;
+  z-index: 10;
+  padding: 10px 50px 10px 10px;
+  color: #fff;
+  background: url("https://github.com/themes/slate/images/blacktocat.png") #0090ff no-repeat 95% 50%;
+  font-weight: 700;
+  -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+#app {
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
@@ -23,15 +43,41 @@ body {
   -ms-flex-pack: center;
   -webkit-justify-content: center;
   justify-content: center;
-}
-#app {
-  margin-top: 80px;
-  padding: 0 25px;
-  width: 750px;
+  padding-top: 80px;
   color: #2c3e50;
   background-color: #fff;
   font-family: Lucida Grande, Helvetica Neue, Helvetica, Arial, Hiragino Sans GB, Hiragino Sans GB W3, WenQuanYi Micro Hei, Microsoft YaHei UI, Microsoft YaHei, sans-serif;
   font-size: 15px;
+  background-color: #f2f3f5;
+}
+#app .view {
+  padding: 0 25px;
+  width: 750px;
+  background: #fff;
+}
+.global-header {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  height: 60px;
+  background-color: #42b983;
+  z-index: 1000;
+}
+.global-header .wrap {
+  width: 800px;
+  margin: auto;
+  line-height: 60px;
+}
+.global-header img {
+  display: inline-block;
+  width: 126px;
+  height: 42px;
+  vertical-align: middle;
+}
+.global-header .power {
+  float: right;
+  margin: 0;
+  color: #fff;
 }
 a {
   color: #42b983;
@@ -382,4 +428,4 @@ to {
 .article article .content img {
   width: 100%;
 }
-/*# sourceMappingURL=app.f16f6.css.map*/
+/*# sourceMappingURL=app.54f1b.css.map*/

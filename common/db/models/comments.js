@@ -9,7 +9,7 @@ var Schema = mongodb.mongoose.Schema;
 var Promise = require('es6-promise').Promise;
 
 var CommentsSchema = new Schema({
-    aid: { type: [String], index: true },
+    aid: { type: String, index: true },
     comments: Array,
     type: Number,
     dtime: String,
