@@ -428,4 +428,141 @@ to {
 .article article .content img {
   width: 100%;
 }
-/*# sourceMappingURL=app.54f1b.css.map*/
+.home li {
+  width: 100%;
+  padding: 8px 0;
+  overflow: hidden;
+  border-bottom: 1px solid #ccc;
+}
+.home li .title {
+  display: inline-block;
+  margin: 10px 0 0 10px;
+  width: 80%;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.home li img {
+  float: right;
+  margin-right: 10px;
+  width: 70px;
+  height: 70px;
+}
+.home button {
+  position: relative;
+  display: block;
+  margin: 20px auto;
+  height: 100px;
+  width: 100px;
+  border: 0;
+  outline: none;
+  color: #42b983;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+}
+.home button::before,
+.home button::after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 2px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  content: '';
+}
+.home button::before {
+  border-color: #c7c7c7;
+}
+.home button::after {
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 4px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  content: '';
+  left: 0;
+  position: absolute;
+  top: 0;
+  -webkit-animation: MoreLoadingAnimation 2s infinite ease;
+  -moz-animation: MoreLoadingAnimation 2s infinite ease;
+  -o-animation: MoreLoadingAnimation 2s infinite ease;
+  -ms-animation: MoreLoadingAnimation 2s infinite ease;
+  animation: MoreLoadingAnimation 2s infinite ease;
+  border-color: #42b983 rgba(0,0,0,0) rgba(0,0,0,0);
+  -webkit-transform-origin: 50%;
+  -moz-transform-origin: 50%;
+  -o-transform-origin: 50%;
+  -ms-transform-origin: 50%;
+  transform-origin: 50%;
+}
+@-moz-keyframes MoreLoadingAnimation {
+0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
+}
+@-webkit-keyframes MoreLoadingAnimation {
+0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
+}
+@-o-keyframes MoreLoadingAnimation {
+0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
+}
+@keyframes MoreLoadingAnimation {
+0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+}
+to {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+}
+}
+/*# sourceMappingURL=app.3534e.css.map*/
