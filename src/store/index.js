@@ -8,6 +8,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    date:  new DateCalc().now(),
     latest: [],
     day: [],
     oneday: {},
