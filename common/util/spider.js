@@ -76,7 +76,7 @@ var Spider = {
                 var data = {
                     id: d[i].id,
                     title: d[i].title,
-                    image: d[i].images.length ? d[i].images[0] : '',
+                    image: d[i].images ? d[i].images[0] : '',
                     theme: d[i].theme ? d[i].theme.id : 0,
                     type: d[i].type || '0',
                     dtime: hDate,
@@ -91,6 +91,7 @@ var Spider = {
                 logger.info('day history data over @: ' + new DateCalc(date).before());
                 return Promise.resolve('day history data over @: ' + new DateCalc(date).before());
             }).catch(function(err){
+                console.log(err)
                 logger.error('get ' + hDate + ' data error: ', err);
             });
         });
@@ -341,7 +342,7 @@ var Spider = {
                     var data = {
                         id: stories[i].id,
                         title: stories[i].title,
-                        image: stories[i].images.length ? stories[i].images[0] : '',
+                        image: stories[i].images ? stories[i].images[0] : '',
                         top: false,
                         dtime: dtime
                     };

@@ -136,4 +136,17 @@ export default {
     }
   }
 }
+
+@media (max-width: 500px) {
+  .article {
+    .img-wrap {
+      height 250px
+      background-position 100% center
+    }
+    h1 {
+      padding 0 20px
+      font-size 20px
+    }
+  }
+}
 </style>

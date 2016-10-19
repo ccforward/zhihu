@@ -6,7 +6,7 @@
     <History :day="item"></History>
   </template>
   
-  <button @click="previousDay">Previous Day</button>
+  <button @click="previousDay"><span>Previous Day</span></button>
 </div>
 </template>
 
@@ -27,8 +27,7 @@ export default {
   name: 'home',
   data() {
     return {
-      date: new DateCalc().now(),
-      // date: '20161002',
+      loading: false,
       histories: [],
       h: []
     };
@@ -68,18 +67,26 @@ export default {
       return this.$store.state.day
     }
   },
-  mounted(){
-    if(this.$store.state.day.length == 0){
-      this.previousDay();
+  beforeMount () {
+    if(this.$store.state.latest.length == 0){
+      fetchLatest(this.$store);
     }
   },
-  beforeMount () {
-    fetchLatest(this.$store);
+  mounted(){
+    scrollTo(0, sessionStorage.getItem('scrollTop'))
+  },
+  beforeRouteLeave (to, from, next) {
+    if(to.name == 'detail'){
+      // TODO use cache to store articles
+      this.$store.state.article = {}
+    }
+    sessionStorage.setItem('scrollTop', document.body.scrollTop)
+    next()
   },
   methods: {
     previousDay: function(){
-      this.date = new DateCalc(this.date).before();
-      fetchHistory(this.$store, `${this.date}`);
+      this.$store.state.date = new DateCalc(this.$store.state.date).before();
+      fetchHistory(this.$store, this.$store.state.date);
     }
   }
 };
@@ -96,7 +103,8 @@ export default {
     .title {
       display inline-block
       margin 10px 0 0 10px
-      width 80%
+      width auto
+      max-width 80%
       font-size 16px
       line-height 1.5
     }
@@ -157,6 +165,32 @@ export default {
   }
   to{
     transform rotate(360deg)
+  }
+}
+
+@media (max-width: 500px) {
+  .home{
+    li .title {
+      font-size 13px
+    }
+    button {
+    margin 10px auto
+    height 50px
+    width 50px
+    span {
+      display none
+    }
+    &::before,
+    &::after {
+      height 50px
+      width 50px
+      border-width 2px
+    }
+    &::after {
+      border-width 2px
+    }
+  }
+    
   }
 }
 </style>
