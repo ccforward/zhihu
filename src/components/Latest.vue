@@ -2,7 +2,7 @@
   <ul>
     <li v-for="item in data">
         <router-link class="title" :to="{path: 'detail', query:{aid: item.id}}"> {{item.title}} </router-link>
-        <img :src="item.image">
+        <img :src="'http://ccforward.sinaapp.com/api/proxy.php?url='+item.image">
         <p class="sns">
           <i :class="item.popularity>500 && 'hot' ">{{ item.popularity }} stars</i> | 
           <i>{{ item.comments }} comments</i>

@@ -10,6 +10,7 @@ const store = new Vuex.Store({
   state: {
     latest: [],
     day: [],
+    oneday: {},
     article: {}
   },
   actions: {
@@ -25,6 +26,12 @@ const store = new Vuex.Store({
           commit('SET_HISTORY', data)
         })
     },
+    FETCH_ONEDAY ({ commit, state }, dtime) {
+      return api.fetchHistory(dtime)
+        .then(({data}) => {
+          commit('SET_ONEDAY', data)
+        })
+    },
     FETCH_ARTICLE ({ commit, state }, aid) {
       return api.fetchArticle(aid)
         .then(({data}) => {
@@ -37,12 +44,23 @@ const store = new Vuex.Store({
       state.latest = data
     },
     SET_HISTORY (state, data) {
-      let day = {
-        month: new DateCalc().monthEN(data[0].dtime) + data[0].dtime.substr(4,2),
-        date: new DateCalc().CHN(data[0].dtime),
-        data: data
+      if(data.length){
+        let day = {
+          month: new DateCalc().monthEN(data[0].dtime) + data[0].dtime.substr(4,2),
+          date: new DateCalc().CHN(data[0].dtime),
+          data: data
+        }
+        state.day.push(day)
       }
-      state.day.push(day)
+    },
+    SET_ONEDAY (state, data) {
+      if(data.length){
+        state.oneday= {
+          month: new DateCalc().monthEN(data[0].dtime) + data[0].dtime.substr(4,2),
+          date: new DateCalc().CHN(data[0].dtime),
+          data: data
+        }
+      }
     },
     SET_ARTICLE (state, data) {
       state.article = data

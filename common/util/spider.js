@@ -98,8 +98,8 @@ var Spider = {
 
     dayRefresh: function(dtime){
         var query = {dtime: dtime};
-        return tmpDAO.count({dtime: start})
-            .then(function(){
+        return tmpDAO.count({dtime: dtime})
+            .then(function(d){
                 if(d == 0){
                     return Promise.reject('over');
                 }else {
@@ -122,7 +122,8 @@ var Spider = {
                     })
             }).
             catch(function(err){
-                console.log(err)
+                tmpDAO.save({aid: '', dtime: dtime});
+                return Promise.reject(err);
             })
     },
 
@@ -248,7 +249,7 @@ var Spider = {
         return zhAPI.getCmtcount(aid)
         .then(function(count){
             var data = {
-                aid: count.aid,
+                aid: aid,
                 comments: count.comments || 0,
                 longComments: count.long_comments || 0,
                 shortComments: count.short_comments || 0,
@@ -314,7 +315,7 @@ var Spider = {
             latestID = [];
         articleDAO.delete({latest: true})
             .then(function(){
-                return latestDAO.delete({dtime: dtime})
+                return latestDAO.delete()
             }).then(function(){
                 return zhAPI.getLatest()
             })

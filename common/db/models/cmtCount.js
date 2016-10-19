@@ -13,7 +13,7 @@ var CmtCountSchema = new Schema({
     shortComments: Number,
     popularity: Number,
     dtime: String,
-    dmonth: { type: [String], index: true },
+    dmonth: { type: String, index: true },
     dyear: String
 });
 

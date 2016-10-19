@@ -33,7 +33,7 @@ LatestDAO.prototype =  {
     },
     delete: function(query){
         return new Promise(function(resolve, reject){
-            Latest.remove(query, function(err, data){
+            Latest.remove(query || {}, function(err, data){
                 if(err) return reject(err)
                 resolve(data);
             });

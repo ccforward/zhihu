@@ -1,13 +1,13 @@
 <template>
     <section class="history">
-      <div class="date">
+      <div class="date" v-if="day.month">
         <span><i class="m">{{ day.month.substr(0,3) }}</i><i class='d'>{{ day.month.substr(3,2) }}</i></span>
         <small>{{ day.date }}</small>
       </div>
       <ul>
         <li v-for="item in day.data">
           <router-link class="title" :to="{path: 'detail', query:{aid: item.id}}"> {{item.title}} </router-link>
-          <img :src="item.image">
+          <img :src="'http://ccforward.sinaapp.com/api/proxy.php?url='+item.image">
           <p class="sns">
             <i :class="item.popularity>500 && 'hot' ">{{ item.popularity }} stars</i> | 
             <i>{{ item.comments }} comments</i>
