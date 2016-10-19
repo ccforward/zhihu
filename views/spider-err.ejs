@@ -5,23 +5,55 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="renderer" content="webkit" />
 <title>zhihu - errors</title>
+<style>
+h1,h3 {
+    text-align: center;
+}
+table {
+    width: 600px;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+td,th {
+    width: 200px;
+    height: 35px;
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 0;
+}
+th {
+    height: 20px;
+}
+tr:nth-child(2n){
+    background-color: #f9f9f9;
+}
+</style>
 </head>
 
 <body>
 <h1>Spider Error List</h1>
 
 <% if(data.length){%>
-<ul>
+<table>
+<thead>
+    <th>#</th>
+    <th>aid</th>
+    <th>dtime</th>
+    <th>clear</th>
+</thead>
+<tbody>
 <% for (var i=0;i<data.length;i++){ %>
-    <li>
-        aid: <%= data[i].aid  %>
-        dtime: <%= data[i].dtime  %> 
-        <button data-dtime="<%= data[i].dtime  %>">clear</button>
-    </li>
+    <tr>
+        <td><%= i+1  %></td>
+        <td><%= data[i].aid  %></td>
+        <td><%= data[i].dtime  %></td>
+        <td><button data-dtime="<%= data[i].dtime  %>">clear</button></td>
+    </tr>
 <% } %>
-</ul>
+</tbody>
+</table>
 <% }else{ %>
-<h2>All Errors Cleared</h2>
+<h3>All Errors Cleared</h3>
 <% } %>
 
 <script src="http://lib.sinaapp.com/js/zepto/1.0rc/zepto.min.js"></script>
@@ -34,6 +66,7 @@
             dataType: 'json',
             success: function(data){
                 alert(data)
+                location.reload()
             }
         })
     })

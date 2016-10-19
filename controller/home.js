@@ -16,19 +16,12 @@ var Home = {
     },
     // 获取最新内容
     getLatest: function(req, res){
-        // Promise.all([zhAPI.getStartPic(), zhAPI.getLatest()]).then(function(result){
-        //     var pic = result[0];
-        //     var latest = result[1];
-        //     res.render('index', { 'title': 'Daily', 'pic':pic, 'latest':latest.stories});
-        // });
         var latestDAO = new LatestDAO();
         latestDAO.all().then(function(result){
             if(result.length){
                 res.json(result)
             }
         })
-
-
     },
     
     // 文章详情
@@ -46,11 +39,12 @@ var Home = {
                     });
                     result.body = $.root().html();
                 }
-                if(req.headers.vary == 'pjax'){
-                    res.json(result)
-                }else {
-                    res.render('article', {'data': result, 'title': 'Article'});
-                }
+                res.json(result)
+                // if(req.headers.vary == 'pjax'){
+                //     res.json(result)
+                // }else {
+                //     res.render('article', {'data': result, 'title': 'Article'});
+                // }
             });
         }else {
             // res.redirect('/index')
@@ -105,7 +99,6 @@ var Home = {
         }
         cmtCountDAO.search(query).then(function(cmts){
             historyDAO.search(query).then(function(history){
-                // res.render('index', {'title': key+'_知乎搜索', 'list': result});
                 var result = []
                 _.each(history, function(item){
                     _.each(cmts, function(cmt){
@@ -117,8 +110,7 @@ var Home = {
                             result.push(item);
                         }
                     })
-                })
-
+                });
                 res.json(result);
             });
         })

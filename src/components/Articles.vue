@@ -1,6 +1,6 @@
 <template>
   <div class="article">
-    <div class="img-wrap" :style="{'background-image':`url(${article.image})`}">
+    <div class="img-wrap" :style="{'background-image':`url(http://ccforward.sinaapp.com/api/proxy.php?url=+${article.image})`}">
       <h1>{{ article.title }}</h1>
       <span>{{  article.imageSource }}</span>
       <div class="img-mask"></div>
