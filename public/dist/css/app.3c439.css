@@ -15,14 +15,27 @@ body {
   top: 0;
   right: 10px;
   z-index: 10;
-  padding: 10px 50px 10px 10px;
+  padding: 10px 40px 10px 10px;
   color: #fff;
-  background: url("https://github.com/themes/slate/images/blacktocat.png") #0090ff no-repeat 95% 50%;
   font-weight: 700;
   -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5);
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 2px;
+}
+#forkme_banner span {
+  margin-right: 5px;
+}
+#forkme_banner::after {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: url(/dist/img/github.54d9a.png) no-repeat center center;
+  -webkit-background-size: 100% 100%;
+  -moz-background-size: 100% 100%;
+  background-size: 100% 100%;
+  top: 5px;
 }
 #app {
   display: -webkit-box;
@@ -129,13 +142,16 @@ a:hover {
   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
   filter: alpha(opacity=0);
 }
-.home li {
+.history a {
+  display: block;
+}
+.history li {
   width: 100%;
   padding: 8px 0;
   overflow: hidden;
   border-bottom: 1px solid #ccc;
 }
-.home li .title {
+.history li .title {
   display: inline-block;
   margin: 10px 0 0 10px;
   width: auto;
@@ -143,13 +159,13 @@ a:hover {
   font-size: 16px;
   line-height: 1.5;
 }
-.home li img {
+.history li img {
   float: right;
   margin-right: 10px;
   width: 70px;
   height: 70px;
 }
-.home button {
+.btn-previous {
   position: relative;
   display: block;
   margin: 20px auto;
@@ -162,8 +178,8 @@ a:hover {
   background: #fff;
   cursor: pointer;
 }
-.home button::before,
-.home button::after {
+.btn-previous::before,
+.btn-previous::after {
   position: absolute;
   left: 0;
   top: 0;
@@ -177,10 +193,10 @@ a:hover {
   box-sizing: border-box;
   content: '';
 }
-.home button::before {
+.btn-previous::before {
   border-color: #c7c7c7;
 }
-.home button::after {
+.btn-previous::after {
   border-radius: 50%;
   border-style: solid;
   border-width: 4px;
@@ -300,27 +316,30 @@ to {
 .hot[data-v-7ebe8921] {
   color: #f06;
 }
-.history ul[data-v-56b61aea] {
+.history a {
+  text-decoration: none !important;
+}
+.history ul {
   border-top: 1px solid #ccc;
 }
-.history .sns[data-v-56b61aea] {
+.history .sns {
   margin-left: 10px;
   font-size: 13px;
   color: #999;
 }
-.history .sns i[data-v-56b61aea] {
+.history .sns i {
   font-style: normal;
 }
-.history .hot[data-v-56b61aea] {
+.history .hot {
   color: #f06;
 }
-.history .date[data-v-56b61aea] {
+.history .date {
   padding: 12px 0;
   margin: 10px 0;
   margin-left: -59px;
   font-size: 0;
 }
-.history .date span[data-v-56b61aea] {
+.history .date span {
   display: inline-block;
   padding: 2px 0;
   margin-right: 25px;
@@ -330,22 +349,22 @@ to {
   color: #fff;
   text-align: center;
 }
-.history .date i[data-v-56b61aea] {
+.history .date i {
   position: relative;
   font-style: normal;
   display: block;
 }
-.history .date i.m[data-v-56b61aea] {
+.history .date i.m {
   top: 2px;
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
-.history .date i.d[data-v-56b61aea] {
+.history .date i.d {
   margin-top: 4px;
   font-size: 16px;
 }
-.history small[data-v-56b61aea] {
+.history small {
   display: inline-block;
   height: 44px;
   line-height: 44px;
@@ -490,4 +509,4 @@ to {
     font-size: 20px;
 }
 }
-/*# sourceMappingURL=app.c4116.css.map*/
+/*# sourceMappingURL=app.3c439.css.map*/

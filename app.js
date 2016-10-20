@@ -36,7 +36,7 @@ var app = express();
 var CONFIG = require('./config');
 var Job = require('./common/util/task');
 var SpiderMan = require('./common/util/spider');
-Job.fire();
+// Job.fire();
 // SpiderMan.latest();
 // SpiderMan.fire(CONFIG.spider.start, CONFIG.spider.end);
 
