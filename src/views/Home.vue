@@ -6,7 +6,8 @@
     <History :day="item"></History>
   </template>
   
-  <button @click="previousDay"><span>Previous Day</span></button>
+  <!-- <button class="btn-previous" @click="previousDay"><span>Previous Day</span></button> -->
+  <button class="btn-previous"><span>Previous Day</span></button>
 </div>
 </template>
 
@@ -22,6 +23,37 @@ const fetchLatest = store => {
 const fetchHistory = (store, dtime) => {
   return store.dispatch('FETCH_HISTORY', dtime)
 }
+const throttle = function(func, wait, options) {
+  var context, args, result;
+  var timeout = null;
+  var previous = 0;
+  if (!options) options = {};
+  var later = function() {
+    previous = options.leading === false ? 0 : new Date().getTime();
+    timeout = null;
+    result = func.apply(context, args);
+    if (!timeout) context = args = null;
+  };
+  return function() {
+    var now = new Date().getTime();
+    if (!previous && options.leading === false) previous = now;
+    var remaining = wait - (now - previous);
+    context = this;
+    args = arguments;
+    if (remaining <= 0 || remaining > wait) {
+      if (timeout) {
+        clearTimeout(timeout);
+        timeout = null;
+      }
+      previous = now;
+      result = func.apply(context, args);
+      if (!timeout) context = args = null;
+    } else if (!timeout && options.trailing !== false) {
+      timeout = setTimeout(later, remaining);
+    }
+    return result;
+  };
+};
 
 export default {
   name: 'home',
@@ -67,6 +99,13 @@ export default {
       return this.$store.state.day
     }
   },
+  created(){
+    this.scrollEvent = throttle(e => {
+      if (window.innerHeight + document.body.scrollTop + 150 >= document.body.offsetHeight) {
+        this.previousDay()
+      }
+    }, 2000)
+  },
   beforeMount () {
     if(this.$store.state.latest.length == 0){
       fetchLatest(this.$store);
@@ -74,12 +113,14 @@ export default {
   },
   mounted(){
     scrollTo(0, sessionStorage.getItem('scrollTop'))
+    window.addEventListener('scroll',  this.scrollEvent)
   },
   beforeRouteLeave (to, from, next) {
     if(to.name == 'detail'){
       // TODO use cache to store articles
       this.$store.state.article = {}
     }
+    window.removeEventListener('scroll', this.scrollEvent)
     sessionStorage.setItem('scrollTop', document.body.scrollTop)
     next()
   },
@@ -94,7 +135,10 @@ export default {
 
 <style lang="stylus">
 
-.home {
+.history {
+  a {
+    display block
+  }
   li {
     width 100%
     padding 8px 0
@@ -115,47 +159,47 @@ export default {
       height 70px
     }
   }
-  button {
-    position relative
-    display block
-    margin 20px auto
+}
+.btn-previous {
+  position relative
+  display block
+  margin 20px auto
+  height 100px
+  width 100px
+  border 0
+  outline none
+  color #42b983
+  border-radius 50%
+  background #fff
+  cursor pointer
+  &::before,
+  &::after {
+    position absolute
+    left 0
+    top 0
     height 100px
     width 100px
-    border 0
-    outline none
-    color #42b983
     border-radius 50%
-    background #fff
-    cursor pointer
-    &::before,
-    &::after {
-      position absolute
-      left 0
-      top 0
-      height 100px
-      width 100px
-      border-radius 50%
-      border-style solid
-      border-width 2px
-      box-sizing border-box
-      content ''
-    }
-    &::before{
-      border-color #c7c7c7
-    }
-    &::after {
-      border-radius 50%
-      border-style solid
-      border-width 4px
-      box-sizing border-box
-      content ''
-      left 0
-      position absolute
-      top 0
-      animation MoreLoadingAnimation 2s infinite ease
-      border-color #42b983 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0)
-      transform-origin 50%
-    }
+    border-style solid
+    border-width 2px
+    box-sizing border-box
+    content ''
+  }
+  &::before{
+    border-color #c7c7c7
+  }
+  &::after {
+    border-radius 50%
+    border-style solid
+    border-width 4px
+    box-sizing border-box
+    content ''
+    left 0
+    position absolute
+    top 0
+    animation MoreLoadingAnimation 2s infinite ease
+    border-color #42b983 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0)
+    transform-origin 50%
   }
 }
 

@@ -1,5 +1,5 @@
 <template>
-<div class="home">
+<section class="date-container">
     <History :day="oneDay"></History>
 </div>
 </template>
