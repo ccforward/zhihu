@@ -58,8 +58,6 @@ module.exports = {
             name: 'vendor', 
             filename: 'vendor.js'
         }),
-        new ExtractTextPlugin("[name].css"),
-        new webpack.HotModuleReplacementPlugin(),
         new webpack.optimize.DedupePlugin(),
         new webpack.optimize.UglifyJsPlugin({
             compress: {
@@ -69,6 +67,8 @@ module.exports = {
                 comments: false
             },
             except: ['$super', '$', 'exports', 'require']
-        })
+        }),
+        new ExtractTextPlugin("[name].css"),
+        new webpack.HotModuleReplacementPlugin(),
     ]
 };
