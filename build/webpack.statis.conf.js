@@ -7,7 +7,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
     cache: true,
     entry: {
-        app: ['webpack/hot/dev-server', path.join(__dirname, '../src/statis.js')],
+        app: ['webpack/hot/dev-server', path.join(__dirname, '../src/statis-month.js')],
     },
     output: {
         path: path.join(__dirname, '../public/statis'),

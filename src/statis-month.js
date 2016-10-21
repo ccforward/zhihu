@@ -11,9 +11,9 @@ import 'echarts/lib/component/legend';
 import './statis/base.styl';
 import './statis/month.styl';
 
-
-const statisTop = echarts.init(document.getElementById('star-comment'));        
-const statisSum = echarts.init(document.getElementById('star-comment-sum'));
+const MonthData = document.querySelector('#dmonth').innerHTML;
+const statisTop = echarts.init(document.querySelector('#star-comment'));        
+const statisSum = echarts.init(document.querySelector('#star-comment-sum'));
 
 let starData = {}, cmtData = {};
 
@@ -174,7 +174,7 @@ const fetchArticles = (aids, type) => {
 }
 
 
-fetch('/api-statis/month/201609')
+fetch(`/api-statis/month/${MonthData}`)
     .then(function(response){
         return response.json()
     })
@@ -189,12 +189,12 @@ fetch('/api-statis/month/201609')
             }
             fetchArticles(starData.aids, 'star');
             fetchArticles(cmtData.aids, 'comment');
-            paint(json, '201609'); 
+            paint(json, MonthData); 
         }else {
-            paint([], '201609');
+            paint([], MonthData);
         }
     })
     .catch(function(err){
-        paint([], '201609');
+        paint([], MonthData);
     })
 

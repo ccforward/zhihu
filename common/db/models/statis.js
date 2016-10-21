@@ -32,7 +32,13 @@ StatisDAO.prototype =  {
             });
         });
     },
-
+    count: function(query){
+        return new Promise(function(resolve, reject){
+            Statis.count(query, function(err, d){
+                return resolve(d)
+            })
+        });
+    },
     search: function(query){
         return new Promise(function(resolve, reject){
             Statis.find(query, function(err, data){
