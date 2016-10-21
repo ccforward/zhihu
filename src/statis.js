@@ -4,7 +4,6 @@ import 'echarts/lib/chart/bar';
 import 'echarts/lib/chart/line';
 import 'echarts/lib/chart/pie';
 // 引入组件
-import 'echarts/lib/component/toolbox';
 import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
@@ -23,13 +22,6 @@ const paint = (data, dmonth) => {
         title: { text: dmonth+' 点赞、评论 TOP 10' },
         tooltip: {
             trigger: 'axis'
-        },
-        toolbox: {
-            feature: {
-                magicType: {show: true, type: ['line', 'bar']},
-                restore: {show: true},
-                saveAsImage: {show: true}
-            }
         },
         legend: {
             data:['点赞数','评论数'],
