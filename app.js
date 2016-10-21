@@ -12,9 +12,7 @@ var routes = require('./routes/index');
 var app = express();
 
 // webpack
-// var webpackConfig = process.env.NODE_ENV === 'testing'
-//   ? require('./build/webpack.prod.conf')
-//   : require('./build/webpack.dev.conf')
+// var webpackConfig = require('./build/webpack.dev.conf');
 // var webpack = require('webpack');
 // var webpackDevMiddleware = require('webpack-dev-middleware');
 // var compiler = webpack(webpackConfig);
@@ -40,8 +38,8 @@ var SpiderMan = require('./common/util/spider');
 // SpiderMan.latest();
 // SpiderMan.fire(CONFIG.spider.start, CONFIG.spider.end);
 
-// var tag = require('./common/util/tag');
-// tag.saveTags(8765676);
+var statistic = require('./statistic')
+// statistic.start('201609', '201608')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

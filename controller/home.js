@@ -1,6 +1,4 @@
-var request = require('request');
 var Promise = require('es6-promise').Promise;
-var zhAPI = require('./../common/api/index-promise');
 var HistoryDAO = require('../common/db/models/history');
 var ArticleDAO = require('../common/db/models/article');
 var CmtCountDAO = require('../common/db/models/cmtCount');
@@ -40,14 +38,9 @@ var Home = {
                     result.body = $.root().html();
                 }
                 res.json(result)
-                // if(req.headers.vary == 'pjax'){
-                //     res.json(result)
-                // }else {
-                //     res.render('article', {'data': result, 'title': 'Article'});
-                // }
             });
         }else {
-            // res.redirect('/index')
+            res.json([])
         }
     },
 
@@ -79,7 +72,7 @@ var Home = {
         }
     },
 
-    // 按日期查询
+    // 按日期查询 history
     searchDate: function(req, res){
         var historyDAO = new HistoryDAO();
         var cmtCountDAO = new CmtCountDAO();
@@ -89,13 +82,6 @@ var Home = {
         if(param.day) {
             query = {dtime: param.day};
             title = param.day;
-        }else if(param.month){
-            title = param.month.substr(0,6);
-            query = {dmonth: title}
-
-        }else if(param.year){
-            title = param.year.substr(0,4);
-            query = {dyear: title}
         }
         cmtCountDAO.search(query).then(function(cmts){
             historyDAO.search(query).then(function(history){

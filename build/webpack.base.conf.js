@@ -4,7 +4,6 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var utils = require('./utils');
 var config = require('../config/index.js')
-var HelloWorldPlugin = require('./t')
 var projectRoot = path.resolve(__dirname, '../');
 
 
@@ -54,7 +53,7 @@ module.exports = {
                 loader: 'url',
                 query: {
                     limit: 1,
-                    name: utils.assetsPath('img/[name].[hash:5].[ext]')
+                    name: utils.assetsPath('img/[name].[ext]')
                 }
             },
             {

@@ -49,34 +49,7 @@ body {
   width 750px
   background #fff
 }
-@media (max-width: 500px) {
-  #forkme_banner {
-    width 30px
-    height 30px
-    padding 5px
-    background-position center center
-    right 0
-    span {
-      display none
-    }
-  }
-  .global-header .wrap {
-    width 100%
-    .power {
-      margin-right 40px
-    }
-  }
-  #app {
-    padding-top 60px
-  }
-  .view {
-    padding 0 5px
-    width 100%
-    &.detail {
-      padding 0 10px
-    }
-  }
-}
+
 
 .global-header {
   width 100%
@@ -116,4 +89,44 @@ a {
 }
 .fade-enter, .fade-leave-active {
   opacity 0
+}
+
+
+@media (max-width: 500px) {
+  #forkme_banner {
+    width 30px
+    height 30px
+    padding 5px
+    background-position center center
+    right 0
+    span {
+      display none
+    }
+  }
+  .global-header {
+    height 40px
+    .wrap {
+      width 100%
+      line-height 40px
+      margin-left 10px
+      img {
+        width 63px
+        height 21px
+      }
+      .power {
+        display none
+      }
+    }
+  }
+  #app {
+    padding-top 40px
+  }
+  .view {
+    padding 0 5px
+    width 100%
+    overflow hidden
+    &.detail {
+      padding 0 10px
+    }
+  }
 }

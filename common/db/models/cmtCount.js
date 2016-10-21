@@ -7,13 +7,13 @@ var Schema = mongodb.mongoose.Schema;
 var Promise = require('es6-promise').Promise;
 
 var CmtCountSchema = new Schema({
-    aid: { type: String, index: true },
+    aid: { type: String, index: true }, // 索引-单篇文章用
     comments: Number,
     longComments: Number,
     shortComments: Number,
     popularity: Number,
-    dtime: String,
-    dmonth: { type: String, index: true },
+    dtime: { type: String, index: true }, // 索引-历史记录用
+    dmonth: { type: String, index: true }, // 索引-统计用
     dyear: String
 });
 
