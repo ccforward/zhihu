@@ -2,18 +2,18 @@ var express = require('express');
 var router = express.Router();
 
 var home = require('./../controller/home');
-var ana = require('./../controller/ana');
+var statis = require('./../controller/statis');
 var spiderErr = require('./../controller/spiderErr');
 
 
-// 每日的latest数据
 router.get('/', home.index);
+
+// 每日的latest数据
 router.get('/latest', home.getLatest);
 
 // 按日期查询
 router.get('/day/:day', home.searchDate);
 router.get('/month/:month', home.searchDate);
-// router.get('/y/:year', home.searchDate);
 
 // 文章detail
 router.get('/article/:aid', home.getArticle);
@@ -27,8 +27,12 @@ router.get('/article/:aid/comment/short', home.getCmtShort);
 router.get('/spider-error', spiderErr.list);
 router.post('/clear-error/:dtime', spiderErr.clear);
 
-
-router.get('/analysis', ana.index);
+// 统计
+router.get('/statistics', statis.index);
+router.get('/statistics/month/:dmonth', statis.statisMonth);
+// 统计api
+router.get('/api-statis/month/:dmonth', statis.searchDate);
+router.get('/api-statis/articles/:aids', statis.searchArticles);
 
 
 

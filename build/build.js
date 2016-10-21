@@ -6,7 +6,7 @@ var path = require('path')
 var config = require('../config/index.js')
 var ora = require('ora')
 var webpack = require('webpack')
-var webpackConfig = require('./webpack.prod.conf')
+var webpackConfig = process.argv[2] == 'statis' ? require('./webpack.statis.conf') : require('./webpack.prod.conf')
 
 
 console.log(

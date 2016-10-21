@@ -7,7 +7,7 @@ var Schema = mongodb.mongoose.Schema;
 var Promise = require('es6-promise').Promise;
 
 var HistorySchema = new Schema({
-    id: String,
+    id: { type: String, index: true },
     title: String,
     image: String,
     theme: String,

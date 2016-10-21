@@ -1,0 +1,27 @@
+<%- include("./common/header.ejs") %>
+<link rel="stylesheet" href="/statis/app.css">
+
+<h1><%= month %> 知乎日报最热文章统计</h1>
+<div class="app">
+    <div class="chart-container">
+        <div class="statis-chart" id="star-comment"></div>
+        <div class="statis-chart sum" id="star-comment-sum"></div>
+    </div>
+
+    <div class="article-container">
+        <div>
+            <p>点赞 TOP 10</p>
+            <ol class="star-top"></ol>
+        </div>
+
+        <div>
+            <p>评论 TOP 10</p>
+            <ol class="comment-top"></ol>
+        </div>
+    </div>
+</div>
+
+
+<script src="/statis/vendor.js"></script>
+<script src="/statis/app.bundle.js"></script>
+<%- include("./common/footer.ejs") %>
