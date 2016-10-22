@@ -8,13 +8,18 @@ var cheerio = require('cheerio')
 var _ = require('lodash')
 var URL = require('url');
 
+
+var cmtCountDAO = new CmtCountDAO();
+var latestDAO = new LatestDAO();
+var articleDAO = new ArticleDAO();
+var commentsDAO = new CommentsDAO();
+
 var Home = {
     index: function(req, res){
         res.render('index');
     },
     // 获取最新内容
     getLatest: function(req, res){
-        var latestDAO = new LatestDAO();
         latestDAO.all().then(function(result){
             if(result.length){
                 res.json(result)
@@ -26,7 +31,6 @@ var Home = {
     getArticle: function(req, res){
         var aid = req.params.aid;
         if(aid) {
-            var articleDAO = new ArticleDAO();
             articleDAO.search({id: aid}).then(function(data){
                 if(data.length){
                     var result = data[0]
@@ -47,35 +51,45 @@ var Home = {
     getCmtCount: function(req, res){
         var aid = req.params.aid;
         if(aid) {
-            var cmtCountDAO = new CmtCountDAO();
             cmtCountDAO.search({aid:aid}).then(function(result){
                 res.json(result.length ? result[0]: {});
             });
         }
     },
+    getComments: function(req, res){
+        var aid = req.params.aid;
+        if(aid) {
+            commentsDAO.search({aid:aid}).then(function(result){
+                res.json(result);
+            });
+        }else {
+            res.json([]);
+        }
+    },
     getCmtLong: function(req, res){
         var aid = req.params.aid;
         if(aid) {
-            var commentsDAO = new CommentsDAO();
             commentsDAO.search({aid:aid, type: 1}).then(function(result){
                 res.json(result);
             });
+        }else {
+            res.json([]);
         }
     },
     getCmtShort: function(req, res){
         var aid = req.params.aid;
         if(aid) {
-            var commentsDAO = new CommentsDAO();
             commentsDAO.search({aid:aid, type: 0}).then(function(result){
                 res.json(result);
             });
+        }else {
+            res.json([]);
         }
     },
 
     // 按日期查询 history
     searchDate: function(req, res){
         var historyDAO = new HistoryDAO();
-        var cmtCountDAO = new CmtCountDAO();
         var param = req.params,
             query = {},
             title = '';

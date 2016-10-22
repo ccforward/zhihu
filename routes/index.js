@@ -19,9 +19,10 @@ router.get('/month/:month', home.searchDate);
 router.get('/article/:aid', home.getArticle);
 
 // 评论
-router.get('/article/:aid/comment/count', home.getCmtCount);
-router.get('/article/:aid/comment/long', home.getCmtLong);
-router.get('/article/:aid/comment/short', home.getCmtShort);
+router.get('/article/:aid/comments/count', home.getCmtCount);
+router.get('/article/:aid/comments', home.getComments);
+router.get('/article/:aid/comments/long', home.getCmtLong);
+router.get('/article/:aid/comments/short', home.getCmtShort);
 
 // 手动处理爬虫错误
 router.get('/spider-error', spiderErr.list);

@@ -28,6 +28,14 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
+                test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+                loader: 'url',
+                query: {
+                    limit: 1,
+                    name: '[name].[ext]'
+                }
+            },
+            {
                 test: /\.css$/,
                 loader: "style-loader!css-loader"
             },

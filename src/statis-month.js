@@ -11,6 +11,7 @@ import 'echarts/lib/component/legend';
 import './statis/base.styl';
 import './statis/month.styl';
 
+const $Loading = document.querySelector('.loading');
 const MonthData = document.querySelector('#dmonth').innerHTML;
 const statisTop = echarts.init(document.querySelector('#star-comment'));        
 const statisSum = echarts.init(document.querySelector('#star-comment-sum'));
@@ -187,6 +188,10 @@ fetch(`/api-statis/month/${MonthData}`)
                 starData = json[1];
                 cmtData = json[0];
             }
+            $Loading.classList.add('hide');
+            document.querySelector('#sum-s').innerHTML = starData.sum;
+            document.querySelector('#sum-c').innerHTML = cmtData.sum;
+            // 填充总数
             fetchArticles(starData.aids, 'star');
             fetchArticles(cmtData.aids, 'comment');
             paint(json, MonthData); 

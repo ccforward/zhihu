@@ -6,8 +6,7 @@
     <History :day="item"></History>
   </template>
   
-  <!-- <button class="btn-previous" @click="previousDay"><span>Previous Day</span></button> -->
-  <button class="btn-previous"><span>Previous Day</span></button>
+  <i class="loading"><span>Previous Day</span></i>
 </div>
 </template>
 
@@ -158,48 +157,6 @@ export default {
       width 70px
       height 70px
     }
-  }
-}
-.btn-previous {
-  position relative
-  display block
-  margin 20px auto
-  height 100px
-  width 100px
-  border 0
-  outline none
-  color #42b983
-  border-radius 50%
-  background #fff
-  cursor pointer
-  &::before,
-  &::after {
-    position absolute
-    left 0
-    top 0
-    height 100px
-    width 100px
-    border-radius 50%
-    border-style solid
-    border-width 2px
-    box-sizing border-box
-    content ''
-  }
-  &::before{
-    border-color #c7c7c7
-  }
-  &::after {
-    border-radius 50%
-    border-style solid
-    border-width 4px
-    box-sizing border-box
-    content ''
-    left 0
-    position absolute
-    top 0
-    animation MoreLoadingAnimation 2s infinite ease
-    border-color #42b983 rgba(0, 0, 0, 0) rgba(0, 0, 0, 0)
-    transform-origin 50%
   }
 }
 

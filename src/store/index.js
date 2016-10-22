@@ -12,7 +12,8 @@ const store = new Vuex.Store({
     latest: [],
     day: [],
     oneday: {},
-    article: {}
+    article: {},
+    comments: []
   },
   actions: {
     FETCH_LATEST ({ commit, state }) {
@@ -39,6 +40,12 @@ const store = new Vuex.Store({
           commit('SET_ARTICLE', data)
         })
     },
+    FETCH_COMMENTS ({ commit, state }, aid) {
+      return api.fetchComments(aid)
+        .then(({data}) => {
+          commit('SET_COMMENTS', data)
+        })
+    }
   },
   mutations: {
     SET_LIST (state, data) {
@@ -65,6 +72,9 @@ const store = new Vuex.Store({
     },
     SET_ARTICLE (state, data) {
       state.article = data
+    },
+    SET_COMMENTS (state, data) {
+      state.comments = data
     }
   }
 })

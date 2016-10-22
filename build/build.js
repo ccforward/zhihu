@@ -6,7 +6,8 @@ var path = require('path')
 var config = require('../config/index.js')
 var ora = require('ora')
 var webpack = require('webpack')
-var webpackConfig = process.argv[2] == 'statis' ? require('./webpack.statis.conf') : require('./webpack.prod.conf')
+var isStatis = !!(process.argv[2] == 'statis');
+var webpackConfig = isStatis ? require('./webpack.statis.conf') : require('./webpack.prod.conf')
 
 
 console.log(
@@ -19,9 +20,11 @@ var spinner = ora('building for production...')
 spinner.start()
 
 var assetsPath = path.join(config.build.assetsRoot, config.build.assetsSubDirectory)
-rm('-rf', assetsPath)
-mkdir('-p', assetsPath)
-cp('-R', 'static/', assetsPath)
+if(!isStatis){
+  rm('-rf', assetsPath)
+  mkdir('-p', assetsPath)
+  cp('-R', 'static/', assetsPath)
+}
 
 webpack(webpackConfig, function (err, stats) {
   spinner.stop()

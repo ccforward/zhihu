@@ -39,22 +39,25 @@ CommentsDAO.prototype =  {
             });
         });
     },
-    search: function(cmt){
+    search: function(query){
         return new Promise(function(resolve, reject){
-            Comments.findOne({aid: cmt.aid, type: cmt.type}, function(err, data){
+            Comments.find(query, function(err, data){
                 if(err) return reject(err)
-                var d = {};
-                if(data){
-                    d = {
-                        aid: data.aid,
-                        comments: data.comments,
-                        type: data.type,
-                        dtime: data.dtime,
-                        dmonth: data.dmonth,
-                        dyear: data.year
+                var result = [];
+                if(data.length){
+                    for(var i=0,len=data.length;i<len;i++){
+                        var d = {
+                            aid: data[i].aid,
+                            comments: data[i].comments,
+                            type: data[i].type,
+                            // dtime: data[i].dtime,
+                            // dmonth: data[i].dmonth,
+                            // dyear: data[i].year
+                        }
+                        result.push(d)
                     }
                 }
-                resolve(d);
+                resolve(result);
             });
         });
     }
