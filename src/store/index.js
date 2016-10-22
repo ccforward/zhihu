@@ -45,6 +45,12 @@ const store = new Vuex.Store({
         .then(({data}) => {
           commit('SET_COMMENTS', data)
         })
+    },
+    FETCH_APICOMMENTS ({ commit, state }, aid) {
+      return api.fetchAPIComments(aid)
+        .then(({data}) => {
+          commit('SET_APICOMMENTS', data)
+        })
     }
   },
   mutations: {
@@ -74,6 +80,9 @@ const store = new Vuex.Store({
       state.article = data
     },
     SET_COMMENTS (state, data) {
+      state.comments = data
+    },
+    SET_APICOMMENTS (state, data) {
       state.comments = data
     }
   }

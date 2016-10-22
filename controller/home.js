@@ -4,6 +4,7 @@ var ArticleDAO = require('../common/db/models/article');
 var CmtCountDAO = require('../common/db/models/cmtCount');
 var CommentsDAO = require('../common/db/models/comments');
 var LatestDAO = require('../common/db/models/latest');
+var zhAPI = require('../common/api/index-promise');
 var cheerio = require('cheerio')
 var _ = require('lodash')
 var URL = require('url');
@@ -54,6 +55,27 @@ var Home = {
             cmtCountDAO.search({aid:aid}).then(function(result){
                 res.json(result.length ? result[0]: {});
             });
+        }
+    },
+    
+    getAPIComments: function(req, res){
+        var aid = req.params.aid,
+            apiData = [];
+        if(aid) {
+            zhAPI.getCmtLong(aid)
+                .then(function(d){
+                    apiData.push(d)
+                    return zhAPI.getCmtshort(aid)
+                })
+                .then(function(d){
+                    apiData.push(d)
+                    res.json(apiData);
+                })
+                .catch(function(){
+                    res.json([]);
+                });
+        }else {
+            res.json([]);
         }
     },
     getComments: function(req, res){

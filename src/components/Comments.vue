@@ -9,6 +9,9 @@
         <p class="cmt">
           {{ item.content }}
         </p>
+        <div v-if="item.reply_to" class="reply">
+          <span>//{{item.reply_to.author}} : </span>{{ item.reply_to.content }}
+        </div>
         <span class="date">{{ item.time | date }}</span>
       </div>
     </section>
@@ -78,6 +81,16 @@ export default {
     float right
     font-size 12px
     color #bbb
+  }
+  .reply {
+    font-size 13px
+    color #999
+    margin-bottom 5px
+    margin-left 10px
+    span {
+      font-weight bold
+      color #333
+    }
   }
 }
 </style>

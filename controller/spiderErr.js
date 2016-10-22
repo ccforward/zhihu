@@ -1,4 +1,3 @@
-var request = require('request');
 var Promise = require('es6-promise').Promise;
 var Spider = require('../common/util/spider');
 var TmpDAO = require('../common/db/models/tmp');
