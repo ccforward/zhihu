@@ -15,3 +15,7 @@ export const fetchArticle = aid => {
 export const fetchComments = aid => {
   return Vue.http.get(`/article/${aid}/comments`)
 }
+
+export const fetchAPIComments = aid => {
+  return Vue.http.get(`/article/${aid}/comments/api`)
+}

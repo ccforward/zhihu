@@ -1,9 +1,14 @@
 <template>
   <div class="detail">
     <Articles :article="article"></Articles>
-    <button @click="getComments">查看最新点评<i class="icon comments"></i></button>
+    <button @click="getComments">
+      <i class="icon comments"></i>
+      <span v-if="comments.length==0">点击查看最新点评</span>
+      <span v-else>最新点评</span>
+    </button>
     <i v-show="showLoading" class="loading"></i>
     <Comments :comments="comments"></Comments>
+    <router-link :to="{path: '/'}">返回首页</router-link>
   </div>
 </template>
 
@@ -18,6 +23,9 @@ const fetchArticle = store => {
 
 const fetchComments = store => {
   return store.dispatch('FETCH_COMMENTS', store.state.route.query.aid)
+}
+const fetchAPIComments = store => {
+  return store.dispatch('FETCH_APICOMMENTS', store.state.route.query.aid)
 }
 
 
@@ -38,10 +46,15 @@ export default {
     },
     comments () {
       let cmts = [];
+      // 长评在前
+      this.$store.state.comments.sort((a,b) => {
+        return a.type < b.type
+      })
       for(let item of this.$store.state.comments){
-        cmts.push(...item.comments)
+        cmts.push(...item.comments);
       }
       this.showLoading = false;
+      document.body.scrollTop = document.body.scrollTop+100
       return cmts
     }
   },
@@ -52,16 +65,26 @@ export default {
   mounted(){
     scrollTo(0, 0)
   },
+  beforeRouteLeave (to, from, next) {
+    // TODO use cache to store articles
+    this.$store.state.comments.length = 0;
+    next()
+  },
   methods: {
     getComments(){
-      let _self = this
-      this.showLoading = true;
-      setTimeout(function(){
-        fetchComments(_self.$store);
-      }, 1200)
-      Vue.nextTick(function () {
-        alert(234)
-      })
+      if(this.comments.length == 0){
+        let _self = this;
+        this.showLoading = true;
+        console.log(this.$store.state.route)
+        if(this.$store.state.route.name == 'top-detail'){
+          fetchAPIComments(_self.$store);
+        }else {
+          setTimeout(function(){
+            fetchComments(_self.$store);
+          }, 1000)
+        }
+
+      }
     }
   }
 };
@@ -76,7 +99,7 @@ export default {
     outline none
     cursor pointer
     i {
-      margin-left 5px
+      margin-right 10px
     }
   }
 </style>

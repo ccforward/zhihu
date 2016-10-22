@@ -21,6 +21,8 @@ router.get('/article/:aid', home.getArticle);
 // 评论
 router.get('/article/:aid/comments/count', home.getCmtCount);
 router.get('/article/:aid/comments', home.getComments);
+// 直接从知乎官方API获取数据
+router.get('/article/:aid/comments/api', home.getAPIComments);
 router.get('/article/:aid/comments/long', home.getCmtLong);
 router.get('/article/:aid/comments/short', home.getCmtShort);
 
