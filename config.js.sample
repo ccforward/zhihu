@@ -27,8 +27,8 @@ module.exports = {
         openBae: false
     },
     spider: {
-        start: '20160908',
-        end: '20160901',
+        start: '20151231',
+        end: '20151001',
         interval: 20,
         errHistory: 1,
         errArticle: 2,

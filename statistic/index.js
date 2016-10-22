@@ -11,9 +11,12 @@ var cmtCountDAO = new CmtCountDAO(),
 
 module.exports = {
     start: function(start, end){
-        this.run(start)
+        // this.month(start)
+        for(var i=0,len=start.length;i<len;i++){
+            this.month(start[i])
+        }
     },
-    run: function(dmonth){
+    month: function(dmonth){
         statisDAO.count({dmonth: dmonth})
         .then(function(d){
             if(d == 0){
@@ -45,7 +48,6 @@ module.exports = {
                             aidsCmt.push(sortComment[c].aid)
                         }
 
-
                         statisDAO.save({
                             type   : 'star',
                             sum    : starsSum,
@@ -73,5 +75,5 @@ module.exports = {
                 console.log(dmonth + ' has statistic data ')
             }
         })
-    }
+    },
 }
