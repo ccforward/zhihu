@@ -1,11 +1,14 @@
+@import './variable.styl'
 .app {
   width 1300px
   margin 0 auto 
 }
 h1 {
+  position relative
   text-align center
   margin 20px 0 50px 0
   color #5c5c5c
+  z-index 101
 }
 .chart-container {
   float left
@@ -18,14 +21,27 @@ h1 {
   div {
     margin-bottom 20px
   }
-  p {
+  .sum-title {
+    margin-bottom 10px
+    font-size 14px
+    strong {
+      font-size 18px
+    }
+    .s {
+      color $starColor
+    }
+    .c {
+      color $commentColor
+    }
+  }
+  .top-title {
     border-bottom 1px solid #ccc
     padding-bottom 5px
     margin-bottom 5px
   }
   .comment-top {
     i {
-      color #f60
+      color $commentColor
     }
   }
   li {
@@ -33,7 +49,7 @@ h1 {
     max-width 600px
     i {
       font-style normal
-      color #4285f4
+      color $starColor
     }
   }
 }

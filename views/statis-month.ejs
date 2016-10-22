@@ -1,5 +1,5 @@
 <%- include("./common/header.ejs") %>
-<link rel="stylesheet" href="http://localhost:8080/statis/app.css">
+<link rel="stylesheet" href="/statis/app.css">
 
 <h1><span id="dmonth"><%= month %></span> 知乎日报最热文章统计</h1>
 <div class="app">
@@ -9,19 +9,24 @@
     </div>
 
     <div class="article-container">
+        <p class="sum-title">
+            点赞总数 <strong id="sum-s" class="s">...</strong>  
+            评论总数 <strong id="sum-c" class="c">...</strong>  
+        </p>
         <div>
-            <p>点赞 TOP 10</p>
+            <p class="top-title">点赞 TOP 10</p>
             <ol class="star-top"></ol>
         </div>
 
         <div>
-            <p>评论 TOP 10</p>
+            <p class="top-title">评论 TOP 10</p>
             <ol class="comment-top"></ol>
         </div>
     </div>
 </div>
 
+<div class="loading"></div>
 
-<script src="http://localhost:8080/statis/vendor.js"></script>
-<script src="http://localhost:8080/statis/app.bundle.js"></script>
+<script src="/statis/vendor.js"></script>
+<script src="/statis/app.bundle.js"></script>
 <%- include("./common/footer.ejs") %>

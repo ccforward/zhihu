@@ -21,7 +21,7 @@ export default {
 <style lang="stylus">
 .article {
   padding-top 20px
-  margin-bottom 50px
+  margin-bottom 30px
   .headline {
     border-bottom 4px solid #f6f6f6
     .headline-background-link {
