@@ -12,21 +12,21 @@ var routes = require('./routes/index');
 var app = express();
 
 // webpack
-var webpackConfig = require('./build/webpack.dev.conf');
-var webpack = require('webpack');
-var webpackDevMiddleware = require('webpack-dev-middleware');
-var compiler = webpack(webpackConfig);
-var devMiddleware = webpackDevMiddleware(compiler, {
-    publicPath: webpackConfig.output.publicPath,
-    stats: {
-        colors: true,
-        chunks: true,
-        progress: true 
-    }
-});
-var hotMiddleware = require('webpack-hot-middleware')(compiler);
-app.use(devMiddleware);
-app.use(hotMiddleware);
+// var webpackConfig = require('./build/webpack.dev.conf');
+// var webpack = require('webpack');
+// var webpackDevMiddleware = require('webpack-dev-middleware');
+// var compiler = webpack(webpackConfig);
+// var devMiddleware = webpackDevMiddleware(compiler, {
+//     publicPath: webpackConfig.output.publicPath,
+//     stats: {
+//         colors: true,
+//         chunks: true,
+//         progress: true 
+//     }
+// });
+// var hotMiddleware = require('webpack-hot-middleware')(compiler);
+// app.use(devMiddleware);
+// app.use(hotMiddleware);
 
 
 
@@ -39,7 +39,7 @@ var SpiderMan = require('./common/util/spider');
 // SpiderMan.fire(CONFIG.spider.start, CONFIG.spider.end);
 
 var statistic = require('./statistic')
-// statistic.start('201609')
+// statistic.start(['201510','201511','201512'])
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
