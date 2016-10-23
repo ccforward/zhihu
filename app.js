@@ -38,8 +38,8 @@ var SpiderMan = require('./common/util/spider');
 // SpiderMan.latest();
 // SpiderMan.fire(CONFIG.spider.start, CONFIG.spider.end);
 
-var statistic = require('./statistic')
-// statistic.start(['201510','201511','201512'])
+// var statistic = require('./statistic')
+// statistic.start(['201509'])
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

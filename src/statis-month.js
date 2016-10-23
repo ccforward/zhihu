@@ -8,17 +8,23 @@ import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 
+import DateCalc from '../common/util/date'
+
 import './statis/base.styl';
 import './statis/month.styl';
 
 const $Loading = document.querySelector('.loading');
+const $prev = document.querySelector('.l-prev');
+const $next = document.querySelector('.l-next');
 const MonthData = document.querySelector('#dmonth').innerHTML;
-const statisTop = echarts.init(document.querySelector('#star-comment'));        
-const statisSum = echarts.init(document.querySelector('#star-comment-sum'));
 
 let starData = {}, cmtData = {};
 
-const paint = (data, dmonth) => {
+const date = new DateCalc(`${MonthData}01`);
+
+const renderCharts = (data, dmonth) => {
+    const statisTop = echarts.init(document.querySelector('#star-comment'));        
+    const statisSum = echarts.init(document.querySelector('#star-comment-sum'));
     statisTop.setOption({
         title: { text: dmonth+' 点赞、评论 TOP 10' },
         tooltip: {
@@ -141,7 +147,12 @@ const paint = (data, dmonth) => {
     })
 }
 
+
 const renderArticles = (articles, type) => {
+    $prev.setAttribute('href',`/statistics/month/${date.beforeMonth()}`)
+    $prev.innerHTML = `前往 ${date.beforeMonth()} 数据统计`
+    $next.setAttribute('href',`/statistics/month/${date.afterMonth()}`)
+    $next.innerHTML = `前往 ${date.afterMonth()} 数据统计`
     let statisData = starData;
     if(type == 'comment'){
         statisData = cmtData;
@@ -194,12 +205,13 @@ fetch(`/api-statis/month/${MonthData}`)
             // 填充总数
             fetchArticles(starData.aids, 'star');
             fetchArticles(cmtData.aids, 'comment');
-            paint(json, MonthData); 
+            renderCharts(json, MonthData); 
         }else {
-            paint([], MonthData);
+            $Loading.classList.add('hide');
+            document.querySelector('.app').innerHTML = '<h1>还没统计</h1>'
         }
     })
     .catch(function(err){
-        paint([], MonthData);
+        // renderCharts([], MonthData);
     })
 

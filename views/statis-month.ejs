@@ -1,32 +1,40 @@
 <%- include("./common/header.ejs") %>
-<link rel="stylesheet" href="/statis/app.css">
+<link rel="stylesheet" href="http://localhost:8080/statis/vendor.css">
+<link rel="stylesheet" href="http://localhost:8080/statis/month.css">
 
 <h1><span id="dmonth"><%= month %></span> 知乎日报最热文章统计</h1>
 <div class="app">
-    <div class="chart-container">
-        <div class="statis-chart" id="star-comment"></div>
-        <div class="statis-chart sum" id="star-comment-sum"></div>
-    </div>
 
-    <div class="article-container">
-        <p class="sum-title">
-            当月点赞总数: <strong id="sum-s" class="s">...</strong>   
-            评论总数: <strong id="sum-c" class="c">...</strong>  
-        </p>
-        <div>
-            <p class="top-title">点赞 TOP 10</p>
-            <ol class="star-top"></ol>
+    <div class="nav-link">
+        <a class="l-next" target="_self" href="#">...</a>
+        <a class="l-prev" target="_self" href="#">...</a>
+    </div>
+    <div class="statis-data">
+        <div class="chart-container">
+            <div class="statis-chart" id="star-comment"></div>
+            <div class="statis-chart sum" id="star-comment-sum"></div>
         </div>
 
-        <div>
-            <p class="top-title">评论 TOP 10</p>
-            <ol class="comment-top"></ol>
+        <div class="article-container">
+            <p class="sum-title">
+                当月点赞总数: <strong id="sum-s" class="txt-s">...</strong>   
+                评论总数: <strong id="sum-c" class="txt-c">...</strong>  
+            </p>
+            <div>
+                <p class="top-title">点赞 TOP 10</p>
+                <ol class="star-top"></ol>
+            </div>
+
+            <div>
+                <p class="top-title">评论 TOP 10</p>
+                <ol class="comment-top"></ol>
+            </div>
         </div>
     </div>
 </div>
 
 <div class="loading"></div>
 
-<script src="/statis/vendor.js"></script>
-<script src="/statis/app.bundle.js"></script>
+<script src="http://localhost:8080/statis/vendor.js"></script>
+<script src="http://localhost:8080/statis/month.bundle.js"></script>
 <%- include("./common/footer.ejs") %>

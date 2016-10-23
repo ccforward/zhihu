@@ -8,7 +8,8 @@ module.exports = {
     cache: true,
     entry: {
         // app: ['webpack/hot/dev-server', path.join(__dirname, '../src/statis-month.js')],
-        app: path.join(__dirname, '../src/statis-month.js'),
+        month: path.join(__dirname, '../src/statis-month.js'),
+        year: path.join(__dirname, '../src/statis-year.js')
     },
     output: {
         path: path.join(__dirname, '../public/statis'),
@@ -67,16 +68,16 @@ module.exports = {
             name: 'vendor', 
             filename: 'vendor.js'
         }),
-        new webpack.optimize.DedupePlugin(),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-              warnings: false
-            },
-            output: {
-                comments: false
-            },
-            except: ['$super', '$', 'exports', 'require']
-        }),
+        // new webpack.optimize.DedupePlugin(),
+        // new webpack.optimize.UglifyJsPlugin({
+        //     compress: {
+        //       warnings: false
+        //     },
+        //     output: {
+        //         comments: false
+        //     },
+        //     except: ['$super', '$', 'exports', 'require']
+        // }),
         new ExtractTextPlugin("[name].css"),
         new webpack.HotModuleReplacementPlugin(),
     ]

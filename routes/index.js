@@ -33,8 +33,10 @@ router.post('/clear-error/:dtime', spiderErr.clear);
 // 统计
 router.get('/statistics', statis.index);
 router.get('/statistics/month/:dmonth', statis.statisMonth);
+router.get('/statistics/year/:dyear', statis.statisYear);
 // 统计api
 router.get('/api-statis/month/:dmonth', statis.searchDate);
+router.get('/api-statis/year/:dyear', statis.searchDate);
 router.get('/api-statis/articles/:aids', statis.searchArticles);
 
 

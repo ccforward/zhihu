@@ -1,3 +1,4 @@
+@import './variable.styl'
 * {
   margin 0
   padding 0
@@ -9,9 +10,25 @@ a {
 .hide {
   display none
 }
+
+h1 {
+  position relative
+  text-align center
+  margin 20px 0 50px 0
+  color #5c5c5c
+  z-index 101
+}
+.txt-s {
+  color $starColor
+}
+.txt-c {
+  color $commentColor
+}
 .app {
   margin 30px 0 0 30px
-  overflow hidden
+  .statis-data {
+    overflow hidden
+  }
 }
 .loading {
   position absolute
@@ -23,3 +40,19 @@ a {
   background-size 32px 32px
   z-index 100
 }
+.article-container {
+  .top-title {
+    border-bottom 1px solid #ccc
+    padding-bottom 5px
+    margin-bottom 5px
+  }
+  li {
+    padding 8px 0
+    i {
+      font-style normal
+      color $starColor
+    }
+  }
+}
+
+

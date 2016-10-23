@@ -1,0 +1,48 @@
+@import './variable.styl'
+.app {
+  width 1000px
+  margin 0 auto 
+}
+h1 {
+  text-align center
+  margin 20px 0 50px 0
+  color #5c5c5c
+  z-index 101
+}
+h2 {
+  text-align center
+  color #777
+  margin 20px 0
+}
+.chart-container {
+  width 800px
+  overflow hidden
+  margin 40px auto
+  .statis-chart {
+    width 800px
+    height 400px
+  }
+  .desc {
+    p {
+      line-height 22px
+      font-size 18px
+    }
+  }
+}
+
+.article-container {
+  li {
+    i {
+      display inline-block
+      min-width 50px
+      &.month {
+        width 65px
+      }
+    }
+  }
+  .cmt-articles {
+    li i {
+      color #f60
+    }
+  }
+}
