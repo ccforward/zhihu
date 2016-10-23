@@ -52,7 +52,7 @@ StatisDAO.prototype =  {
                             count: data[i].count,
                             aids: data[i].aids,
                             tags: data[i].tags,
-                            desc: data[i].desc,
+                            // desc: data[i].desc,
                             dmonth: data[i].dmonth
                         }
                         result.push(d)

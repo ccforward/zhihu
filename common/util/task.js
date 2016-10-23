@@ -7,15 +7,7 @@ var DateCalc = require('./date');
 
 // ============== BAE node-log ==============
 if(CONFIG.log.openBae){
-    var log4js = require('log4js');
-    log4js.loadAppender('baev3-log');
-    var options = {
-        'user': 'ntOYKO0PROCl3vaIPZtgDxdA',
-        'passwd': '98EyyHiq5glG0odrNGc0gxx50BaTFmYY'
-    }
-    log4js.addAppender(log4js.appenders['baev3-log'](options));
-    var logger = log4js.getLogger('node-log-sdk');
-    logger.setLevel('TRACE');
+    var logger = console;
 }else {
     var logger = require('log4js').getLogger('cheese');
 }

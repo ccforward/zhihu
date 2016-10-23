@@ -1,0 +1,48 @@
+<%- include("./common/header.ejs") %>
+<link rel="stylesheet" href="http://localhost:8080/statis/vendor.css">
+<link rel="stylesheet" href="http://localhost:8080/statis/year.css">
+
+<h1><span id="dyear"><%= year %></span> 知乎日报文章数据统计</h1>
+
+<div class="app">
+    <div class="statis-data">
+        <!-- 每月总数 -->
+        <div class="chart-container">
+            <div class="statis-chart" id="sum-all"></div>
+            <div class="desc">
+                <p id="sum-star-count" >全年点赞总次数：<strong class="txt-s">...</strong></p>
+                <p id="sum-cmt-count">全年评论总条数：<strong class="txt-c">...</strong></p>
+            </div>
+        </div>
+
+        <h2 class="txt-s">每月获得最多点赞的文章</h2>
+        <!-- 每月最高点赞文章  -->
+        <div class="chart-container">
+            <div class="statis-chart" id="top-star"></div>
+            <div class="article-container">
+                <p class="top-title">点赞最多文章</p>
+                <ol id="star-articles"></ol>
+            </div>
+        </div>
+
+        <h2 class="txt-c">每月获得最多评论的文章</h2> 
+        <!-- 每月最高点赞文章  -->
+        <div class="chart-container">
+            <div class="statis-chart" id="top-cmt"></div>
+            <div class="article-container">
+                <p class="top-title">点赞最多文章</p>
+                <ol class="cmt-articles" id="cmt-articles"></ol>
+                <span style="color:#aaa;font-size:13px">文章详情页滑到底部查看评论</span>
+            </div>
+        </div>
+
+        
+    </div>
+    
+</div>
+
+<div class="loading"></div>
+
+<script src="http://localhost:8080/statis/vendor.js"></script>
+<script src="http://localhost:8080/statis/year.bundle.js"></script>
+<%- include("./common/footer.ejs") %>
