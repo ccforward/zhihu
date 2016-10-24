@@ -72,10 +72,10 @@ module.exports = {
         res.render('statis', {title: '数据统计'});
     },
     statisMonth: function(req, res){
-        res.render('statis-month', {title: req.params.dmonth+'-数据统计', month: req.params.dmonth});
+        res.render('statis-month', {title: req.params.dmonth+'数据统计', month: req.params.dmonth});
     },
     statisYear: function(req, res){
-        res.render('statis-year', {title: req.params.dyear+'-数据统计', year: req.params.dyear});
+        res.render('statis-year', {title: req.params.dyear+'数据统计', year: req.params.dyear});
     },
     
 
@@ -109,6 +109,8 @@ module.exports = {
                 }).catch(function(){
                     res.json({})
                 })   
+            }else {
+                res.json(d)
             }
         }).catch(function(){
             res.json([])

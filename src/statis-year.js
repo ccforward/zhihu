@@ -205,21 +205,21 @@ const renderCharts = (json) => {
     // 点赞大于10K
     let tenKLinks = '';
     for(let t of tenK){
-        tenKLinks += `<a href="/#/detail?aid=${t.aid}"><i class="txt-s">[${t.count}]</i> ${topArticles[t.aid].title}</a>`
+        tenKLinks += `<li><a href="/#/detail?aid=${t.aid}"><i class="txt-s">[${t.count}]</i> ${topArticles[t.aid].title}</a> - <a href="/#/date?dtime=${topArticles[t.aid].dtime}">[${topArticles[t.aid].dtime}]</a></li>`
     }
     $('.tenk .count').innerHTML = `[${tenK.length}]`;
     $('.tenk .top-links').innerHTML = tenKLinks;
     // 点赞大于20K
     let twentyKLinks = '';
     for(let t of twentyK){
-        twentyKLinks += `<a href="/#/detail?aid=${t.aid}"><i class="txt-s">[${t.count}]</i> ${topArticles[t.aid].title}</a>`
+        twentyKLinks += `<li><a href="/#/detail?aid=${t.aid}"><i class="txt-s">[${t.count}]</i> ${topArticles[t.aid].title}</a> - <a href="/#/date?dtime=${topArticles[t.aid].dtime}">[${topArticles[t.aid].dtime}]</a></li>`
     }
     $('.twentyk .count').innerHTML = `[${twentyK.length}]`;
     $('.twentyk .top-links').innerHTML = twentyKLinks;
     // 评论大于1K
     let oneKLinks = '';
     for(let t of oneK){
-        oneKLinks += `<a href="/#/detail?aid=${t.aid}"><i class="txt-c">[${t.count}]</i> ${topArticles[t.aid].title}</a>`
+        oneKLinks += `<li><a href="/#/detail?aid=${t.aid}"><i class="txt-c">[${t.count}]</i> ${topArticles[t.aid].title}</a> - <a href="/#/date?dtime=${topArticles[t.aid].dtime}">[${topArticles[t.aid].dtime}]</a></li>`
     }
     $('.onek .count').innerHTML = `[${oneK.length}]`;
     $('.onek .top-links').innerHTML = oneKLinks;
@@ -258,7 +258,7 @@ const renderCharts = (json) => {
 
     // 渲染每月最多
     chartTopStar.setOption({
-        title: { text: YearData+'每月最多点赞文章' },
+        title: { text: YearData+'每月最多点赞' },
         tooltip: {
             trigger: 'axis'
         },
@@ -306,7 +306,7 @@ const renderCharts = (json) => {
     });
 
     chartTopCmt.setOption({
-        title: { text: YearData+'每月最多评论文章' },
+        title: { text: YearData+'每月最多评论' },
         tooltip: {
             trigger: 'axis'
         },

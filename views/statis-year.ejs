@@ -1,6 +1,6 @@
 <%- include("./common/header.ejs") %>
-<link rel="stylesheet" href="http://localhost:8080/statis/vendor.css">
-<link rel="stylesheet" href="http://localhost:8080/statis/year.css">
+<link rel="stylesheet" href="/statis/vendor.css">
+<link rel="stylesheet" href="/statis/year.css">
 
 <h1><span id="dyear"><%= year %></span> 知乎日报文章数据统计</h1>
 
@@ -28,19 +28,21 @@
 
         <div class="top-container">
             <h2 class="top-title"><%= year %> 高人气文章</h2>
+            <span class="explain-tips">点击日期查看当日所有文章</span>
             <div class="top-item twentyk">
-                <p class="top-desc txt-s">点赞大于20k的文章<i class="count">...</i></p>
-                <div class="top-links">...</div>
+                <p class="top-desc txt-s">点赞大于20k<i class="count">...</i></p>
+                <ul class="top-links">...</ul>
             </div>
 
             <div class="top-item tenk">
-                <p class="top-desc txt-s">点赞大于10k的文章<i class="count">...</i></p>
-                <div class="top-links">...</div>
+                <p class="top-desc txt-s">点赞大于10k<i class="count">...</i></p>
+                <ul class="top-links">...</ul>
             </div>
 
             <div class="top-item onek">
-                <p class="top-desc txt-c">评论大于1k的文章<i class="count">...</i></p>
-                <div class="top-links">...</div>
+                <p class="top-desc txt-c">评论大于1k<i class="count">...</i></p>
+                <ul class="top-links">...</ul>
+                <span class="explain-tips">文章详情页滑到底部查看评论</span>
             </div>
         </div>
 
@@ -61,7 +63,7 @@
             <div class="article-container">
                 <p class="top-title">每月评论Max</p>
                 <ol class="cmt-articles" id="cmt-articles"></ol>
-                <span style="color:#aaa;font-size:13px">文章详情页滑到底部查看评论</span>
+                <span class="explain-tips">文章详情页滑到底部查看评论</span>
             </div>
         </div>
 
@@ -72,6 +74,6 @@
 
 <div class="loading"></div>
 
-<script src="http://localhost:8080/statis/vendor.js"></script>
-<script src="http://localhost:8080/statis/year.bundle.js"></script>
+<script src="/statis/vendor.js"></script>
+<script src="/statis/year.bundle.js"></script>
 <%- include("./common/footer.ejs") %>

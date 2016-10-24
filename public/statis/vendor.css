@@ -4,7 +4,14 @@
 }
 a {
   color: #42b983;
-  text-decoration: none !important;
+  text-decoration: none;
+  font-size: 15px;
+}
+a:hover {
+  text-decoration: underline;
+}
+i {
+  font-family: "Lucida Console", Monaco, monospace;
 }
 .hide {
   display: none;

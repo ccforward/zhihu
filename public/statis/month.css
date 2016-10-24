@@ -14,9 +14,6 @@
 .nav-link a.l-prev {
   float: right;
 }
-.nav-link a:hover {
-  text-decoration: underline !important;
-}
 .chart-container {
   float: left;
   width: 700px;

@@ -14,19 +14,18 @@ var plugins = [
     new webpack.HotModuleReplacementPlugin()
 ]
 if(isStatis) {
-    plugins
-        .push(new webpack.optimize.DedupePlugin())
-        .push(
-            new webpack.optimize.UglifyJsPlugin({
-                compress: {
-                  warnings: false
-                },
-                output: {
-                    comments: false
-                },
-                except: ['$super', '$', 'exports', 'require']
-            })
-        )
+    plugins.push(new webpack.optimize.DedupePlugin())
+    plugins.push(
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+              warnings: false
+            },
+            output: {
+                comments: false
+            },
+            except: ['$super', '$', 'exports', 'require']
+        })
+    )
 }
 module.exports = {
     cache: true,
