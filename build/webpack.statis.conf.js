@@ -4,6 +4,30 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 
+var isStatis = !!(process.argv[2] == 'statis');
+var plugins = [
+    new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor', 
+        filename: 'vendor.js'
+    }),
+    new ExtractTextPlugin("[name].css"),
+    new webpack.HotModuleReplacementPlugin()
+]
+if(isStatis) {
+    plugins
+        .push(new webpack.optimize.DedupePlugin())
+        .push(
+            new webpack.optimize.UglifyJsPlugin({
+                compress: {
+                  warnings: false
+                },
+                output: {
+                    comments: false
+                },
+                except: ['$super', '$', 'exports', 'require']
+            })
+        )
+}
 module.exports = {
     cache: true,
     entry: {
@@ -63,22 +87,5 @@ module.exports = {
     resolveLoader: {
         fallback: [path.join(__dirname, '../node_modules')]
     },
-    plugins : [
-        new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendor', 
-            filename: 'vendor.js'
-        }),
-        // new webpack.optimize.DedupePlugin(),
-        // new webpack.optimize.UglifyJsPlugin({
-        //     compress: {
-        //       warnings: false
-        //     },
-        //     output: {
-        //         comments: false
-        //     },
-        //     except: ['$super', '$', 'exports', 'require']
-        // }),
-        new ExtractTextPlugin("[name].css"),
-        new webpack.HotModuleReplacementPlugin(),
-    ]
+    plugins: plugins
 };

@@ -10,8 +10,37 @@
         <div class="chart-container">
             <div class="statis-chart" id="sum-all"></div>
             <div class="desc">
-                <p id="sum-star-count" >全年点赞总次数：<strong class="txt-s">...</strong></p>
+                <p id="sum-star-count">全年点赞总次数：<strong class="txt-s">...</strong></p>
+                <p class="max-year">
+                    <%= year %>点赞最多文章: <span id="max-year-star">...</span>
+                </p>
                 <p id="sum-cmt-count">全年评论总条数：<strong class="txt-c">...</strong></p>
+                <p class="max-year">
+                    <%= year %>评论最多文章: <span id="max-year-cmt">...</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="month-container">
+            <p>查看每月统计数据</p>
+            <div id="month-list">...</div>
+        </div>
+
+        <div class="top-container">
+            <h2 class="top-title"><%= year %> 高人气文章</h2>
+            <div class="top-item twentyk">
+                <p class="top-desc txt-s">点赞大于20k的文章<i class="count">...</i></p>
+                <div class="top-links">...</div>
+            </div>
+
+            <div class="top-item tenk">
+                <p class="top-desc txt-s">点赞大于10k的文章<i class="count">...</i></p>
+                <div class="top-links">...</div>
+            </div>
+
+            <div class="top-item onek">
+                <p class="top-desc txt-c">评论大于1k的文章<i class="count">...</i></p>
+                <div class="top-links">...</div>
             </div>
         </div>
 
@@ -20,7 +49,7 @@
         <div class="chart-container">
             <div class="statis-chart" id="top-star"></div>
             <div class="article-container">
-                <p class="top-title">点赞最多文章</p>
+                <p class="top-title">每月点赞Max</p>
                 <ol id="star-articles"></ol>
             </div>
         </div>
@@ -30,7 +59,7 @@
         <div class="chart-container">
             <div class="statis-chart" id="top-cmt"></div>
             <div class="article-container">
-                <p class="top-title">点赞最多文章</p>
+                <p class="top-title">每月评论Max</p>
                 <ol class="cmt-articles" id="cmt-articles"></ol>
                 <span style="color:#aaa;font-size:13px">文章详情页滑到底部查看评论</span>
             </div>

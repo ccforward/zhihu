@@ -1,104 +1,52 @@
-* {
-  margin: 0;
-  padding: 0;
-}
-a {
-  color: #42b983;
-  text-decoration: none !important;
-}
-.hide {
-  display: none;
-}
 .app {
-  margin: 30px 0 0 30px;
-}
-.app .statis-data {
-  overflow: hidden;
-}
-.loading {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: #fff url("http://7xiblh.com1.z0.glb.clouddn.com/loading.gif") center center no-repeat;
-  -webkit-background-size: 32px 32px;
-  -moz-background-size: 32px 32px;
-  background-size: 32px 32px;
-  z-index: 100;
-}
-.app {
-  width: 1300px;
+  width: 1000px;
   margin: 0 auto;
 }
 h1 {
-  position: relative;
   text-align: center;
   margin: 20px 0 50px 0;
   color: #5c5c5c;
   z-index: 101;
 }
-.nav-link {
-  margin-bottom: 20px;
-  padding-bottom: 5px;
-  border-bottom: 1px solid #aaa;
-}
-.nav-link a {
-  color: #00f;
-  margin-right: 10px;
-}
-.nav-link a.l-prev {
-  float: right;
-}
-.nav-link a:hover {
-  text-decoration: underline !important;
+h2 {
+  text-align: center;
+  color: #777;
+  margin: 20px 0;
 }
 .chart-container {
-  float: left;
-  width: 700px;
+  width: 800px;
   overflow: hidden;
-  margin-right: 40px;
+  margin: 40px auto;
 }
-.article-container {
-  float: left;
+.chart-container .statis-chart {
+  width: 800px;
+  height: 400px;
 }
-.article-container div {
-  margin-bottom: 20px;
-}
-.article-container .sum-title {
-  margin-bottom: 10px;
-  font-size: 14px;
-}
-.article-container .sum-title strong {
+.chart-container .desc p {
+  line-height: 22px;
   font-size: 18px;
 }
-.article-container .sum-title .s {
-  color: #4285f4;
+.chart-container .desc .max-year {
+  font-size: 14px;
+  margin: 5px 0 10px;
 }
-.article-container .sum-title .c {
-  color: #f60;
+.chart-container .desc .max-year span {
+  margin-left: 5px;
 }
-.article-container .top-title {
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 5px;
-  margin-bottom: 5px;
+.chart-container .desc .max-year i {
+  font-style: normal;
+  padding-right: 5px;
 }
-.article-container .comment-top i {
-  color: #f60;
-}
-.article-container li {
-  padding: 8px 0;
-  max-width: 600px;
+.chart-container .desc .max-year a:hover {
+  text-decoration: underline !important;
 }
 .article-container li i {
-  font-style: normal;
-  color: #4285f4;
+  display: inline-block;
+  min-width: 50px;
 }
-.statis-chart {
-  width: 700px;
-  height: 500px;
+.article-container li i.month {
+  width: 65px;
 }
-.statis-chart.sum {
-  width: 500px;
-  height: 300px;
+.article-container .cmt-articles li i {
+  color: #f60;
 }
