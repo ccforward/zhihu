@@ -9,6 +9,19 @@ a {
 .hide {
   display: none;
 }
+h1 {
+  position: relative;
+  text-align: center;
+  margin: 20px 0 50px 0;
+  color: #5c5c5c;
+  z-index: 101;
+}
+.txt-s {
+  color: #4285f4;
+}
+.txt-c {
+  color: #f60;
+}
 .app {
   margin: 30px 0 0 30px;
 }
@@ -26,4 +39,16 @@ a {
   -moz-background-size: 32px 32px;
   background-size: 32px 32px;
   z-index: 100;
+}
+.article-container .top-title {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+}
+.article-container li {
+  padding: 8px 0;
+}
+.article-container li i {
+  font-style: normal;
+  color: #4285f4;
 }

@@ -1,42 +1,6 @@
-* {
-  margin: 0;
-  padding: 0;
-}
-a {
-  color: #42b983;
-  text-decoration: none !important;
-}
-.hide {
-  display: none;
-}
-.app {
-  margin: 30px 0 0 30px;
-}
-.app .statis-data {
-  overflow: hidden;
-}
-.loading {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background: #fff url("http://7xiblh.com1.z0.glb.clouddn.com/loading.gif") center center no-repeat;
-  -webkit-background-size: 32px 32px;
-  -moz-background-size: 32px 32px;
-  background-size: 32px 32px;
-  z-index: 100;
-}
 .app {
   width: 1300px;
   margin: 0 auto;
-}
-h1 {
-  position: relative;
-  text-align: center;
-  margin: 20px 0 50px 0;
-  color: #5c5c5c;
-  z-index: 101;
 }
 .nav-link {
   margin-bottom: 20px;
@@ -72,27 +36,11 @@ h1 {
 .article-container .sum-title strong {
   font-size: 18px;
 }
-.article-container .sum-title .s {
-  color: #4285f4;
-}
-.article-container .sum-title .c {
-  color: #f60;
-}
-.article-container .top-title {
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 5px;
-  margin-bottom: 5px;
-}
 .article-container .comment-top i {
   color: #f60;
 }
 .article-container li {
-  padding: 8px 0;
   max-width: 600px;
-}
-.article-container li i {
-  font-style: normal;
-  color: #4285f4;
 }
 .statis-chart {
   width: 700px;

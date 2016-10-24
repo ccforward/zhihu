@@ -18,6 +18,9 @@ const $ = document.querySelector.bind(document);
 const starColor = '#4285f4';
 const cmtColor = '#f60';
 const $Loading = $('.loading');
+const maxStarLink = $('#max-year-star');
+const maxCommentLink = $('#max-year-cmt');
+const monthList = $('#month-list');
 const YearData = $('#dyear').innerHTML;
 
 const renderArticles = (topData, container) => {
@@ -38,7 +41,13 @@ const fetchArticles = aids => {
         })
 }
 
-const renderCharts = (data) => {
+const renderCharts = (json) => {
+    const data = json.data;
+    const topArticles = json.articles
+    const tenK = json.sTenK;
+    const twentyK = json.sTwentyK;
+    const oneK = json.cOneK;
+
     // echarts 图表容器
     const chartSum = echarts.init($('#sum-all'));        
     const chartTopStar = echarts.init($('#top-star'));
@@ -70,12 +79,40 @@ const renderCharts = (data) => {
         topMonthStar.counts.push(s.count[0])
         topMonthStar.aids.push(s.aids[0])
     }
+
+    let maxStar = {
+        idx: 0,
+        count: 0,
+        article: {}
+    };
+    
+    for(let i=0,len=topMonthStar.counts.length; i<len; i++){
+        if(topMonthStar.counts[i] > maxStar.count){
+            maxStar.idx = i;
+            maxStar.count = topMonthStar.counts[i];
+        }
+    }
+
     for(let c of data.cmt){
         sumCmtCount += parseInt(c.sum)
         sumCmtData.push(c.sum)
         topMonthCmt.counts.push(c.count[0])
         topMonthCmt.aids.push(c.aids[0])
     }
+
+    let maxComment = {
+        idx: 0,
+        count: 0,
+        article: {}
+    };
+
+    for(let i=0,len=topMonthCmt.counts.length; i<len; i++){
+        if(topMonthCmt.counts[i] > maxComment.count){
+            maxComment.idx = i;
+            maxComment.count = topMonthCmt.counts[i];
+        }
+    }
+
 
     // 渲染总数
     chartSum.setOption({
@@ -156,6 +193,38 @@ const renderCharts = (data) => {
     $('#sum-star-count strong').innerHTML = sumStarCount;
     $('#sum-cmt-count strong').innerHTML = sumCmtCount;
 
+    // 月份
+    let monthLinks = '';
+    for(let m of data.month){
+        monthLinks += `<a href="/statistics/month/${m}">${m}</a>`
+    }
+    monthList.innerHTML = monthLinks
+
+    // 渲染高人气文章
+
+    // 点赞大于10K
+    let tenKLinks = '';
+    for(let t of tenK){
+        tenKLinks += `<a href="/#/detail?aid=${t.aid}"><i class="txt-s">[${t.count}]</i> ${topArticles[t.aid].title}</a>`
+    }
+    $('.tenk .count').innerHTML = `[${tenK.length}]`;
+    $('.tenk .top-links').innerHTML = tenKLinks;
+    // 点赞大于20K
+    let twentyKLinks = '';
+    for(let t of twentyK){
+        twentyKLinks += `<a href="/#/detail?aid=${t.aid}"><i class="txt-s">[${t.count}]</i> ${topArticles[t.aid].title}</a>`
+    }
+    $('.twentyk .count').innerHTML = `[${twentyK.length}]`;
+    $('.twentyk .top-links').innerHTML = twentyKLinks;
+    // 评论大于1K
+    let oneKLinks = '';
+    for(let t of oneK){
+        oneKLinks += `<a href="/#/detail?aid=${t.aid}"><i class="txt-c">[${t.count}]</i> ${topArticles[t.aid].title}</a>`
+    }
+    $('.onek .count').innerHTML = `[${oneK.length}]`;
+    $('.onek .top-links').innerHTML = oneKLinks;
+
+
 
     // 获取最多点赞评论文章标题
     fetchArticles(topMonthStar.aids).then(function(d){
@@ -166,6 +235,10 @@ const renderCharts = (data) => {
                 }
             }
         }
+        // 全年最高点赞文章
+        maxStar.article = topMonthStar.articles[maxStar.idx];
+        maxStarLink.innerHTML = `<a href="/#/detail?aid=${maxStar.article.id}"><i class="txt-s">[${maxStar.count}]</i>${maxStar.article.title}</a>`
+
         renderArticles(topMonthStar, $('#star-articles'))
     });
     fetchArticles(topMonthCmt.aids).then(function(d){
@@ -176,14 +249,12 @@ const renderCharts = (data) => {
                 }
             }
         }
+        // 全年最高评论文章
+        maxComment.article = topMonthCmt.articles[maxComment.idx];
+        maxCommentLink.innerHTML = `<a href="/#/detail?aid=${maxComment.article.id}"><i class="txt-c">[${maxComment.count}]</i>${maxComment.article.title}</a>`
+
         renderArticles(topMonthCmt, $('#cmt-articles'))
     });
-
-
-
-
-    console.log(topMonthStar)
-    console.log(topMonthCmt)
 
     // 渲染每月最多
     chartTopStar.setOption({
@@ -282,8 +353,6 @@ const renderCharts = (data) => {
         ]
     });
 
-
-
 }
 
 
@@ -294,9 +363,9 @@ fetch(`/api-statis/year/${YearData}`)
         return response.json()
     })
     .then(function(json){
-        if(json.length){
+        if(json.data){
             $Loading.classList.add('hide');
-            renderCharts(json[0]);
+            renderCharts(json);
         }else {
             $Loading.classList.add('hide');
             $('.app').innerHTML = '<h1>还没统计</h1>'

@@ -8,23 +8,64 @@ var historyDAO = new HistoryDAO();
 var dealYearData = function(data) {
     var starArr = [],
         cmtArr = [],
-        monthArr = [];
+        monthArr = [],
+        aids = [],
+        sTenK = [],
+        sTwentyK = [],
+        cOneK = [];
+
     data = _.sortBy(data, function(o) { 
         return o.dmonth;
     });
     for(var i=0,len=data.length;i<len;i++){
         if(data[i].type == 'star'){
-            starArr.push(data[i])
-            monthArr.push(data[i].dmonth)
+            starArr.push(data[i]);
+            monthArr.push(data[i].dmonth);
+
+            for(var m=0,mLen=data[i].count.length; m<mLen; m++){
+                var count = data[i].count[m];
+                var idx = _.indexOf(data[i].count, count);
+                if(count > 9999 && count < 20000){
+                    sTenK.push({
+                        count: count,
+                        aid: data[i].aids[idx]
+                    });
+                    aids.push(data[i].aids[idx])
+                }else if(count > 19999){
+                    sTwentyK.push({
+                        count: count,
+                        aid: data[i].aids[idx]
+                    });
+                    aids.push(data[i].aids[idx])
+                }
+            }
         }else {
             cmtArr.push(data[i])
+            for(var x=0,xLen=data[i].count.length; x<xLen; x++){
+                var count = data[i].count[x];
+                var idx = _.indexOf(data[i].count, count);
+                if(count > 999){
+                    cOneK.push({
+                        count: count,
+                        aid: data[i].aids[idx]
+                    });
+                    aids.push(data[i].aids[idx])
+                }
+            }
         }
     }
-    return [{
-        star: starArr,
-        cmt: cmtArr,
-        month: monthArr
-    }]
+
+    return {
+        data: {
+            star: starArr,
+            cmt: cmtArr,
+            month: monthArr
+        },
+        aids: aids,
+        sTenK: _.flattenDeep(sTenK),
+        sTwentyK: _.flattenDeep(sTwentyK),
+        cOneK: _.flattenDeep(cOneK)
+    }
 }
 module.exports = {
     index: function(req, res){
@@ -50,11 +91,25 @@ module.exports = {
         } else {
             res.json([]);
         }
-        statisDAO.search(query).then(function(data){
+        statisDAO.search(query).then(function(d){
             if(param.dyear){
-                data = dealYearData(data)
+                var data = dealYearData(d);
+                historyDAO.search({id: {$in: data.aids}}).then(function(articles){
+                    var arts = {}
+                    for(var x=0,len=articles.length; x<len; x++){
+                        arts[articles[x].id] = articles[x]
+                    }
+                    res.json({
+                        data: data.data,
+                        articles: arts,
+                        sTenK: data.sTenK,
+                        sTwentyK: data.sTwentyK,
+                        cOneK: data.cOneK
+                    })
+                }).catch(function(){
+                    res.json({})
+                })   
             }
-            res.json(data)
         }).catch(function(){
             res.json([])
         });
