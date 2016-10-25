@@ -23,11 +23,11 @@ const maxCommentLink = $('#max-year-cmt');
 const monthList = $('#month-list');
 const YearData = $('#dyear').innerHTML;
 
-const renderArticles = (topData, container) => {
+const renderMonthMaxArticles = (topData, container) => {
     let dom = '',
         arts = topData.articles;
     for(let i=0,len=arts.length;i<len;i++){
-        dom += `<li><i class='month'>${arts[i].dtime.substr(0,6)}：</i><i>[${topData.counts[i]}]</i> <a href="/#/detail?aid=${arts[i].id}">${arts[i].title}</a></li>`
+        dom += `<li><i class='month'>${arts[i].dtime.substr(0,6)}：</i><i>[${topData.counts[i]}]</i> <a href="/#/detail?aid=${arts[i].id}">${arts[i].title}</a> - <a href="/#/date?dtime=${arts[i].dtime}">[${arts[i].dtime}]</a></li>`
     }
     container.innerHTML = dom
 }
@@ -126,7 +126,7 @@ const renderCharts = (json) => {
                restore: {show: true},
                saveAsImage: {show: true}
            }
-       },
+        },
        legend: {
             data:['点赞总和','评论总和'],
             x: 'center'
@@ -226,7 +226,7 @@ const renderCharts = (json) => {
 
 
 
-    // 获取最多点赞评论文章标题
+    // 获取每月最多点赞评论文章标题
     fetchArticles(topMonthStar.aids).then(function(d){
         for(let j=0,length=topMonthStar.aids.length;j<length;j++){
             for(let i=0,len=d.length;i<len;i++){
@@ -237,9 +237,9 @@ const renderCharts = (json) => {
         }
         // 全年最高点赞文章
         maxStar.article = topMonthStar.articles[maxStar.idx];
-        maxStarLink.innerHTML = `<a href="/#/detail?aid=${maxStar.article.id}"><i class="txt-s">[${maxStar.count}]</i>${maxStar.article.title}</a>`
+        maxStarLink.innerHTML = `<a href="/#/detail?aid=${maxStar.article.id}"><i class="txt-s">[${maxStar.count}]</i>${maxStar.article.title}</a> - <a href="/#/date?dtime=${maxStar.article.dtime}">[${maxStar.article.dtime}]</a>`
 
-        renderArticles(topMonthStar, $('#star-articles'))
+        renderMonthMaxArticles(topMonthStar, $('#star-articles'))
     });
     fetchArticles(topMonthCmt.aids).then(function(d){
         for(let j=0,length=topMonthCmt.aids.length;j<length;j++){
@@ -251,14 +251,21 @@ const renderCharts = (json) => {
         }
         // 全年最高评论文章
         maxComment.article = topMonthCmt.articles[maxComment.idx];
-        maxCommentLink.innerHTML = `<a href="/#/detail?aid=${maxComment.article.id}"><i class="txt-c">[${maxComment.count}]</i>${maxComment.article.title}</a>`
+        maxCommentLink.innerHTML = `<a href="/#/detail?aid=${maxComment.article.id}"><i class="txt-c">[${maxComment.count}]</i>${maxComment.article.title}</a> - <a href="/#/date?dtime=${maxComment.article.dtime}">[${maxComment.article.dtime}]</a>`
 
-        renderArticles(topMonthCmt, $('#cmt-articles'))
+        renderMonthMaxArticles(topMonthCmt, $('#cmt-articles'))
     });
 
     // 渲染每月最多
     chartTopStar.setOption({
         title: { text: YearData+'每月最多点赞' },
+        toolbox: {
+           feature: {
+               magicType: {show: true, type: ['line', 'bar']},
+               restore: {show: true},
+               saveAsImage: {show: true}
+           }
+        },
         tooltip: {
             trigger: 'axis'
         },
@@ -307,6 +314,13 @@ const renderCharts = (json) => {
 
     chartTopCmt.setOption({
         title: { text: YearData+'每月最多评论' },
+        toolbox: {
+           feature: {
+               magicType: {show: true, type: ['line', 'bar']},
+               restore: {show: true},
+               saveAsImage: {show: true}
+           }
+        },
         tooltip: {
             trigger: 'axis'
         },
@@ -335,7 +349,7 @@ const renderCharts = (json) => {
         series: [
             {
                 name:'最多评论',
-                type:'line',
+                type:'bar',
                 itemStyle: {
                     normal: {
                         color: cmtColor

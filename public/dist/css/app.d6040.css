@@ -84,6 +84,7 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
+  background-color: #f2f3f5;
 }
 #forkme_banner {
   display: block;
@@ -230,8 +231,10 @@ a:hover {
     padding: 0 10px;
 }
 }
+
 .history a {
   display: block;
+  overflow: hidden;
 }
 .history li {
   width: 100%;
@@ -243,7 +246,7 @@ a:hover {
   display: inline-block;
   margin: 10px 0 0 10px;
   width: auto;
-  max-width: 80%;
+  max-width: 70%;
   font-size: 16px;
   line-height: 1.5;
 }
@@ -339,6 +342,7 @@ to {
     transform: rotate(360deg);
 }
 }
+
 .sns[data-v-7ebe8921] {
   margin-left: 10px;
   font-size: 13px;
@@ -350,6 +354,7 @@ to {
 .hot[data-v-7ebe8921] {
   color: #f06;
 }
+
 .history a {
   text-decoration: none !important;
 }
@@ -408,6 +413,7 @@ to {
   font-weight: 600;
   vertical-align: top;
 }
+
 button[data-v-60520161] {
   margin-bottom: 15px;
   border: 0;
@@ -419,6 +425,7 @@ button[data-v-60520161] {
 button i[data-v-60520161] {
   margin-right: 10px;
 }
+
 .article {
   padding-top: 20px;
   margin-bottom: 30px;
@@ -554,6 +561,7 @@ button i[data-v-60520161] {
     font-size: 20px;
 }
 }
+
 .article-comments {
   margin-bottom: 20px;
 }
@@ -630,4 +638,3 @@ button i[data-v-60520161] {
   font-weight: bold;
   color: #333;
 }
-/*# sourceMappingURL=app.3a4a2.css.map*/

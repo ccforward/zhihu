@@ -137,6 +137,7 @@ export default {
 .history {
   a {
     display block
+    overflow hidden
   }
   li {
     width 100%
@@ -147,7 +148,7 @@ export default {
       display inline-block
       margin 10px 0 0 10px
       width auto
-      max-width 80%
+      max-width 70%
       font-size 16px
       line-height 1.5
     }

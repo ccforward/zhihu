@@ -7,36 +7,45 @@ var FileStreamRotator = require('file-stream-rotator');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 require("nodejs-dashboard");
-
+var CONFIG = require('./config');
 var routes = require('./routes/index');
+
+
 var app = express();
 
 // webpack
-// var webpackConfig = require('./build/webpack.dev.conf');
-// var webpack = require('webpack');
-// var webpackDevMiddleware = require('webpack-dev-middleware');
-// var compiler = webpack(webpackConfig);
-// var devMiddleware = webpackDevMiddleware(compiler, {
-//     publicPath: webpackConfig.output.publicPath,
-//     stats: {
-//         colors: true,
-//         chunks: true,
-//         progress: true 
-//     }
-// });
-// var hotMiddleware = require('webpack-hot-middleware')(compiler);
-// app.use(devMiddleware);
-// app.use(hotMiddleware);
+if(CONFIG.fe.developing){
+    var webpackConfig = require('./build/webpack.dev.conf');
+    var webpack = require('webpack');
+    var webpackDevMiddleware = require('webpack-dev-middleware');
+    var compiler = webpack(webpackConfig);
+    var devMiddleware = webpackDevMiddleware(compiler, {
+        publicPath: webpackConfig.output.publicPath,
+        stats: {
+            colors: true,
+            chunks: true,
+            progress: true 
+        }
+    });
+    var hotMiddleware = require('webpack-hot-middleware')(compiler);
+    app.use(devMiddleware);
+    app.use(hotMiddleware);
+}
 
 
 
 // 爬虫任务 
-var CONFIG = require('./config');
+
 var Job = require('./common/util/task');
 var SpiderMan = require('./common/util/spider');
-// Job.fire();
-// SpiderMan.latest();
-// SpiderMan.fire(CONFIG.spider.start, CONFIG.spider.end);
+
+if(CONFIG.spider.fire) {
+    
+    SpiderMan.fire(CONFIG.spider.start, CONFIG.spider.end);
+}
+if(CONFIG.spider.openTask) {
+    Job.fire();
+}
 
 // var statistic = require('./statistic')
 // statistic.start(['201509'])

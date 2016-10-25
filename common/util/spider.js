@@ -1,3 +1,4 @@
+"use strict";
 var CronJob = require('cron').CronJob;
 var Promise = require('es6-promise').Promise;
 
@@ -304,7 +305,7 @@ var Spider = {
     // 每日最新内容 latest
     latest: function(){
         var dtime = new DateCalc().now(),
-            topID = [];
+            topID = [],
             latestID = [];
         articleDAO.delete({latest: true})
             .then(function(){
@@ -344,24 +345,20 @@ var Spider = {
                 return Promise.all(promiseAll);
             })
             .then(function(){
-                for(var x = 0, length = topID.length;x<length;x++){
-                    (function(aid){
-                        Spider.article(aid, dtime, true);
-                    })(topID[x])
+                for(let x = 0, xLen = topID.length; x<xLen; x++){
+                    Spider.article(topID[x], dtime, true);
                 }
-                for(var i = 0, len = latestID.length;i<len;i++){
-                    (function(aid){
-                        Spider.article(aid, dtime, true);
-                        zhAPI.getCmtcount(aid).then(function(count){
-                            var data = {
-                                id: aid,
-                                comments: count.comments || 0,
-                                popularity: count.popularity || 0,
-                                dtime: dtime
-                            }
-                            latestDAO.save(data);
-                        })
-                    })(latestID[i])
+                for(let m = 0, mLen = latestID.length; m<mLen; m++){
+                    Spider.article(latestID[m], dtime, true);
+                    zhAPI.getCmtcount(latestID[m]).then(function(count){
+                        var data = {
+                            id: latestID[m],
+                            comments: count.comments || 0,
+                            popularity: count.popularity || 0,
+                            dtime: dtime
+                        }
+                        latestDAO.save(data);
+                    })
                 }
             })
             .catch(function(err){

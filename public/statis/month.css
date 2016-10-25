@@ -1,5 +1,5 @@
 .app {
-  width: 1300px;
+  width: 1200px;
   margin: 0 auto;
 }
 .nav-link {
@@ -11,23 +11,25 @@
   color: #00f;
   margin-right: 10px;
 }
-.nav-link a.l-prev {
+.nav-link a.l-next {
   float: right;
 }
 .chart-container {
   float: left;
-  width: 700px;
+  width: 600px;
   overflow: hidden;
-  margin-right: 40px;
+  margin-right: 20px;
 }
 .article-container {
-  float: left;
+  display: inline-block;
+}
+.article-container .explain-tips {
+  margin: 5px 0 10px;
 }
 .article-container div {
   margin-bottom: 20px;
 }
 .article-container .sum-title {
-  margin-bottom: 10px;
   font-size: 14px;
 }
 .article-container .sum-title strong {
@@ -40,7 +42,7 @@
   max-width: 600px;
 }
 .statis-chart {
-  width: 700px;
+  width: 600px;
   height: 500px;
 }
 .statis-chart.sum {

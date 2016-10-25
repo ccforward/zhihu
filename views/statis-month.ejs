@@ -6,8 +6,8 @@
 <div class="app">
 
     <div class="nav-link">
-        <a class="l-next" target="_self" href="#">...</a>
         <a class="l-prev" target="_self" href="#">...</a>
+        <a class="l-next" target="_self" href="#">...</a>
     </div>
     <div class="statis-data">
         <div class="chart-container">
@@ -20,6 +20,7 @@
                 当月点赞总数: <strong id="sum-s" class="txt-s">...</strong>   
                 评论总数: <strong id="sum-c" class="txt-c">...</strong>  
             </p>
+            <p class="explain-tips">文章详情页滑到底部查看评论</p>
             <div>
                 <p class="top-title">点赞 TOP 10</p>
                 <ol class="star-top"></ol>
@@ -31,10 +32,13 @@
             </div>
         </div>
     </div>
+
+    <a target="_self" href="/statistics"><<返回统计首页</a>
 </div>
 
 <div class="loading"></div>
 
 <script src="/statis/vendor.js"></script>
 <script src="/statis/month.bundle.js"></script>
+<%- include("./common/baidu.ejs") %>
 <%- include("./common/footer.ejs") %>

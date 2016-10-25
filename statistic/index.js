@@ -1,6 +1,12 @@
-var Promise = require('es6-promise').Promise;
+"use strict";
+// var Promise = require('es6-promise').Promise;
 var _ = require('lodash');
-var logger = require('log4js').getLogger('cheese');
+var CONFIG = require('../config');
+if(CONFIG.log.openBae){
+    var logger = console;
+}else {
+    var logger = require('log4js').getLogger('cheese');
+}
 
 var CmtCountDAO = require('../common/db/models/cmtCount');
 var StatisDAO = require('../common/db/models/statis');
@@ -72,7 +78,7 @@ module.exports = {
                         logger.error('statistic error @dmonth: ' + dmonth);
                     })
             }else {
-                console.log(dmonth + ' has statistic data ')
+                logger.error(dmonth + ' has statistic data ')
             }
         })
     },

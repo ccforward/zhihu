@@ -1,5 +1,38 @@
 <%- include("./common/header.ejs") %>
-<link rel="stylesheet" href="http://localhost:8080/statis/app.css">
+<link rel="stylesheet" href="/statis/vendor.css">
+<style>
+a {
+    font-weight: normal;
+}
+.container {
+    width: 500px;
+    margin: auto;
+    text-align: center;
+}
+p {
+    margin-top: 20px;
+}
+</style>
+<h1>知乎日报 每年文章数据统计</h1>
+
+<div class="container">
+    <h3><a href="/statistics/year/2016">查看 2016 年</a></h3>
+    <h3><a href="/statistics/year/2015">查看 2015 年</a></h3>
+    <h3><a href="/statistics/year/2014">查看 2014 年</a></h3>
+    <h3><a href="/statistics/year/2013">查看 2013 年</a></h3>
+
+    <p>可以单独查看每月统计</p>
+    <h3><a href="/statistics/month/201609">查看 2016-09</a></h3>
+    <h3><a href="/statistics/month/201512">查看 2015-12</a></h3>
+    <h3><a href="/statistics/month/201407">查看 2014-07</a></h3>
+    <h3><a href="/statistics/month/201306">查看 2013-06</a></h3>
+    <h3><a href="/statistics/month/201305">查看 2013-05 (知乎日报诞生于20130519)</a></h3>
 
 
+    <p>查看历史每天的所有文章和部分最新评论</p>
+    <h3><a href="/#/date?dtime=20161001">2016-10-01</a></h3>
+    <h3><a href="/#/date?dtime=20130519">2013-05-19</a></h3>
+</div>
+
+<%- include("./common/baidu.ejs") %>
 <%- include("./common/footer.ejs") %>

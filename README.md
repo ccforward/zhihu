@@ -1,8 +1,10 @@
 # 知乎日报的 Spider-Man
 
+[详细介绍](https://github.com/ccforward/cc/issues/45)
+
 ## About
 
-基于 Node Vue 的爬虫项目
+Node.js + Vue.js + MongoDB 的知乎日报爬虫项目
 
 ## 技术栈
 
@@ -10,24 +12,39 @@
 
 Node.js + Express + MongoDB
 
-用了中文最好的 [结巴分词-node](https://github.com/fxsjy/jieba) 来提取正文的关键字做数据分析
+使用 Express 搭建 web 服务，爬虫爬取的数据用 MongoDB 存储。
+
+
+用 node-jieba分词 分析正文的tag，做则更能准确的数据分析和内容搜索 (doing)
 
 #### 前端
 
 ES6 + Vue + Webpack
 
-## 关于config.js
+基于 Vue2.0 的单页面应用 用webpack做前端代码构建
+
+数据统计的页面使用原生 ES6 代码编写，单独配置了webpack做构建，没有和 Vue 的webpack构建代码混在一起
+
+## 说明
+
+
+### config.js.sample
+
 config.js.sample 重命名为 config.js
 
+说明:
+
 * auth 知乎日报用来验证用户的key 用于http的请求头(真正的key叫做 `Authorization`)
+* spider.fire 是否启动爬虫爬取历史信息
+* spider.openTask 是否启动爬虫定时任务
 * spider.interval 爬虫间隔时间
 * spider.start spider.end  爬历史数据的开始结束时间 （知乎日报生日: 20130519）
+* start时间 比 end时间 晚
 
-如果HTTP的请求头里想加入 auth 和 referer 可以用我写的这个 [chrome扩展](https://github.com/ccforward/C-Header) （PS：半成品，凑合用。如下图，操作简单）
-
+如果在页面的HTTP的请求头里想加入 auth 和 referer 可以用这个 [chrome扩展](https://github.com/ccforward/C-Header)
 ![](http://ww2.sinaimg.cn/large/7853084cjw1f6wvzw1utxj208w0bhjrp.jpg)
 
-## API
+## 知乎日报的API
 
 ### 1、启动界面图像
 
@@ -37,6 +54,8 @@ config.js.sample 重命名为 config.js
 	* 480*728
 	* 720*1184
 	* 1080*1776
+
+现在返回的图片应该都不再区分分辨率，都是同一尺寸了
 	
 ### 2、最新消息
 * URL `http://news-at.zhihu.com/api/4/news/latest`
@@ -81,17 +100,6 @@ config.js.sample 重命名为 config.js
 
 ### 8、主题日报内容
 * URL `http://news-at.zhihu.com/api/4/theme/2`
-
-
-### 9、合集
-合集总览 `http://news-at.zhihu.com/api/3/sections`
-
-* 深夜惊奇
-	* URL `http://news-at.zhihu.com/api/4/section/1`
-* 瞎扯
-	* URL `http://news-at.zhihu.com/api/4/section/2`
-* 饿了
-	* URL `http://news-at.zhihu.com/api/4/section/17`
 
 
 

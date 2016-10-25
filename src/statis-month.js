@@ -13,18 +13,19 @@ import DateCalc from '../common/util/date'
 import './statis/base.styl';
 import './statis/month.styl';
 
-const $Loading = document.querySelector('.loading');
-const $prev = document.querySelector('.l-prev');
-const $next = document.querySelector('.l-next');
-const MonthData = document.querySelector('#dmonth').innerHTML;
+const $ = document.querySelector.bind(document);
+const $Loading = $('.loading');
+const $prev = $('.l-prev');
+const $next = $('.l-next');
+const MonthData = $('#dmonth').innerHTML;
 
 let starData = {}, cmtData = {};
 
 const date = new DateCalc(`${MonthData}01`);
 
 const renderCharts = (data, dmonth) => {
-    const statisTop = echarts.init(document.querySelector('#star-comment'));        
-    const statisSum = echarts.init(document.querySelector('#star-comment-sum'));
+    const statisTop = echarts.init($('#star-comment'));        
+    const statisSum = echarts.init($('#star-comment-sum'));
     statisTop.setOption({
         title: { text: dmonth+' 点赞、评论 TOP 10' },
         tooltip: {
@@ -150,9 +151,9 @@ const renderCharts = (data, dmonth) => {
 
 const renderArticles = (articles, type) => {
     $prev.setAttribute('href',`/statistics/month/${date.beforeMonth()}`)
-    $prev.innerHTML = `前往 ${date.beforeMonth()} 数据统计`
+    $prev.innerHTML = `查看 ${date.beforeMonth()} 数据统计`
     $next.setAttribute('href',`/statistics/month/${date.afterMonth()}`)
-    $next.innerHTML = `前往 ${date.afterMonth()} 数据统计`
+    $next.innerHTML = `查看 ${date.afterMonth()} 数据统计`
     let statisData = starData;
     if(type == 'comment'){
         statisData = cmtData;
@@ -167,12 +168,12 @@ const renderArticles = (articles, type) => {
     }
     let dom = '';
     for(let i=0,len=statisData.article.length;i<len;i++){
-        dom += `<li><i>[${statisData.count[i]}]</i> <a href="/#/detail?aid=${statisData.article[i].id}">${statisData.article[i].title}</a></li>`
+        dom += `<li><i>[${statisData.count[i]}]</i> <a href="/#/detail?aid=${statisData.article[i].id}">${statisData.article[i].title}</a> - <a href="/#/date?dtime=${statisData.article[i].dtime}">${statisData.article[i].dtime}</a></li>`
     }
     if(type == 'comment'){
-        document.querySelector('.comment-top').innerHTML = dom;
+        $('.comment-top').innerHTML = dom;
     }else {
-        document.querySelector('.star-top').innerHTML = dom;
+        $('.star-top').innerHTML = dom;
     }
 }
 const fetchArticles = (aids, type) => {
@@ -200,15 +201,15 @@ fetch(`/api-statis/month/${MonthData}`)
                 cmtData = json[0];
             }
             $Loading.classList.add('hide');
-            document.querySelector('#sum-s').innerHTML = starData.sum;
-            document.querySelector('#sum-c').innerHTML = cmtData.sum;
+            $('#sum-s').innerHTML = starData.sum;
+            $('#sum-c').innerHTML = cmtData.sum;
             // 填充总数
             fetchArticles(starData.aids, 'star');
             fetchArticles(cmtData.aids, 'comment');
             renderCharts(json, MonthData); 
         }else {
             $Loading.classList.add('hide');
-            document.querySelector('.app').innerHTML = '<h1>还没统计</h1>'
+            $('.app').innerHTML = '<h1>还没统计</h1>'
         }
     })
     .catch(function(err){

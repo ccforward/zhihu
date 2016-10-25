@@ -1,6 +1,7 @@
 <template>
 <section class="date-container">
     <History :day="oneDay"></History>
+    <router-link :to="{path: '/'}" style="display:block;margin-top:10px">返回首页</router-link>
 </div>
 </template>
 

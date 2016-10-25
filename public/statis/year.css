@@ -13,10 +13,6 @@ h2 {
   color: #777;
   margin: 20px 0;
 }
-.explain-tips {
-  font-size: 13px;
-  color: #aaa;
-}
 .chart-container {
   width: 800px;
   overflow: hidden;
@@ -26,18 +22,21 @@ h2 {
   width: 800px;
   height: 400px;
 }
-.chart-container .desc p {
+.chart-container .year-max-desc {
+  margin: 10px 0;
+}
+.chart-container .year-max-desc p {
   line-height: 22px;
   font-size: 18px;
 }
-.chart-container .desc .max-year {
+.chart-container .year-max-desc .max-year {
   font-size: 14px;
   margin: 5px 0 10px;
 }
-.chart-container .desc .max-year span {
+.chart-container .year-max-desc .max-year span {
   margin-left: 5px;
 }
-.chart-container .desc .max-year i {
+.chart-container .year-max-desc .max-year i {
   font-style: normal;
   padding-right: 5px;
 }

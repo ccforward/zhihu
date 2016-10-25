@@ -15,22 +15,22 @@ if(CONFIG.log.openBae){
 var Task = {
     fire: function(){
         this.hourly();
-        // this.daily();
-        // this.weekly();
+        this.daily();
+        this.weekly();
     },
     // 07:30 - 21:30 每两个小时爬取一次lastest
     hourly: function(){
-        // new CronJob('00 30 7-21/2 * * *', function(){
-        //     Spider.latest();
-        // }, function(){
-        //     logger.info('hourly cron-job over')
-        // }, true, 'Asia/Shanghai');
-
-        new CronJob('*/20 * * * * *', function(){
+        new CronJob('00 30 7-21/2 * * *', function(){
             Spider.latest();
         }, function(){
             logger.info('hourly cron-job over')
         }, true, 'Asia/Shanghai');
+
+        // new CronJob('*/20 * * * * *', function(){
+        //     Spider.latest();
+        // }, function(){
+        //     logger.info('hourly cron-job over')
+        // }, true, 'Asia/Shanghai');
     },
     // 每天23:30 爬取当天的数据
     daily: function(){
@@ -46,8 +46,8 @@ var Task = {
     // 从start到end前一天 共7天
     weekly: function(){
         new CronJob('00 30 00 * * 0,3', function(){
-            var start = new DateCalc('20160921').before(),
-                end = new DateCalc('20160921').before(8);
+            var start = new DateCalc().before(),
+                end = new DateCalc().before(8);
             Spider.updateCmtCount(start, end);
         }, function(){
             logger.info('weekly cron-job over ')
