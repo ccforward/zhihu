@@ -41,7 +41,8 @@ config.js.sample 重命名为 config.js
 * spider.start spider.end  爬历史数据的开始结束时间 （知乎日报生日: 20130519）
 * start时间 比 end时间 晚
 
-如果在页面的HTTP的请求头里想加入 auth 和 referer 可以用这个 [chrome扩展](https://github.com/ccforward/C-Header)
+如果在页面的HTTP的请求头里想加入 Authorization 和 referer 可以用这个 [chrome扩展](https://github.com/ccforward/C-Header)
+
 ![](http://ww2.sinaimg.cn/large/7853084cjw1f6wvzw1utxj208w0bhjrp.jpg)
 
 ## 知乎日报的API

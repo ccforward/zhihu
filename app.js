@@ -40,7 +40,6 @@ var Job = require('./common/util/task');
 var SpiderMan = require('./common/util/spider');
 
 if(CONFIG.spider.fire) {
-    
     SpiderMan.fire(CONFIG.spider.start, CONFIG.spider.end);
 }
 if(CONFIG.spider.openTask) {
