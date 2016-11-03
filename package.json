@@ -10,7 +10,7 @@
   "homepage": "https://github.com/ccforward/zhihu#readme",
   "scripts": {
     "start": "node ./bin/zh.js",
-    "dev": "nodejs-dashboard supervisor ./bin/zh.js",
+    "dev": "node supervisor ./bin/zh.js",
     "devfe": "nodejs-dashboard node ./bin/zh.js",
     "build": "node ./build/build.js",
     "build-statis": "node ./build/build.js statis"

@@ -131,7 +131,8 @@ export default {
       font-size 17px
       color #616466
       img {
-        width 100%
+        width auto
+        max-width 100%
       }
     }
   }

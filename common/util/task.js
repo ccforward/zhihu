@@ -1,36 +1,32 @@
-var CronJob = require('cron').CronJob;
-var CONFIG = require('../../config');
-var zhAPI = require('../api/index-promise');
-var Spider = require('./spider');
-var DateCalc = require('./date');
+"use strict";
+
+const CronJob = require('cron').CronJob;
+const CONFIG = require('../../config');
+const zhAPI = require('../api/index-promise');
+const Spider = require('./spider');
+const DateCalc = require('./date');
 
 
 // ============== BAE node-log ==============
 if(CONFIG.log.openBae){
-    var logger = console;
+    const logger = console;
 }else {
-    var logger = require('log4js').getLogger('cheese');
+    const logger = require('log4js').getLogger('cheese');
 }
 
-var Task = {
+const Task = {
     fire: function(){
         this.hourly();
         this.daily();
         this.weekly();
     },
-    // 07:30 - 21:30 每两个小时爬取一次lastest
+    // 07:00 - 22:00 每1个小时爬取一次lastest
     hourly: function(){
-        new CronJob('00 30 7-21/2 * * *', function(){
+        new CronJob('00 00 7-22/1 * * *', function(){
             Spider.latest();
         }, function(){
             logger.info('hourly cron-job over')
         }, true, 'Asia/Shanghai');
-
-        // new CronJob('*/20 * * * * *', function(){
-        //     Spider.latest();
-        // }, function(){
-        //     logger.info('hourly cron-job over')
-        // }, true, 'Asia/Shanghai');
     },
     // 每天23:30 爬取当天的数据
     daily: function(){

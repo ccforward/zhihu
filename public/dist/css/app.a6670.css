@@ -549,7 +549,8 @@ button i[data-v-60520161] {
   color: #616466;
 }
 .article article .content img {
-  width: 100%;
+  width: auto;
+  max-width: 100%;
 }
 @media (max-width: 500px) {
 .article .img-wrap {

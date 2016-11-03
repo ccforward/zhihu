@@ -1,37 +1,37 @@
 "use strict";
-var CronJob = require('cron').CronJob;
-var Promise = require('es6-promise').Promise;
+const CronJob = require('cron').CronJob;
+const Promise = require('es6-promise').Promise;
 
-var CONFIG = require('../../config');
+const CONFIG = require('../../config');
 
-var ArticleDAO = require('../db/models/article');
-var HistoryDAO = require('../db/models/history');
-var CmtCountDAO = require('../db/models/cmtCount');
-var CommentsDAO = require('../db/models/comments');
-var LatestDAO = require('../db/models/latest');
-var TmpDAO = require('../db/models/tmp');
+const ArticleDAO = require('../db/models/article');
+const HistoryDAO = require('../db/models/history');
+const CmtCountDAO = require('../db/models/cmtCount');
+const CommentsDAO = require('../db/models/comments');
+const LatestDAO = require('../db/models/latest');
+const TmpDAO = require('../db/models/tmp');
 
-var zhAPI = require('../api/index-promise');
+const zhAPI = require('../api/index-promise');
 
-var DateCalc = require('./date');
+const DateCalc = require('./date');
 
-var historyDAO = new HistoryDAO(),
-    articleDAO = new ArticleDAO(),
-    cmtCountDAO = new CmtCountDAO(),
-    commentsDAO = new CommentsDAO(),
-    latestDAO = new LatestDAO(),
-    tmpDAO = new TmpDAO();
+const historyDAO = new HistoryDAO();
+const articleDAO = new ArticleDAO();
+const cmtCountDAO = new CmtCountDAO();
+const commentsDAO = new CommentsDAO();
+const latestDAO = new LatestDAO();
+const tmpDAO = new TmpDAO();
 
 
 // ============== BAE node-log ==============
 if(CONFIG.log.openBae){
-    var logger = console;
+    const logger = console;
 }else {
-    var logger = require('log4js').getLogger('cheese');
+    const logger = require('log4js').getLogger('cheese');
 }
 
 
-var Spider = {
+const Spider = {
     fire: function(start, end){
         // Spider.day(start);
         historyDAO.count({dtime: start}).then(function(d){
@@ -84,7 +84,6 @@ var Spider = {
                 logger.info('day history data over @: ' + new DateCalc(date).before());
                 return Promise.resolve('day history data over @: ' + new DateCalc(date).before());
             }).catch(function(err){
-                console.log(err)
                 logger.error('get ' + hDate + ' data error: ', err);
             });
         });

@@ -1,20 +1,21 @@
-var fs = require('fs');
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var morgan = require('morgan');
-var FileStreamRotator = require('file-stream-rotator');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-require("nodejs-dashboard");
-var CONFIG = require('./config');
-var routes = require('./routes/index');
+"use strict";
 
+const fs = require('fs');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const morgan = require('morgan');
+const FileStreamRotator = require('file-stream-rotator');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const CONFIG = require('./config');
+const routes = require('./routes/index');
 
-var app = express();
+const app = express();
 
 // webpack
 if(CONFIG.fe.developing){
+    require("nodejs-dashboard");
     var webpackConfig = require('./build/webpack.dev.conf');
     var webpack = require('webpack');
     var webpackDevMiddleware = require('webpack-dev-middleware');
@@ -32,22 +33,22 @@ if(CONFIG.fe.developing){
     app.use(hotMiddleware);
 }
 
-
-
 // 爬虫任务 
-
-var Job = require('./common/util/task');
-var SpiderMan = require('./common/util/spider');
+const Job = require('./common/util/task');
+const SpiderMan = require('./common/util/spider');
 
 if(CONFIG.spider.fire) {
     SpiderMan.fire(CONFIG.spider.start, CONFIG.spider.end);
 }
 if(CONFIG.spider.openTask) {
+    SpiderMan.latest();
     Job.fire();
 }
 
-// var statistic = require('./statistic')
-// statistic.start(['201509'])
+// 生成统计数据
+// const statistic = require('./statistic')
+// 参数为需要统计的月份数组
+// statistic.start(['201609', '201608'])
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
