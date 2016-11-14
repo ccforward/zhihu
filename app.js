@@ -25,7 +25,7 @@ if(CONFIG.fe.developing){
         stats: {
             colors: true,
             chunks: true,
-            progress: true 
+            progress: true
         }
     });
     var hotMiddleware = require('webpack-hot-middleware')(compiler);
@@ -33,7 +33,7 @@ if(CONFIG.fe.developing){
     app.use(hotMiddleware);
 }
 
-// 爬虫任务 
+// 爬虫任务
 const Job = require('./common/util/task');
 const SpiderMan = require('./common/util/spider');
 

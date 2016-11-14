@@ -250,11 +250,15 @@ a:hover {
   font-size: 16px;
   line-height: 1.5;
 }
-.history li img {
+.history li img,
+.history li .img {
   float: right;
   margin-right: 10px;
   width: 70px;
   height: 70px;
+  -webkit-background-size: 100%;
+  -moz-background-size: 100%;
+  background-size: 100%;
 }
 @media (max-width: 500px) {
 .home li .title {

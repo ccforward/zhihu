@@ -1,11 +1,13 @@
 import Vue from 'vue';
 import vueResource from 'vue-resource';
 import App from './App';
-import store from './store'
+import store from './store';
 import router from './router/index';
-import { sync } from 'vuex-router-sync'
-import * as filters from './filters'
+import { sync } from 'vuex-router-sync';
+import lazy from 'vue-lazy-image';
+import * as filters from './filters';
 
+Vue.use(lazy);
 Vue.use(vueResource);
 sync(store, router);
 

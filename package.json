@@ -10,7 +10,7 @@
   "homepage": "https://github.com/ccforward/zhihu#readme",
   "scripts": {
     "start": "node ./bin/zh.js",
-    "dev": "node supervisor ./bin/zh.js",
+    "dev": "supervisor ./bin/zh.js",
     "devfe": "nodejs-dashboard node ./bin/zh.js",
     "build": "node ./build/build.js",
     "build-statis": "node ./build/build.js statis"
@@ -37,6 +37,7 @@
     "serve-favicon": "~2.3.0",
     "stylus-loader": "^2.3.1",
     "vue": "^2.0.2",
+    "vue-lazy-image": "^1.0.2",
     "vue-resource": "^1.0.3",
     "vue-router": "^2.0.0",
     "vuex": "^2.0.0",

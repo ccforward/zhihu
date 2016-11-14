@@ -7,10 +7,10 @@
       <ul>
         <li v-for="item in day.data">
           <router-link :to="{path: 'detail', query:{aid: item.id}}">
-            <span class="title">{{item.title}}</span> 
-            <img :src="'http://ccforward.sinaapp.com/api/proxy.php?url='+item.image">
+            <span class="title">{{item.title}}</span>
+            <img v-lazy="'http://ccforward.sinaapp.com/api/proxy.php?url='+item.image">
             <p class="sns">
-              <i :class="item.popularity>500 && 'hot' ">{{ item.popularity }} likes</i> | 
+              <i :class="item.popularity>500 && 'hot' ">{{ item.popularity }} likes</i> |
               <i>{{ item.comments }} comments</i>
             </p>
           </router-link>
@@ -26,7 +26,6 @@ export default {
   props: ['day']
 };
 </script>
-
 
 <style lang="stylus">
 .history {

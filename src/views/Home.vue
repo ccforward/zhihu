@@ -152,12 +152,15 @@ export default {
       font-size 16px
       line-height 1.5
     }
-    img {
+    img,
+    .img {
       float right
       margin-right 10px
       width 70px
       height 70px
+      background-size 100%
     }
+    
   }
 }
 

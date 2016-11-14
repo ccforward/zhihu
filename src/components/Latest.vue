@@ -3,7 +3,8 @@
     <li v-for="item in data">
         <router-link :to="{path: 'top-detail', query:{aid: item.id}}"> 
           <span class="title">{{item.title}}</span>
-          <img :src="'http://ccforward.sinaapp.com/api/proxy.php?url='+item.image">
+          <!-- <img v-lazy="'http://ccforward.sinaapp.com/api/proxy.php?url='+item.image"> -->
+          <div class="img" v-lazy:background-image="'http://ccforward.sinaapp.com/api/proxy.php?url='+item.image"></div>
           <p class="sns">
             <i :class="item.popularity>500 && 'hot' ">{{ item.popularity }} likes</i> | 
             <i>{{ item.comments }} comments</i>
