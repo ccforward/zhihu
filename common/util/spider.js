@@ -32,7 +32,7 @@ if(CONFIG.log.openBae){
 
 
 const Spider = {
-    fire: function(start, end){
+    fire(start, end){
         // Spider.day(start);
         historyDAO.count({dtime: start}).then(function(d){
             if(d>0){
@@ -60,7 +60,7 @@ const Spider = {
         });
     },
     // date.before() 的数据 
-    day: function(date){
+    day(date){
         return zhAPI.getHistory(date).then(function(history){
             var hDate = history.date,
                 d = history.stories,
@@ -89,7 +89,7 @@ const Spider = {
         });
     },
 
-    dayRefresh: function(dtime){
+    dayRefresh(dtime){
         var query = {dtime: dtime};
         return tmpDAO.count({dtime: dtime})
             .then(function(d){
@@ -120,7 +120,7 @@ const Spider = {
             })
     },
 
-    dataOne: function(data, date){
+    dataOne(data, date){
         return Spider.history(data)
             .then(function(d){
                 return Spider.article(d.aid, d.dtime);
@@ -140,7 +140,7 @@ const Spider = {
             });
     },
 
-    history: function(data){
+    history(data){
         return historyDAO.save(data)
                 .then(function(err){
                     return Promise.resolve({aid:data.id, dtime: data.dtime});
@@ -151,7 +151,7 @@ const Spider = {
                 });
     },
     // 正文
-    article: function(aid, dtime, latest){
+    article(aid, dtime, latest){
         return zhAPI.getArticle(aid).then(function(article){
             var section = article.section || {id: null, name: null}
             var data = {
@@ -186,7 +186,7 @@ const Spider = {
         });
     },
     // 长评论
-    cmtLong: function(aid, dtime){
+    cmtLong(aid, dtime){
         return zhAPI.getCmtLong(aid)
         .then(function(cmts){
             var data = {
@@ -212,7 +212,7 @@ const Spider = {
         });
     },
     // 短评论
-    cmtShort: function(aid, dtime){
+    cmtShort(aid, dtime){
         return zhAPI.getCmtshort(aid)
         .then(function(cmts){
             var data = {
@@ -238,7 +238,7 @@ const Spider = {
         });
     },
     // 评论数
-    cmtCount: function(aid, dtime){
+    cmtCount(aid, dtime){
         return zhAPI.getCmtcount(aid)
         .then(function(count){
             var data = {
@@ -266,7 +266,7 @@ const Spider = {
     },
 
     // 评论数更新
-    updateCmtCount: function(start, end){
+    updateCmtCount(start, end){
         var aidsArr = [];
         return cmtCountDAO.search({dtime: start})
             .then(function(d){
@@ -302,7 +302,7 @@ const Spider = {
     },
 
     // 每日最新内容 latest
-    latest: function(){
+    latest(){
         var dtime = new DateCalc().now(),
             topID = [],
             latestID = [];

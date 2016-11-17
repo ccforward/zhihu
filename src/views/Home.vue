@@ -1,5 +1,6 @@
 <template>
 <div class="home">
+  <p class="statis-link"><a href="/statistics">去看看知乎日报的数据统计</a></p>
   <Latest :data="latest.latest"></Latest>
 
   <template v-for="item in histories">
@@ -133,7 +134,9 @@ export default {
 </script>
 
 <style lang="stylus">
-
+.statis-link {
+  text-align center
+}
 .history {
   a {
     display block

@@ -232,6 +232,9 @@ a:hover {
 }
 }
 
+.statis-link {
+  text-align: center;
+}
 .history a {
   display: block;
   overflow: hidden;
