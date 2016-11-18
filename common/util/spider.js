@@ -24,10 +24,9 @@ const tmpDAO = new TmpDAO();
 
 
 // ============== BAE node-log ==============
-if(CONFIG.log.openBae){
-    const logger = console;
-}else {
-    const logger = require('log4js').getLogger('cheese');
+let logger = console;
+if(!CONFIG.log.openBae){
+    logger = require('log4js').getLogger('cheese');
 }
 
 
