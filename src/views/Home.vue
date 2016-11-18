@@ -103,7 +103,7 @@ export default {
       if (window.innerHeight + document.body.scrollTop + 150 >= document.body.offsetHeight) {
         this.previousDay()
       }
-    }, 2000)
+    }, 200)
   },
   beforeMount () {
     if(this.$store.state.latest.length == 0){

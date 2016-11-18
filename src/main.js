@@ -1,16 +1,14 @@
-import Vue from 'vue';
-import vueResource from 'vue-resource';
-import { sync } from 'vuex-router-sync';
-import lazy from 'vue-lazy-image';
-import App from './App';
-import store from './store';
-import router from './router/index';
-import * as filters from './filters';
+import Vue from 'vue'
+import { sync } from 'vuex-router-sync'
+import lazy from 'vue-lazy-image'
+import App from './App'
+import store from './store'
+import router from './router/index'
+import * as filters from './filters'
 
 
-Vue.use(lazy);
-Vue.use(vueResource);
-sync(store, router);
+Vue.use(lazy)
+sync(store, router)
 
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])

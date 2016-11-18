@@ -1,21 +1,22 @@
-import Vue from 'vue';
+import Vue from 'vue'
+import axios from 'axios'
 
 export const fetchLatest = () => {
-  return Vue.http.get('/latest')
+  return axios.get('/latest')
 }
 
 export const fetchHistory = dtime => {
-  return Vue.http.get(`/day/${dtime}`)
+  return axios.get(`/day/${dtime}`)
 }
 
 export const fetchArticle = aid => {
-  return Vue.http.get(`/article/${aid}`)
+  return axios.get(`/article/${aid}`)
 }
 
 export const fetchComments = aid => {
-  return Vue.http.get(`/article/${aid}/comments`)
+  return axios.get(`/article/${aid}/comments`)
 }
 
 export const fetchAPIComments = aid => {
-  return Vue.http.get(`/article/${aid}/comments/api`)
+  return axios.get(`/article/${aid}/comments/api`)
 }
