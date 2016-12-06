@@ -3,7 +3,7 @@ function DateCalc(date, bef, aft){
         this.date = [date.substr(0,4), '-', date.substr(4,2), '-', date.substr(-2)].join('')
     }else{
         var d = new Date(); 
-        this.date = [d.getFullYear(), '-', d.getMonth()+1, '-', d.getDate()].join('')
+        this.date = [d.getFullYear(), '-', this._cover(d.getMonth()+1), '-', this._cover(d.getDate())].join('')
     }
     this.bef = bef || 0;
     this.aft = aft || 0;

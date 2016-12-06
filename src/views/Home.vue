@@ -126,6 +126,7 @@ export default {
   },
   methods: {
     previousDay: function(){
+      debugger
       this.$store.state.date = new DateCalc(this.$store.state.date).before();
       fetchHistory(this.$store, this.$store.state.date);
     }

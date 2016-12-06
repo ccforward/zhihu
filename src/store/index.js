@@ -5,10 +5,9 @@ import DateCalc from '../../common/util/date'
 
 Vue.use(Vuex)
 
-
 const store = new Vuex.Store({
   state: {
-    date:  new DateCalc().now(),
+    date: new DateCalc().now(),
     latest: [],
     day: [],
     oneday: {},
@@ -69,7 +68,7 @@ const store = new Vuex.Store({
     },
     SET_ONEDAY (state, data) {
       if(data.length){
-        state.oneday= {
+        state.oneday = {
           month: new DateCalc().monthEN(data[0].dtime) + data[0].dtime.substr(4,2),
           date: new DateCalc().CHN(data[0].dtime),
           data: data
