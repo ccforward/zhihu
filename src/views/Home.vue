@@ -53,7 +53,7 @@ const throttle = function(func, wait, options) {
     }
     return result;
   };
-};
+}
 
 export default {
   name: 'home',
@@ -107,8 +107,11 @@ export default {
     }, 200)
   },
   beforeMount () {
+    if(this.histories.length == 0){
+      this.previousDay()
+    }
     if(this.$store.state.latest.length == 0){
-      fetchLatest(this.$store);
+      fetchLatest(this.$store)
     }
   },
   mounted(){
@@ -126,7 +129,6 @@ export default {
   },
   methods: {
     previousDay: function(){
-      debugger
       this.$store.state.date = new DateCalc(this.$store.state.date).before();
       fetchHistory(this.$store, this.$store.state.date);
     }
