@@ -308,7 +308,7 @@ const Spider = {
 
     // 每日最新内容 latest
     latest(){
-        var dtime = dateCalculator.now(),
+        var dtime = dateCalculator.today(),
             topID = [],
             latestID = [];
         articleDAO.delete({latest: true})
