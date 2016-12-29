@@ -18,7 +18,7 @@ DateCalc.prototype = {
 
     now: function(date){
         date && (this.date = [date.substr(0,4), '-', date.substr(4,2), '-', date.substr(-2)].join(''))
-        var d = this.date ? new Date(this.date) : new Date();
+        var d = date ? new Date(this.date) : new Date();
         return [d.getFullYear(), this._cover(d.getMonth()+1), this._cover(d.getDate())].join('');     
     },
     before: function(days){

@@ -13,7 +13,8 @@ const TmpDAO = require('../db/models/tmp');
 
 const zhAPI = require('../api/index-promise');
 
-const DateCalc = require('./date');
+const DateCalc = require('./date')
+const dateCalculator = new DateCalc()
 
 const historyDAO = new HistoryDAO();
 const articleDAO = new ArticleDAO();
@@ -37,14 +38,16 @@ const Spider = {
             if(d>0){
                 return ;
             }
-            start = new DateCalc(start).after();
-            end = new DateCalc(end).after();
+            dateCalculator.now(start)
+            start = dateCalculator.after();
+            dateCalculator.now(end)
+            end = dateCalculator.after();
 
             var interval = '*/' + CONFIG.spider.interval + ' * * * * *';
             var spiderJob = new CronJob(interval, function(){
                 if(d == 0){
                     Spider.day(end);
-                    var dateCalc = new DateCalc(end);
+                    var dateCalc = dateCalculator.now(end);
                     end = dateCalc.after();
                     if(start == end){
                         setTimeout(function(){
@@ -80,8 +83,9 @@ const Spider = {
             }
 
             Promise.all(promiseAll).then(function(){
-                logger.info('day history data over @: ' + new DateCalc(date).before());
-                return Promise.resolve('day history data over @: ' + new DateCalc(date).before());
+                dateCalculator.now(date)
+                logger.info('day history data over @: ' + dateCalculator.before());
+                return Promise.resolve('day history data over @: ' + ndateCalculator.before());
             }).catch(function(err){
                 logger.error('get ' + hDate + ' data error: ', err);
             });
@@ -108,7 +112,8 @@ const Spider = {
                 return cmtCountDAO.delete(query);
             })
             .then(function(){
-                Spider.day(new DateCalc(dtime).after())
+                dateCalculator(dtime)
+                Spider.day(dateCalculator.after())
                     .then(function(){
                         return tmpDAO.delete(query);
                     })
@@ -288,7 +293,8 @@ const Spider = {
                 return Promise.all(promiseArr);
             })
             .then(function(){
-                var date = new DateCalc(start).before();
+                dateCalculator.now(start)
+                var date = dateCalculator.before();
                 if(date != end){
                     Spider.updateCmtCount(date, end)
                 }
@@ -302,7 +308,7 @@ const Spider = {
 
     // 每日最新内容 latest
     latest(){
-        var dtime = new DateCalc().now(),
+        var dtime = dateCalculator.now(),
             topID = [],
             latestID = [];
         articleDAO.delete({latest: true})

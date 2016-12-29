@@ -13,15 +13,17 @@ if(!CONFIG.log.openBae){
     let logger = require('log4js').getLogger('cheese');
 }
 
+const d = new DateCalc()
+
 const Task = {
     fire: function(){
         this.hourly();
         this.daily();
         this.weekly();
     },
-    // 07:00 - 22:00 每1个小时爬取一次lastest
+    // 00:00 - 23:00 每1个小时爬取一次lastest
     hourly: function(){
-        new CronJob('00 00 7-22/1 * * *', function(){
+        new CronJob('00 00 0-23/1 * * *', function(){
             Spider.latest();
         }, function(){
             logger.info('hourly cron-job over')
@@ -30,19 +32,18 @@ const Task = {
     // 每天23:00 爬取当天的数据
     daily: function(){
         new CronJob('00 00 23 * * *', function(){
-            var date = new DateCalc().after();
-            Spider.day(date);
+            Spider.day(d.after());
         }, function(){
             logger.info('daily cron-job over @date:' + new Date())
         }, true, 'Asia/Shanghai');
     },
     
-    // 每周三、日 21:30 更新前7天的评论点赞数 
+    // 每周三、日 03:30 更新前7天的评论点赞数 
     // 从start到end前一天 共7天
     weekly: function(){
-        new CronJob('00 30 21 * * 0,3', function(){
-            var start = new DateCalc().before(),
-                end = new DateCalc().before(8);
+        new CronJob('00 30 03 * * 0,3', function(){
+            const start = d.before()
+            const end = d.before(8)
             Spider.updateCmtCount(start, end);
         }, function(){
             logger.info('weekly cron-job over ')
