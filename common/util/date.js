@@ -35,9 +35,9 @@ DateCalc.prototype = {
         var d = this.date ? new Date(this.date) : new Date();
         return [d.getFullYear(), this._cover(d.getMonth()+1)].join('');     
     },
-    monthEN: function(){
-        var d = this.date ? new Date(this.date) : new Date();
-        return this.monthENArr[parseInt(this.month().substr(4,2))];    
+    monthEN: function(dtime){
+        dtime = dtime ? dtime : this.now()
+        return this.monthENArr[parseInt(dtime.substr(4,2))];    
     },
     beforeMonth: function(){
         var y = parseInt(this.month().substr(0,4), 10),

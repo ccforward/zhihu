@@ -58,6 +58,7 @@ const store = new Vuex.Store({
     },
     SET_HISTORY (state, data) {
       if(data.length){
+        debugger
         let day = {
           month: new DateCalc().monthEN(data[0].dtime) + data[0].dtime.substr(6,2),
           date: new DateCalc().CHN(data[0].dtime),
