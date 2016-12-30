@@ -47,8 +47,8 @@ const Spider = {
             var spiderJob = new CronJob(interval, function(){
                 if(d == 0){
                     Spider.day(end);
-                    var dateCalc = dateCalculator.now(end);
-                    end = dateCalc.after();
+                    dateCalculator.now(end);
+                    end = dateCalculator.after();
                     if(start == end){
                         setTimeout(function(){
                             Spider.day(end);
@@ -85,7 +85,7 @@ const Spider = {
             Promise.all(promiseAll).then(function(){
                 dateCalculator.now(date)
                 logger.info('day history data over @: ' + dateCalculator.before());
-                return Promise.resolve('day history data over @: ' + ndateCalculator.before());
+                return Promise.resolve('day history data over @: ' + dateCalculator.before());
             }).catch(function(err){
                 logger.error('get ' + hDate + ' data error: ', err);
             });

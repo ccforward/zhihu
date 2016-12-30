@@ -6,8 +6,8 @@
           <!-- <img v-lazy="'http://ccforward.sinaapp.com/api/proxy.php?url='+item.image"> -->
           <div class="img" v-lazy:background-image="'http://ccforward.sinaapp.com/api/proxy.php?url='+item.image"></div>
           <p class="sns">
-            <i :class="item.popularity>500 && 'hot' ">{{ item.popularity }} likes</i> | 
-            <i>{{ item.comments }} comments</i>
+            <i :class="item.popularity>500 && 'hot' ">{{ item.popularity || 0 }} likes</i> | 
+            <i>{{ item.comments || 0 }} comments</i>
           </p>
         </router-link>
     </li>
