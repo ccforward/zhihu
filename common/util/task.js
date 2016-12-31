@@ -29,9 +29,9 @@ const Task = {
             logger.info('hourly cron-job over')
         }, true, 'Asia/Shanghai');
     },
-    // 每天23:00 爬取当天的数据
+    // 每天23:50 爬取当天的数据
     daily: function(){
-        new CronJob('00 00 23 * * *', function(){
+        new CronJob('00 50 23 * * *', function(){
             Spider.day(d.after());
         }, function(){
             logger.info('daily cron-job over @date:' + new Date())
