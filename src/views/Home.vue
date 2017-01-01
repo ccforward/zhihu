@@ -151,7 +151,6 @@ export default {
 <style lang="stylus">
 .date-pick {
   position relative
-  height 25px
   &:hover {
     .date-desc {
       opacity 0
@@ -222,8 +221,8 @@ export default {
   }
 }
 
-@media (max-width: 400px) {
-  input[type="date"] {
+@media (max-width: 650px) {
+  .date-pick {
     display none
   }
 }

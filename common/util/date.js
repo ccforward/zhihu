@@ -28,8 +28,14 @@ DateCalc.prototype = {
     before: function(days){
         return this._calc(days || 1,'before');
     },
+    beforeCN: function(days){
+        return this.CHN(this._calc(days || 1,'before'))
+    },
     after: function(days){
         return this._calc(days || 1,'after');
+    },
+    afterCN: function(days){
+        return this.CHN(this._calc(days || 1,'after'))
     },
     month: function(){
         var d = this.date ? new Date(this.date) : new Date();

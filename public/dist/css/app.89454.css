@@ -234,7 +234,6 @@ a:hover {
 
 .date-pick {
   position: relative;
-  height: 25px;
 }
 .date-pick:hover .date-desc {
   opacity: 0;
@@ -294,8 +293,8 @@ a:hover {
   -moz-background-size: 100%;
   background-size: 100%;
 }
-@media (max-width: 400px) {
-input[type="date"] {
+@media (max-width: 650px) {
+.date-pick {
     display: none;
 }
 }
