@@ -1,8 +1,12 @@
 <template>
-<section class="date-container">
+  <div class="date-container">
+    <div class="date-link">
+      <router-link class="date-before" :to="{ path: '/date', query: { dtime: before }}" replace>前一天 - {{before}}</router-link>
+      <router-link class="date-after" :to="{ path: '/date', query: { dtime: after }}" replace>{{after}} - 后一天</router-link>
+    </div>
     <History :day="oneDay"></History>
-    <router-link :to="{path: '/'}" style="display:block;margin-top:10px">返回首页</router-link>
-</div>
+    <router-link :to="{path: '/'}" style="display:block;margin:10px 0">返回首页</router-link>
+  </div>
 </template>
 
 <script>
@@ -21,6 +25,18 @@ export default {
   },
   preFetch: fetchHistory,
   computed: {
+    before(){
+      const d = new DateCalc(this.$store.state.route.query.dtime).before()
+      this.$store.state.date = d
+      fetchHistory(this.$store)
+      return d
+    },
+    after(){
+      const d = new DateCalc(this.$store.state.route.query.dtime).after()
+      this.$store.state.date = d
+      fetchHistory(this.$store)
+      return d
+    },
     oneDay() {
       return this.$store.state.oneday
     }
@@ -30,3 +46,11 @@ export default {
   }
 };
 </script>
+<style lang="stylus" scoped>
+.date-link {
+  padding 10px 0
+}
+.date-after {
+  float right
+}
+</style>

@@ -1,5 +1,9 @@
 <template>
 <div class="home">
+  <div class="date-pick">
+    <input type="date" min="2013-05-19" :value="now" @change="changeDate">
+    <p class="date-desc">搜索知乎日报的某一天</p>
+  </div>
   <p class="statis-link"><a href="/statistics">去看看知乎日报的数据统计</a></p>
   <Latest :data="latest.latest"></Latest>
 
@@ -12,10 +16,10 @@
 </template>
 
 <script>
-import Vue from 'vue';
+import Vue from 'vue'
 import Latest from '../components/Latest.vue'
 import History from '../components/History.vue'
-import DateCalc from '../../common/util/date';
+import DateCalc from '../../common/util/date'
 
 const fetchLatest = store => {
   return store.dispatch('FETCH_LATEST')
@@ -70,6 +74,10 @@ export default {
   },
   preFetch: fetchLatest,
   computed: {
+    now(){
+      const d = new DateCalc().now()
+      return d.substr(0,4) +'-'+ d.substr(4,2) +'-'+ d.substr(6,2)
+    },
     latest(){
       let data = {
         top: [],
@@ -128,7 +136,11 @@ export default {
     next()
   },
   methods: {
-    previousDay: function(){
+    changeDate(e){
+      const date = e.target.value.replace(/-/g, '')
+      date && this.$router.push(`date?dtime=${date}`);
+    },
+    previousDay(){
       this.$store.state.date = new DateCalc(this.$store.state.date).before();
       fetchHistory(this.$store, this.$store.state.date);
     }
@@ -137,6 +149,37 @@ export default {
 </script>
 
 <style lang="stylus">
+.date-pick {
+  position relative
+  height 25px
+  &:hover {
+    .date-desc {
+      opacity 0
+    }
+  }
+  input{
+    margin 10px 0
+    width 30%
+    height 25px
+    border 1px solid #42b983
+    outline 0
+    color #42b983
+    line-height 25px
+    text-indent 6px
+    font-size 13px
+  }
+  .date-desc {
+    position absolute
+    top 14px
+    left 3px
+    margin 0
+    height 20px
+    background #fff
+    color #42b983
+    font-size 12px
+    text-indent 11px
+  }
+}
 .statis-link {
   text-align center
 }
@@ -176,6 +219,12 @@ export default {
   }
   to{
     transform rotate(360deg)
+  }
+}
+
+@media (max-width: 400px) {
+  input[type="date"] {
+    display none
   }
 }
 
