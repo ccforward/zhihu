@@ -112,13 +112,14 @@ const Spider = {
                 return cmtCountDAO.delete(query);
             })
             .then(function(){
-                dateCalculator(dtime)
+                dateCalculator.now(dtime)
                 Spider.day(dateCalculator.after())
                     .then(function(){
                         return tmpDAO.delete(query);
                     })
             }).
             catch(function(err){
+                console.log(err)
                 tmpDAO.save({aid: '', dtime: dtime});
                 return Promise.reject(err);
             })
