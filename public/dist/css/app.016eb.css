@@ -445,8 +445,10 @@ to {
   margin-top: 4px;
   font-size: 16px;
 }
-.history small {
+.history .day-link {
   display: inline-block;
+}
+.history .day-link small {
   height: 44px;
   line-height: 44px;
   color: #4e627a;
@@ -454,6 +456,9 @@ to {
   font-size: 16px;
   font-weight: 600;
   vertical-align: top;
+}
+.history .day-link:hover small {
+  color: #42b983;
 }
 
 button[data-v-60520161] {

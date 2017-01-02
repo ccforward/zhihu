@@ -2,13 +2,14 @@
     <section class="history">
       <div class="date" v-if="day.month">
         <span><i class="m">{{ day.month.substr(0,3) }}</i><i class='d'>{{ day.month.substr(3,2) }}</i></span>
-        <small>{{ day.date }}</small>
+        <router-link class="day-link" :to="{ path: '/date', query: { dtime: day.data[0].dtime }}">
+          <small>{{ day.date }}</small>
+        </router-link>
       </div>
       <ul>
         <li v-for="item in day.data">
           <router-link :to="{path: 'detail', query:{aid: item.id}}">
             <span class="title">{{item.title}}</span>
-
             <img v-if="view" :src="'http://ccforward.sinaapp.com/api/proxy.php?url='+item.image">
             <img v-else v-lazy="'http://ccforward.sinaapp.com/api/proxy.php?url='+item.image">
             <p class="sns">
@@ -25,7 +26,10 @@
 <script>
 export default {
   name: 'history-item',
-  props: ['day', 'view']
+  props: ['day', 'view'],
+  mounted(){
+    scrollTo(0, 0)
+  }
 };
 </script>
 
@@ -79,15 +83,22 @@ export default {
       }
     }
   }
-  small {
+  .day-link {
     display inline-block
-    height 44px
-    line-height 44px
-    color #4e627a
-    text-align center
-    font-size 16px
-    font-weight 600
-    vertical-align: top;
+    small {
+      height 44px
+      line-height 44px
+      color #4e627a
+      text-align center
+      font-size 16px
+      font-weight 600
+      vertical-align: top;
+    }
+    &:hover {
+      small {
+        color #42b983
+      }
+    }
   }
 }
 </style>
