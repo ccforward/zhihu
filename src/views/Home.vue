@@ -197,15 +197,15 @@ export default {
       margin 10px 0 0 10px
       width auto
       max-width 70%
-      font-size 16px
+      font-size 15px
       line-height 1.5
     }
     img,
     .img {
       float right
-      margin-right 10px
-      width 70px
-      height 70px
+      margin-right 5px
+      width 90px
+      height 90px
       background-size 100%
     }
     

@@ -44,6 +44,9 @@ export default {
 <style lang="stylus" scoped>
 .date-link {
   padding 10px 0
+  a {
+    font-size .9rem
+  }
 }
 .date-after {
   float right

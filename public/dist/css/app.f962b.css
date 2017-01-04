@@ -280,15 +280,15 @@ a:hover {
   margin: 10px 0 0 10px;
   width: auto;
   max-width: 70%;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.5;
 }
 .history li img,
 .history li .img {
   float: right;
-  margin-right: 10px;
-  width: 70px;
-  height: 70px;
+  margin-right: 5px;
+  width: 90px;
+  height: 90px;
   -webkit-background-size: 100%;
   -moz-background-size: 100%;
   background-size: 100%;
@@ -689,6 +689,9 @@ button i[data-v-60520161] {
 
 .date-link[data-v-d9b93788] {
   padding: 10px 0;
+}
+.date-link a[data-v-d9b93788] {
+  font-size: 0.9rem;
 }
 .date-after[data-v-d9b93788] {
   float: right;

@@ -28,7 +28,7 @@ export default {
   name: 'history-item',
   props: ['day', 'view'],
   mounted(){
-    scrollTo(0, 0)
+    this.$route.name == 'oneday' && scrollTo(0, 0)
   }
 };
 </script>
