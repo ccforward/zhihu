@@ -461,6 +461,16 @@ to {
   color: #42b983;
 }
 
+.day-link[data-v-60520161] {
+  display: block;
+  padding-top: 10px;
+  text-align: left;
+}
+.day-link-bottom[data-v-60520161] {
+  padding-top: 0;
+  padding-bottom: 10px;
+  -webkit-font-smoothing: antialiased;
+}
 button[data-v-60520161] {
   margin-bottom: 15px;
   border: 0;

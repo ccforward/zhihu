@@ -23,6 +23,6 @@ const app = new Vue({
     render(h) {
         return h(App)
     }
-}).$mount('#entry')
+}).$mount('#app')
 
 export { app, router, store }

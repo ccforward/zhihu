@@ -18,3 +18,9 @@
 <style lang="stylus">
   @import './assets/common.styl'
 </style>
+
+<script>
+  export default {
+    name: 'zhihu'
+  }
+</script>
