@@ -53,14 +53,14 @@ export default {
     color #f06
   }
   .date {
+    position relative
     padding 12px 0
     margin 10px 0
-    margin-left -59px
     font-size 0
     span {
-      display inline-block
+      position absolute
       padding 2px 0
-      margin-right 25px
+      left -59px
       width 34px
       height 40px
       background #948CF1

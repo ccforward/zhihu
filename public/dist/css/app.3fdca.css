@@ -415,15 +415,15 @@ to {
   color: #f06;
 }
 .history .date {
+  position: relative;
   padding: 12px 0;
   margin: 10px 0;
-  margin-left: -59px;
   font-size: 0;
 }
 .history .date span {
-  display: inline-block;
+  position: absolute;
   padding: 2px 0;
-  margin-right: 25px;
+  left: -59px;
   width: 34px;
   height: 40px;
   background: #948cf1;
