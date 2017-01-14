@@ -58,7 +58,7 @@ const store = new Vuex.Store({
     },
     SET_HISTORY (state, data) {
       if(data.length){
-        let day = {
+        const day = {
           month: new DateCalc().monthEN(data[0].dtime) + data[0].dtime.substr(6,2),
           date: new DateCalc().CHN(data[0].dtime),
           data: data
@@ -74,6 +74,12 @@ const store = new Vuex.Store({
           date: new DateCalc().CHN(data[0].dtime),
           data: data
         }
+      }else {
+        const dtime = state.route.query.dtime
+        const date = new DateCalc(state.route.query.dtime)
+        state.oneday.data = []
+        state.oneday.month = date.monthEN() + dtime.substr(6,2)
+        state.oneday.date = date.CHN()
       }
     },
     SET_ARTICLE (state, data) {

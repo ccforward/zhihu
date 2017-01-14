@@ -2,7 +2,12 @@
     <section class="history">
       <div class="date" v-if="day.month">
         <span><i class="m">{{ day.month.substr(0,3) }}</i><i class='d'>{{ day.month.substr(3,2) }}</i></span>
-        <router-link class="day-link" :to="{ path: '/date', query: { dtime: day.data[0].dtime }}">
+        
+        <router-link v-if="view" class="day-link" :to="{ path: '/date', query: { dtime: dtime }}">
+          <small>{{ day.date }}</small>
+        </router-link>
+
+        <router-link v-else class="day-link" :to="{ path: '/date', query: { dtime: day.data[0].dtime }}">
           <small>{{ day.date }}</small>
         </router-link>
       </div>
@@ -27,6 +32,11 @@
 export default {
   name: 'history-item',
   props: ['day', 'view'],
+  computed: {
+      dtime() {
+        return this.$route.query.dtime
+      }
+  },
   mounted(){
     this.$route.name == 'oneday' && scrollTo(0, 0)
   }
@@ -100,5 +110,9 @@ export default {
       }
     }
   }
+}
+.no-articles {
+  padding 10px 0
+  text-align center
 }
 </style>

@@ -119,7 +119,6 @@ const Spider = {
                     })
             }).
             catch(function(err){
-                console.log(err)
                 tmpDAO.save({aid: '', dtime: dtime});
                 return Promise.reject(err);
             })

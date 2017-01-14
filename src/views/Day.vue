@@ -5,14 +5,16 @@
       <router-link class="date-after" :to="{ path: '/date', query: { dtime: date.after }}" replace>{{date.afterCN}} - 后一天</router-link>
     </div>
     <History :day="oneDay" :view="true"></History>
+    <a class="fetch-day" @click.prevent="fetch" v-if="!oneDay.data">刷新数据</a>
     <router-link :to="{path: '/'}" style="display:block;margin:10px 0">返回首页</router-link>
   </div>
 </template>
 
 <script>
-import Vue from 'vue';
+import Vue from 'vue'
 import History from '../components/History.vue'
-import DateCalc from '../../common/util/date';
+import DateCalc from '../../common/util/date'
+import axios from 'axios'
 
 const fetchHistory = store => {
   return store.dispatch('FETCH_ONEDAY', store.state.route.query.dtime);
@@ -27,16 +29,26 @@ export default {
   computed: {
     date() {
       fetchHistory(this.$store)
-      const date = new DateCalc(this.$store.state.route.query.dtime)
+      const d = new DateCalc(this.dtime)
       return {
-        before: date.before(),
-        beforeCN: date.beforeCN(),
-        after: date.after(),
-        afterCN: date.afterCN()
+        before: d.before(),
+        beforeCN: d.beforeCN(),
+        after: d.after(),
+        afterCN: d.afterCN()
       }
     },
     oneDay() {
       return this.$store.state.oneday
+    },
+    dtime() {
+      return this.$store.state.route.query.dtime
+    }
+  },
+  methods: {
+    fetch(){
+      console.log(this.dtime)
+      const dtime = this.dtime
+      axios.post(`/clear-error/${dtime}`)
     }
   }
 };
@@ -50,5 +62,11 @@ export default {
 }
 .date-after {
   float right
+}
+.fetch-day {
+  display block
+  margin 10px 0
+  cursor pointer
+  font-size 14px
 }
 </style>
