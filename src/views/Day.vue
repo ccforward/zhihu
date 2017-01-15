@@ -46,7 +46,6 @@ export default {
   },
   methods: {
     fetch(){
-      console.log(this.dtime)
       const dtime = this.dtime
       axios.post(`/clear-error/${dtime}`)
     }

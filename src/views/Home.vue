@@ -5,7 +5,7 @@
     <p class="date-desc">搜索知乎日报的某一天</p>
   </div>
   <p class="statis-link"><a href="/statistics">去看看知乎日报的数据统计</a></p>
-  <Latest :data="latest.latest"></Latest>
+  <Latest :data="latest"></Latest>
 
   <template v-for="item in histories">
     <History :day="item"></History>
@@ -79,9 +79,10 @@ export default {
       return d.substr(0,4) +'-'+ d.substr(4,2) +'-'+ d.substr(6,2)
     },
     latest(){
-      let data = {
+      const data = {
         top: [],
-        latest:[]
+        latest:[],
+        month: ''
       };
       let comments = [];
       let d = this.$store.state.latest
@@ -101,7 +102,12 @@ export default {
           }
         }
       }
-      return data;
+
+      if(data.latest.length) {
+        const dtime = data.latest[0].dtime
+        data.month = new DateCalc().monthEN(dtime) + dtime.substr(6,2)
+      }
+      return data
     },
     histories() {
       return this.$store.state.day
