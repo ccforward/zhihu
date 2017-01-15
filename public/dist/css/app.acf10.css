@@ -460,6 +460,10 @@ to {
 .history .day-link:hover small {
   color: #42b983;
 }
+.no-articles {
+  padding: 10px 0;
+  text-align: center;
+}
 
 .day-link[data-v-60520161] {
   display: block;
@@ -705,4 +709,10 @@ button i[data-v-60520161] {
 }
 .date-after[data-v-d9b93788] {
   float: right;
+}
+.fetch-day[data-v-d9b93788] {
+  display: block;
+  margin: 10px 0;
+  cursor: pointer;
+  font-size: 14px;
 }
