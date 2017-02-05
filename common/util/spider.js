@@ -84,7 +84,9 @@ const Spider = {
 
             Promise.all(promiseAll).then(function(){
                 dateCalculator.now(date)
-                logger.info('day history data over @: ' + dateCalculator.before());
+                const logNow = new Date()
+                const logDate = logNow.getDate() + '-' + logNow.getHours() + ':' + logNow.getMinutes()
+                logger.info(logDate + ' day history data over @: ' + dateCalculator.before());
                 return Promise.resolve('day history data over @: ' + dateCalculator.before());
             }).catch(function(err){
                 logger.error('get ' + hDate + ' data error: ', err);
@@ -119,6 +121,7 @@ const Spider = {
                     })
             }).
             catch(function(err){
+                console.log(err)
                 tmpDAO.save({aid: '', dtime: dtime});
                 return Promise.reject(err);
             })
