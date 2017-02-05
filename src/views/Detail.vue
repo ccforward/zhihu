@@ -1,8 +1,8 @@
 <template>
   <div class="detail">
-    <router-link class="day-link" :to="{path: '/date?dtime='+article.dtime}">看看这一天的所有文章</router-link>
+    <router-link v-if="showDayLik" class="day-link" :to="{path: '/date?dtime='+article.dtime}">看看这一天的所有文章</router-link>
     <Articles :article="article"></Articles>
-    <router-link class="day-link day-link-bottom" :to="{path: '/date?dtime='+article.dtime}">看看这一天的所有文章</router-link>
+    <router-link v-if="showDayLik" class="day-link day-link-bottom" :to="{path: '/date?dtime='+article.dtime}">看看这一天的所有文章</router-link>
     <button @click="getComments">
       <i class="icon comments"></i>
       <span v-if="comments.length==0">点击查看最新点评</span>
@@ -43,6 +43,9 @@ export default {
     Comments
   },
   computed: {
+    showDayLik(){
+      return this.$store.state.route.name != 'top-detail'
+    },
     article () {
       return this.$store.state.article
     },

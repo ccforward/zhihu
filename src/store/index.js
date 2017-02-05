@@ -76,10 +76,12 @@ const store = new Vuex.Store({
         }
       }else {
         const dtime = state.route.query.dtime
-        const date = new DateCalc(state.route.query.dtime)
-        state.oneday.data = []
-        state.oneday.month = date.monthEN() + dtime.substr(6,2)
-        state.oneday.date = date.CHN()
+        if(dtime){
+          const date = new DateCalc(state.route.query.dtime)
+          state.oneday.data = []
+          state.oneday.month = date.monthEN() + dtime.substr(6,2)
+          state.oneday.date = date.CHN()
+        }
       }
     },
     SET_ARTICLE (state, data) {
