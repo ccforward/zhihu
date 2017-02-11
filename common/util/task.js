@@ -32,7 +32,8 @@ const Task = {
     // 每天23:50 爬取当天的数据
     daily: function(){
         new CronJob('00 50 23 * * *', function(){
-            Spider.day(d.after());
+            const day = new DateCalc()
+            Spider.day(day.after())
         }, function(){
             logger.info('daily cron-job over @date:' + new Date())
         }, true, 'Asia/Shanghai');

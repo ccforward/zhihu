@@ -84,9 +84,7 @@ const Spider = {
 
             Promise.all(promiseAll).then(function(){
                 dateCalculator.now(date)
-                const logNow = new Date()
-                const logDate = logNow.getDate() + '-' + logNow.getHours() + ':' + logNow.getMinutes()
-                logger.info(logDate + ' day history data over @: ' + dateCalculator.before());
+                logger.info(new Date() + ' day history data over @: ' + dateCalculator.before());
                 return Promise.resolve('day history data over @: ' + dateCalculator.before());
             }).catch(function(err){
                 logger.error('get ' + hDate + ' data error: ', err);

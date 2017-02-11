@@ -1,7 +1,7 @@
 var Promise = require('es6-promise').Promise;
 var Spider = require('../common/util/spider');
 var TmpDAO = require('../common/db/models/tmp');
-
+var DateCalc = require('./common/util/date');     
 
 var Tmp = {
     // 爬虫错误列表
@@ -22,10 +22,15 @@ var Tmp = {
     // fix错误 重新爬 dtime 数据
     clear: function(req, res){
         var dtime = req.params.dtime;
-        Spider.dayRefresh(dtime)
-            .then(function(){
-                res.json(dtime + ' refresh over');
-            })
+        var d = new DateCalc();
+        if(dtime != d.now()){
+            Spider.dayRefresh(dtime)
+                .then(function(){
+                    res.json(dtime + ' refresh over');
+                })
+        }else {
+            res.json(dtime + ' refresh over');
+        }
     }
 
 
