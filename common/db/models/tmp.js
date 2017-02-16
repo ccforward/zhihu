@@ -1,3 +1,4 @@
+"use strict";
 /*
  * 临时记录出错的 aid
  * 长评 1
@@ -16,6 +17,15 @@ var TmpSchema = new Schema({
 var TmpDAO = function(){};
 var Tmp = mongodb.mongoose.model('Tmp', TmpSchema);
 
+const transporter = require('../util/mail')
+const mailOptions = {
+    from: 'cc.ccforward@gmail.com', // sender address
+    to: 'ccking@foxmail.com', // list of receivers
+    subject: 'zhihuhu error', // Subject line
+    text: '爬虫报警', // plain text body
+    html: '<h1>爬虫报警</h1><a href="http://zhihuhu.duapp.com/spider-error">error</a><br><hr>' // html body
+}
+
 TmpDAO.prototype =  {
     constructor: TmpDAO,
     save: function(obj){
@@ -23,6 +33,12 @@ TmpDAO.prototype =  {
             var instance = new Tmp(obj);
             instance.save(function(err){
                 if(err) return reject(err);
+                mailOptions.html += 'dtime: ' + obj.dtime
+                transporter.sendMail(mailOptions, (error, info) => {
+                    if (error) {
+                        return console.log(new Date() + ' ' + error);
+                    }
+                })
                 resolve();
             });
         });
