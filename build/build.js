@@ -3,7 +3,7 @@ require('shelljs/global')
 env.NODE_ENV = 'production'
 
 var path = require('path')
-var config = require('../config/index.js')
+var config = require('./config')
 var ora = require('ora')
 var webpack = require('webpack')
 var isStatis = !!(process.argv[2] == 'statis');

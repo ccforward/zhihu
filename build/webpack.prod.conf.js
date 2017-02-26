@@ -1,20 +1,26 @@
-var path = require('path')
-var config = require('../config/index.js')
-var utils = require('./utils')
-var webpackUploadPlugin = require('./t')
-var request = require('request')
-var webpack = require('webpack')
-var merge = require('webpack-merge')
-var baseWebpackConfig = require('./webpack.base.conf')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
-var env = process.env.NODE_ENV === 'testing'
+const path = require('path')
+const config = require('./config')
+const utils = require('./utils')
+const webpackUploadPlugin = require('./t')
+const request = require('request')
+const webpack = require('webpack')
+const merge = require('webpack-merge')
+const baseWebpackConfig = require('./webpack.base.conf')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+const OfflinePlugin = require('offline-plugin')
+
+const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
   : config.build.env
 
-var webpackConfig = merge(baseWebpackConfig, {
+const webpackConfig = merge(baseWebpackConfig, {
   module: {
-    loaders: utils.styleLoaders({ sourceMap: config.build.productionSourceMap, extract: true })
+    loaders: utils.styleLoaders({
+      sourceMap: config.build.productionSourceMap,
+      extract: true
+    })
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {
@@ -22,26 +28,27 @@ var webpackConfig = merge(baseWebpackConfig, {
     filename: utils.assetsPath('js/[name].[hash:5].js'),
     chunkFilename: utils.assetsPath('js/[id].[hash:5].js')
   },
-  vue: {
-    loaders: utils.cssLoaders({
-      sourceMap: config.build.productionSourceMap,
-      extract: true
-    })
-  },
   plugins: [
     // http://vuejs.github.io/vue-loader/workflow/production.html
     new webpack.DefinePlugin({
       'process.env': env
     }),
     new webpack.optimize.UglifyJsPlugin({
-      compress: {
+       compress: {
         warnings: false
+      },
+      output: {
+        comments: false
       }
     }),
-    // new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     // extract css into its own file
-    new ExtractTextPlugin(utils.assetsPath('css/[name].[contenthash:5].css')),
+    new ExtractTextPlugin({
+      filename: utils.assetsPath('css/[name].[contenthash:5].css')
+    }),
+    // Compress extracted CSS. We are using this plugin so that possible
+    // duplicated CSS from different components can be deduped.
+    new OptimizeCSSPlugin(),
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
@@ -81,6 +88,8 @@ var webpackConfig = merge(baseWebpackConfig, {
       name: 'manifest',
       chunks: ['vendor']
     }),
+
+    new OfflinePlugin(),
 
     // new webpackUploadPlugin({
     //   filter: ['.png'],

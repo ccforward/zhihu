@@ -6,6 +6,7 @@ import store from './store'
 import router from './router/index'
 import * as filters from './filters'
 
+require('offline-plugin/runtime').install();
 
 Vue.use(lazy)
 sync(store, router)

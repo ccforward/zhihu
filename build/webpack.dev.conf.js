@@ -1,9 +1,9 @@
-var config = require('../config/index.js')
-var webpack = require('webpack')
-var merge = require('webpack-merge')
-var utils = require('./utils')
-var baseWebpackConfig = require('./webpack.base.conf')
-var HtmlWebpackPlugin = require('html-webpack-plugin')
+const config = require('./config')
+const webpack = require('webpack')
+const merge = require('webpack-merge')
+const utils = require('./utils')
+const baseWebpackConfig = require('./webpack.base.conf')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 // add hot-reload related code to entry chunks
 Object.keys(baseWebpackConfig.entry).forEach(function (name) {
@@ -21,14 +21,9 @@ module.exports = merge(baseWebpackConfig, {
       'process.env': config.dev.env
     }),
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
-    // webpack 1.x
-    // new webpack.optimize.OccurenceOrderPlugin(),
-
-    // webpack 2.0
     new webpack.optimize.OccurrenceOrderPlugin(),
-    // new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: 'index.html',

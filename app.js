@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const express = require('express');
+const compression = require('compression');
 const path = require('path');
 const favicon = require('serve-favicon');
 const morgan = require('morgan');
@@ -56,6 +57,7 @@ app.set('view engine', 'ejs');
 
 app.use(favicon(__dirname + '/public/favicon.ico'));
 
+app.use(compression());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());

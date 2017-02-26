@@ -10,7 +10,9 @@ var plugins = [
         name: 'vendor', 
         filename: 'vendor.js'
     }),
-    new ExtractTextPlugin("[name].css"),
+    new ExtractTextPlugin({
+      filename: "[name].css"
+    }),
     new webpack.HotModuleReplacementPlugin()
 ]
 if(isStatis) {
