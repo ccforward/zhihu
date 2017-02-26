@@ -21,12 +21,15 @@ import Latest from '../components/Latest.vue'
 import History from '../components/History.vue'
 import DateCalc from '../../common/util/date'
 
-const fetchLatest = store => {
-  return store.dispatch('FETCH_LATEST')
+const API = {
+  fetchLatest: store => {
+    return store.dispatch('FETCH_LATEST')
+  },
+  fetchHistory: (store, dtime) => {
+    return store.dispatch('FETCH_HISTORY', dtime)
+  }
 }
-const fetchHistory = (store, dtime) => {
-  return store.dispatch('FETCH_HISTORY', dtime)
-}
+
 const throttle = function(func, wait, options) {
   var context, args, result;
   var timeout = null;
@@ -61,17 +64,16 @@ const throttle = function(func, wait, options) {
 
 export default {
   name: 'home',
-  data() {
+  data(){
     return {
-      loading: false,
-      h: []
-    };
+      // histories: {}
+    }
   },
   components: {
     Latest,
     History
   },
-  preFetch: fetchLatest,
+  preFetch: API.fetchLatest,
   computed: {
     now(){
       const d = new DateCalc().now()
@@ -124,7 +126,7 @@ export default {
       this.previousDay()
     }
     if(this.$store.state.latest.length == 0){
-      fetchLatest(this.$store)
+      API.fetchLatest(this.$store)
     }
   },
   mounted(){
@@ -132,7 +134,7 @@ export default {
     window.addEventListener('scroll',  this.scrollEvent)
   },
   beforeRouteLeave (to, from, next) {
-    if(to.name == 'detail'){
+    if(to.name == 'detail' || to.name =='top-detail'){
       this.$store.state.article = {}
     }
     window.removeEventListener('scroll', this.scrollEvent)
@@ -145,8 +147,10 @@ export default {
       date && this.$router.push(`date?dtime=${date}`);
     },
     previousDay(){
-      this.$store.state.date = new DateCalc(this.$store.state.date).before();
-      fetchHistory(this.$store, this.$store.state.date);
+      if(!this.$store.state.loadingDay){
+        this.$store.state.date = new DateCalc(this.$store.state.date).before();
+        API.fetchHistory(this.$store, this.$store.state.date);
+      }
     }
   }
 };

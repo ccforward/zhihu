@@ -1,12 +1,12 @@
 CACHE MANIFEST
-#ver:2017-02-26 14:27:26
+#ver:2017-02-26 17:44:00
 #plugin:4.6.1
 
 CACHE:
 /dist/img/github.png
-/dist/js/vendor.cb942.js
-/dist/js/app.cb942.js
-/dist/js/manifest.cb942.js
+/dist/js/vendor.2564e.js
+/dist/js/app.2564e.js
+/dist/js/manifest.2564e.js
 /dist/css/app.d871f.css
 /dist/../../views/
 

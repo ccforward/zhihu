@@ -19,15 +19,16 @@ import Vue from 'vue';
 import Articles from '../components/Articles.vue'
 import Comments from '../components/Comments.vue'
 
-const fetchArticle = store => {
-  return store.dispatch('FETCH_ARTICLE', store.state.route.query.aid)
-}
-
-const fetchComments = store => {
-  return store.dispatch('FETCH_COMMENTS', store.state.route.query.aid)
-}
-const fetchAPIComments = store => {
-  return store.dispatch('FETCH_APICOMMENTS', store.state.route.query.aid)
+const API = {
+  fetchArticle: store => {
+    return store.dispatch('FETCH_ARTICLE', store.state.route.query.aid)
+  },
+  fetchComments: store => {
+    return store.dispatch('FETCH_COMMENTS', store.state.route.query.aid)
+  },
+  fetchAPIComments: store => {
+    return store.dispatch('FETCH_APICOMMENTS', store.state.route.query.aid)
+  }
 }
 
 
@@ -64,14 +65,12 @@ export default {
     }
   },
   beforeMount () {
-    
-    fetchArticle(this.$store)
+    API.fetchArticle(this.$store)
   },
   mounted(){
     scrollTo(0, 0)
   },
   beforeRouteLeave (to, from, next) {
-    // TODO use cache to store articles
     this.$store.state.comments.length = 0;
     next()
   },
@@ -80,12 +79,11 @@ export default {
       if(this.comments.length == 0){
         let _self = this;
         this.showLoading = true;
-        console.log(this.$store.state.route)
         if(this.$store.state.route.name == 'top-detail'){
-          fetchAPIComments(_self.$store);
+          API.fetchAPIComments(_self.$store);
         }else {
           setTimeout(function(){
-            fetchComments(_self.$store);
+            API.fetchComments(_self.$store);
           }, 1000)
         }
 

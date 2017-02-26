@@ -10,6 +10,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    loadingDay: false,
     date: new DateCalc().now(),
     latest: [],
     day: [],
@@ -25,10 +26,17 @@ const store = new Vuex.Store({
         })
     },
     FETCH_HISTORY ({ commit, state }, dtime) {
-      return api.fetchHistory(dtime)
-        .then(({data}) => {
-          commit('SET_HISTORY', data)
-        })
+      if(!state.loadingDay){
+        state.loadingDay = true
+        return api.fetchHistory(dtime)
+          .then(({data}) => {
+            state.loadingDay = false
+            commit('SET_HISTORY', data)
+          })
+          .catch( _ => {
+            state.loadingDay = false
+          })
+      }
     },
     FETCH_ONEDAY ({ commit, state }, dtime) {
       return api.fetchHistory(dtime)
