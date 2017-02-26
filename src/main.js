@@ -22,7 +22,7 @@ const app = new Vue({
     router,
     store,
     render(h) {
-        return h(App)
+      return h(App)
     }
 }).$mount('#app')
 

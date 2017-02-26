@@ -2,6 +2,9 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import * as api from './api'
 import DateCalc from '../../common/util/date'
+import Cache from '../../common/util/cache'
+
+const articleCache = new Cache(100)
 
 Vue.use(Vuex)
 
@@ -34,10 +37,16 @@ const store = new Vuex.Store({
         })
     },
     FETCH_ARTICLE ({ commit, state }, aid) {
-      return api.fetchArticle(aid)
-        .then(({data}) => {
-          commit('SET_ARTICLE', data)
-        })
+      const cache = articleCache.get(aid)
+      if(cache) {
+        return commit('SET_ARTICLE', cache)
+      }else {
+        return api.fetchArticle(aid)
+          .then(({data}) => {
+            articleCache.put(aid, data)
+            commit('SET_ARTICLE', data)
+          })
+      }
     },
     FETCH_COMMENTS ({ commit, state }, aid) {
       return api.fetchComments(aid)

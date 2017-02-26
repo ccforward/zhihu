@@ -64,7 +64,6 @@ export default {
   data() {
     return {
       loading: false,
-      histories: [],
       h: []
     };
   },
@@ -81,7 +80,7 @@ export default {
     latest(){
       const data = {
         top: [],
-        latest:[],
+        latest: [],
         month: ''
       };
       let comments = [];
@@ -134,7 +133,6 @@ export default {
   },
   beforeRouteLeave (to, from, next) {
     if(to.name == 'detail'){
-      // TODO use cache to store articles
       this.$store.state.article = {}
     }
     window.removeEventListener('scroll', this.scrollEvent)
