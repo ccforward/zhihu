@@ -35,6 +35,7 @@ LatestDAO.prototype =  {
         return new Promise(function(resolve, reject){
             Latest.remove(query || {}, function(err, data){
                 if(err) return reject(err)
+                console.log(new Date() + ' delete latest over ', data)
                 resolve(data);
             });
         });

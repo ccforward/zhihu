@@ -117,9 +117,12 @@ const Spider = {
                     .then(function(){
                         return tmpDAO.delete(query);
                     })
-            }).
-            catch(function(err){
-                console.log(err)
+                    .catch(function(err){
+                        console.log(new Date() + ' refresh day data error1 ' + err)
+                    })
+            })
+            .catch(function(err){
+                console.log(new Date() + ' refresh day data error2 ' + err)
                 tmpDAO.save({aid: '', dtime: dtime});
                 return Promise.reject(err);
             })

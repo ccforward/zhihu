@@ -43,6 +43,7 @@ ArticleDAO.prototype =  {
         return new Promise(function(resolve, reject){
             Article.remove(query, function(err, data){
                 if(err) return reject(err)
+                console.log(new Date() + ' delete article over ', data)
                 resolve(data);
             });
         });
