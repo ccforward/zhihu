@@ -84,6 +84,7 @@ const Spider = {
 
             Promise.all(promiseAll).then(function(){
                 dateCalculator.now(date)
+                console.log(new Date() + ' day history data over @: ' + dateCalculator.before());
                 logger.info(new Date() + ' day history data over @: ' + dateCalculator.before());
                 return Promise.resolve('day history data over @: ' + dateCalculator.before());
             }).catch(function(err){
@@ -144,6 +145,7 @@ const Spider = {
             })
             .catch(function(e){
                 tmpDAO.save({aid: '', dtime: data.dtime});
+                console.log('day @' + date + ' history data error @id: ' + data.id, e);
                 logger.error('day @' + date + 'history data error @id: ' + data.id, e);
             });
     },
