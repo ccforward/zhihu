@@ -19,11 +19,11 @@ var Tmp = mongodb.mongoose.model('Tmp', TmpSchema);
 
 const transporter = require('../util/mail')
 const mailOptions = {
-    from: 'cc.ccforward@gmail.com', // sender address
-    to: 'ccking@foxmail.com', // list of receivers
-    subject: 'zhihuhu error', // Subject line
-    text: '爬虫报警', // plain text body
-    html: '<h1>爬虫报警</h1><a href="http://zhihuhu.duapp.com/spider-error">error</a><br><hr>' // html body
+    from: 'cc.ccforward@gmail.com',
+    to: 'ccking@foxmail.com',
+    subject: 'zhihuhu 爬虫报警',
+    text: '爬虫报警',
+    html: '<h1>爬虫报警 😲</h1><h2><a href="http://zhihuhu.duapp.com/spider-error">Spider-Error-List</a><h2><br><hr>'
 }
 
 TmpDAO.prototype =  {
