@@ -9,7 +9,7 @@ import 'echarts/lib/component/toolbox';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 
-import DateCalc from '../common/util/date'
+import DateCalc from '../spider/util/date'
 
 import './statis/base.styl';
 import './statis/year.styl';

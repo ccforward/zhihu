@@ -1,7 +1,7 @@
 var Promise = require('es6-promise').Promise;
-var Spider = require('../common/util/spider');
+var Spider = require('../spider/util/spider');
 var TmpDAO = require('../database/models/tmp');
-var DateCalc = require('../common/util/date');     
+var DateCalc = require('../spider/util/date');     
 
 var Tmp = {
     // 爬虫错误列表

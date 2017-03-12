@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import * as api from './api'
-import DateCalc from '../../common/util/date'
-import Cache from '../../common/util/cache'
+import DateCalc from '../../spider/util/date'
+import Cache from '../../spider/util/cache'
 
 const articleCache = new Cache(100)
 

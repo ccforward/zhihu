@@ -4,10 +4,10 @@ var ArticleDAO = require('../database/models/article');
 var CmtCountDAO = require('../database/models/cmtCount');
 var CommentsDAO = require('../database/models/comments');
 var LatestDAO = require('../database/models/latest');
-var zhAPI = require('../common/api/index-promise');
+var zhAPI = require('../spider/api/index-promise');
 var cheerio = require('cheerio')
 var _ = require('lodash')
-var URL = require('url');
+var URL = require('url')
 
 
 var cmtCountDAO = new CmtCountDAO();

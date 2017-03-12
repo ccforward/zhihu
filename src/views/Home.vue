@@ -19,7 +19,7 @@
 import Vue from 'vue'
 import Latest from '../components/Latest.vue'
 import History from '../components/History.vue'
-import DateCalc from '../../common/util/date'
+import DateCalc from '../../spider/util/date'
 
 const API = {
   fetchLatest: store => {

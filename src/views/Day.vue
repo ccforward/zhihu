@@ -13,7 +13,7 @@
 <script>
 import Vue from 'vue'
 import History from '../components/History.vue'
-import DateCalc from '../../common/util/date'
+import DateCalc from '../../spider/util/date'
 import axios from 'axios'
 
 const fetchHistory = store => {

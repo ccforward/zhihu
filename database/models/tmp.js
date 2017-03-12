@@ -17,7 +17,7 @@ var TmpSchema = new Schema({
 var TmpDAO = function(){};
 var Tmp = mongodb.mongoose.model('Tmp', TmpSchema);
 
-const transporter = require('../../common/util/mail')
+const transporter = require('../../spider/util/mail')
 const mailOptions = {
     from: 'cc.ccforward@gmail.com',
     to: 'ccking@foxmail.com',

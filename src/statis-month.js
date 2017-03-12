@@ -8,7 +8,7 @@ import 'echarts/lib/component/tooltip';
 import 'echarts/lib/component/title';
 import 'echarts/lib/component/legend';
 
-import DateCalc from '../common/util/date'
+import DateCalc from '../spider/util/date'
 
 import './statis/base.styl';
 import './statis/month.styl';
