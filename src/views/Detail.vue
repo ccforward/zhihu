@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import Vue from 'vue';
+import Vue from 'vue'
 import Articles from '../components/Articles.vue'
 import Comments from '../components/Comments.vue'
 
@@ -51,7 +51,7 @@ export default {
       return this.$store.state.article
     },
     comments () {
-      let cmts = [];
+      const cmts = [];
       // 长评在前
       this.$store.state.comments.sort((a,b) => {
         return a.type < b.type

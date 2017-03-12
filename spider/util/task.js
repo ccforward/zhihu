@@ -42,10 +42,11 @@ const Task = {
     // 每周三、日 03:30 更新前7天的评论点赞数 
     // 从start到end前一天 共7天
     weekly: function(){
-        new CronJob('00 30 03 * * 0,3', function(){
-            const start = d.before()
-            const end = d.before(8)
-            Spider.updateCmtCount(start, end);
+        // new CronJob('00 30 03 * * 0,3', function(){
+        new CronJob('00 00 10 * * 0,3', function(){
+            const date = new DateCalc()
+            consoel.log(new Date() + ' weekly task date ' + date)
+            Spider.updateCmtCount(date.before(), date.before(8));
         }, function(){
             logger.info('weekly cron-job over ')
         }, true, 'Asia/Shanghai');

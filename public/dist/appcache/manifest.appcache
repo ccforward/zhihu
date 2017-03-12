@@ -1,13 +1,13 @@
 CACHE MANIFEST
-#ver:2017-02-26 17:44:00
+#ver:2017-3-15 09:54:00
 #plugin:4.6.1
 
 CACHE:
 /dist/img/github.png
-/dist/js/vendor.2564e.js
-/dist/js/app.2564e.js
-/dist/js/manifest.2564e.js
-/dist/css/app.d871f.css
+/dist/js/vendor.c566e.js
+/dist/js/app.c566e.js
+/dist/js/manifest.c566e.js
+/dist/css/app.a1605.css
 /dist/../../views/
 
 NETWORK:
