@@ -1,6 +1,6 @@
 var _ = require('lodash');
-var StatisDAO = require('../common/db/models/statis'),
-    HistoryDAO = require('../common/db/models/history');
+var StatisDAO = require('../database/models/statis'),
+    HistoryDAO = require('../database/models/history');
 
 var statisDAO = new StatisDAO();
 var historyDAO = new HistoryDAO();

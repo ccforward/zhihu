@@ -4,12 +4,12 @@ const Promise = require('es6-promise').Promise;
 
 const CONFIG = require('../../config');
 
-const ArticleDAO = require('../db/models/article');
-const HistoryDAO = require('../db/models/history');
-const CmtCountDAO = require('../db/models/cmtCount');
-const CommentsDAO = require('../db/models/comments');
-const LatestDAO = require('../db/models/latest');
-const TmpDAO = require('../db/models/tmp');
+const ArticleDAO = require('../../database/models/article');
+const HistoryDAO = require('../../database/models/history');
+const CmtCountDAO = require('../../database/models/cmtCount');
+const CommentsDAO = require('../../database/models/comments');
+const LatestDAO = require('../../database/models/latest');
+const TmpDAO = require('../../database/models/tmp');
 
 const zhAPI = require('../api/index-promise');
 
