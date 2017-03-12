@@ -36,7 +36,7 @@ if(CONFIG.fe.developing){
 
 // 爬虫任务
 const Job = require('./spider/util/task');
-const SpiderMan = require('./spider/util/spider');
+const SpiderMan = require('./spider/spider');
 
 if(CONFIG.spider.fire) {
     SpiderMan.fire(CONFIG.spider.start, CONFIG.spider.end);

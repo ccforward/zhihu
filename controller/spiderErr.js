@@ -1,5 +1,5 @@
 var Promise = require('es6-promise').Promise;
-var Spider = require('../spider/util/spider');
+var Spider = require('../spider/spider');
 var TmpDAO = require('../database/models/tmp');
 var DateCalc = require('../spider/util/date');     
 

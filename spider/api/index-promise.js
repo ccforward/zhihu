@@ -1,8 +1,9 @@
-var Promise = require('es6-promise').Promise;
-var request = require('request');
-var config = require('../../config');
+"use strict";
+const Promise = require('es6-promise').Promise;
+const request = require('request');
+const config = require('../../config');
 
-var API = {
+const API = {
     'startPic'  : 'http://news-at.zhihu.com/api/4/start-image/720*1184',
     'latest'    : 'http://news-at.zhihu.com/api/4/news/latest',
     'article'   : 'http://news-at.zhihu.com/api/4/news/',
@@ -12,8 +13,8 @@ var API = {
     'cmtShort'  : 'http://news-at.zhihu.com/api/4/story/'
 }
 
-var data = {
-    getStartPic: function(){
+module.exports = {
+    getStartPic(){
         var url = API.startPic;
         return new Promise(function(resolve, reject){
             request(url, function(err,response,body){
@@ -28,7 +29,7 @@ var data = {
         });
     },
     // 最新内容
-    getLatest: function(){
+    getLatest(){
         var url = API.latest;
         return new Promise(function(resolve, reject){
             request({
@@ -48,7 +49,7 @@ var data = {
         });
     },
     // 文章详情
-    getArticle: function(articleId){
+    getArticle(articleId){
         return new Promise(function(resolve, reject){
             if(articleId) {
                 var url = API.article + articleId;
@@ -69,7 +70,7 @@ var data = {
         })
     },
     // 评论数点赞数
-    getCmtcount: function(articleId){
+    getCmtcount(articleId){
         return new Promise(function(resolve, reject){
             if(articleId){
                 var url = API.cmtCount + articleId;
@@ -91,7 +92,7 @@ var data = {
         });               
     },
     // 长评论
-    getCmtLong: function(articleId){
+    getCmtLong(articleId){
         return new Promise(function(resolve, reject){
             if(articleId){
                 var url = API.cmtLong + articleId + '/long-comments';
@@ -113,7 +114,7 @@ var data = {
         });               
     },
     // 短评论
-    getCmtshort: function(articleId){
+    getCmtshort(articleId){
         return new Promise(function(resolve, reject){
             if(articleId){
                 var url = API.cmtShort + articleId + '/short-comments';
@@ -134,7 +135,7 @@ var data = {
 
         });               
     },
-    getHistory: function(date){
+    getHistory(date){
         return new Promise(function(resolve, reject){
             if(date){
                 var url = API.history + date;
@@ -156,5 +157,3 @@ var data = {
         });
     }
 }
-
-module.exports = data;

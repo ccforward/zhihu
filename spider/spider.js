@@ -2,18 +2,18 @@
 const CronJob = require('cron').CronJob;
 const Promise = require('es6-promise').Promise;
 
-const CONFIG = require('../../config');
+const CONFIG = require('../config');
 
-const ArticleDAO = require('../../database/models/article');
-const HistoryDAO = require('../../database/models/history');
-const CmtCountDAO = require('../../database/models/cmtCount');
-const CommentsDAO = require('../../database/models/comments');
-const LatestDAO = require('../../database/models/latest');
-const TmpDAO = require('../../database/models/tmp');
+const ArticleDAO = require('../database/models/article');
+const HistoryDAO = require('../database/models/history');
+const CmtCountDAO = require('../database/models/cmtCount');
+const CommentsDAO = require('../database/models/comments');
+const LatestDAO = require('../database/models/latest');
+const TmpDAO = require('../database/models/tmp');
 
-const zhAPI = require('../api/index-promise');
+const zhAPI = require('./api/index-promise');
 
-const DateCalc = require('./date')
+const DateCalc = require('./util/date')
 const dateCalculator = new DateCalc()
 
 const historyDAO = new HistoryDAO();
@@ -378,9 +378,4 @@ const Spider = {
 }
 
 
-module.exports = Spider;
-
-
-
-
-
+module.exports = Spider

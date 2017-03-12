@@ -3,7 +3,7 @@
 const CronJob = require('cron').CronJob;
 const CONFIG = require('../../config');
 const zhAPI = require('../api/index-promise');
-const Spider = require('./spider');
+const Spider = require('../spider');
 const DateCalc = require('./date');
 
 
