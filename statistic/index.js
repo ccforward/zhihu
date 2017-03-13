@@ -1,28 +1,27 @@
 "use strict";
 // var Promise = require('es6-promise').Promise;
-var _ = require('lodash');
-var CONFIG = require('../config');
+const _ = require('lodash')
+const CONFIG = require('../config')
+
 if(CONFIG.log.openBae){
     var logger = console;
 }else {
     var logger = require('log4js').getLogger('cheese');
 }
 
-var CmtCountDAO = require('../common/db/models/cmtCount');
-var StatisDAO = require('../common/db/models/statis');
-
-var cmtCountDAO = new CmtCountDAO(),
-    statisDAO = new StatisDAO();
+const CmtCountDAO = require('../database/models/cmtCount')
+const StatisDAO = require('../database/models/statis')
+const cmtCountDAO = new CmtCountDAO()
+const statisDAO = new StatisDAO()
 
 
 module.exports = {
-    start: function(start, end){
-        // this.month(start)
+    start(start, end){
         for(var i=0,len=start.length;i<len;i++){
             this.month(start[i])
         }
     },
-    month: function(dmonth){
+    month(dmonth){
         statisDAO.count({dmonth: dmonth})
         .then(function(d){
             if(d == 0){

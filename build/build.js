@@ -26,6 +26,7 @@ if(!isStatis){
   cp('-R', 'static/', assetsPath)
 }
 
+
 webpack(webpackConfig, function (err, stats) {
   spinner.stop()
   if (err) throw err

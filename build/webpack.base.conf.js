@@ -36,9 +36,6 @@ module.exports = {
       'assets': path.resolve(__dirname, '../src/assets')
     }
   },
-  // resolveLoader: {
-  //   fallback: [path.join(__dirname, '../node_modules')]
-  // },
   module: {
     noParse: /es6-promise\.js$/,
     rules: [
