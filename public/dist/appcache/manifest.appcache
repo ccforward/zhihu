@@ -1,13 +1,13 @@
 CACHE MANIFEST
-#ver:2017-3-13 13:41:37
+#ver:2017-4-18 22:49:36
 #plugin:4.6.1
 
 CACHE:
 /dist/img/github.png
-/dist/js/vendor.48213.js
-/dist/js/app.48213.js
-/dist/js/manifest.48213.js
-/dist/css/app.a1605.css
+/dist/js/vendor.658b3.js
+/dist/js/app.658b3.js
+/dist/js/manifest.658b3.js
+/dist/css/app.d871f.css
 /dist/../../views/
 
 NETWORK:

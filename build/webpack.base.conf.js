@@ -82,14 +82,5 @@ module.exports = {
         }
       }
     ]
-  },
-  // stylus: {
-  //   use: [nib()],
-  //   import: ['~nib/lib/nib/index.styl'],
-  //   "include css": true
-  // },
-  // babel: {
-  //   presets: ['es2015'],
-  //   plugins: ['transform-runtime']
-  // }
+  }
 };

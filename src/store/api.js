@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 
-export const fetchLatest = () => {
+export const fetchLatest = _ => {
   return axios.get('/latest')
 }
 

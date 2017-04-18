@@ -15,15 +15,16 @@ Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
 })
 
-Vue.config.debug = true;
+Vue.config.debug = true
 
 const app = new Vue({
-    name: 'app',
-    router,
-    store,
-    render(h) {
-      return h(App)
-    }
-}).$mount('#app')
+  el:'#app',
+  name: 'zhihu',
+  router,
+  store,
+  render(h) {
+    return h(App)
+  }
+})
 
 export { app, router, store }

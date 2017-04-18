@@ -25,21 +25,55 @@ ES6 + Vue + Webpack
 
 数据统计的页面使用原生 ES6 代码编写，单独配置了webpack做构建，没有和 Vue 的webpack构建代码混在一起
 
-## 说明
+## 使用说明
 
+### mongoDB
 
-### config.js.sample
+1. 启动 mongoDB `sudo mongod`
+
+2. 用命令 `mongo`  进入命令行模式
+
+3. 创建数据库
+
+```shell
+use zhihu
+```
+
+4. 创建用户 (这里的 username 和 password 要和 config.js 里相对应)
+
+```shell
+db.createUser({
+  user: "username",
+  pwd: "password",
+  "roles" : [
+  {
+    "role" : "readWrite",
+    "db" : "report"
+  },{
+    "role" : "dbAdmin",
+    "db" : "report"
+  }]
+})
+```
+
+### 配置文件 config.js
 
 config.js.sample 重命名为 config.js
 
 说明:
 
 * auth 知乎日报用来验证用户的key 用于http的请求头(真正的key叫做 `Authorization`)
-* spider.fire 是否启动爬虫爬取历史信息
-* spider.openTask 是否启动爬虫定时任务
-* spider.interval 爬虫间隔时间
-* spider.start spider.end  爬历史数据的开始结束时间 （知乎日报生日: 20130519）
-* start时间 比 end时间 晚
+* `fire: true` 是否启动爬虫爬取历史信息
+* `openTask:true` 表示开启定时任务  每日爬虫和定时更新
+* interval 爬虫间隔时间
+* start end  爬历史数据的开始结束时间 为由近到远的日期（知乎日报生日: 20130519）  
+  start时间 比 end时间 晚
+
+在config.js文件中设置 `fire: true`  表示开启爬虫，对应的 start end 
+
+
+
+### 其他
 
 如果在页面的HTTP的请求头里想加入 Authorization 和 referer 可以用这个 [chrome扩展](https://github.com/ccforward/C-Header)
 

@@ -33,9 +33,9 @@ export default {
   name: 'history-item',
   props: ['day', 'view'],
   computed: {
-      dtime() {
-        return this.$route.query.dtime
-      }
+    dtime() {
+      return this.$route.query.dtime
+    }
   },
   mounted(){
     this.$route.name == 'oneday' && scrollTo(0, 0)
