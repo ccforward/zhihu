@@ -11,7 +11,7 @@
   "scripts": {
     "start": "node ./bin/zh.js",
     "dev": "supervisor ./bin/zh.js",
-    "dev:fe": "nodejs-dashboard node ./bin/zh.js",
+    "dev:fe": "node ./bin/zh.js -fe",
     "build": "node ./build/build.js",
     "build-statis": "node ./build/build.js statis"
   },
