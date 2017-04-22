@@ -36,8 +36,5 @@ module.exports = {
         start: '20151231',
         end: '20151001',
         interval: 10
-    },
-    fe: {
-        developing: true
     }
 }
