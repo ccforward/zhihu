@@ -31,7 +31,7 @@ const webpackConfig = merge(baseWebpackConfig, {
   plugins: [
     // http://vuejs.github.io/vue-loader/workflow/production.html
     new webpack.DefinePlugin({
-      'process.env': env
+      'process.env': config.build.env
     }),
     new webpack.optimize.UglifyJsPlugin({
        compress: {
@@ -53,20 +53,20 @@ const webpackConfig = merge(baseWebpackConfig, {
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      filename: process.env.NODE_ENV === 'testing'
-        ? 'index.html'
-        : config.build.index,
+      filename: config.build.index,
       template: 'index.html',
-      inject: true,
+      inject: false,
       minify: {
         removeComments: true,
         collapseWhitespace: true,
-        removeAttributeQuotes: true
+        removeAttributeQuotes: true,
+        minifyJS: true
         // more options:
         // https://github.com/kangax/html-minifier#options-quick-reference
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
-      chunksSortMode: 'dependency'
+      chunksSortMode: 'dependency',
+      environment: '"production"'
     }),
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
@@ -89,7 +89,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       chunks: ['vendor']
     }),
 
-    new OfflinePlugin(),
+    // new OfflinePlugin(),
 
     // new webpackUploadPlugin({
     //   filter: ['.png'],

@@ -15,8 +15,42 @@
     <base target="_blank" href=""/>
     <title>知乎日报</title>
     <script>var _hmt=_hmt||[];(function(){var b=document.createElement("script");b.src="//hm.baidu.com/hm.js?50970e0c872804b6e7ef3f143969f102";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(b,a)})();</script>
+    <% if(process.env.NODE_ENV === 'production'){ %>
+    <script src="/lib/bowl.js"></script>
+    <% } %>
   </head>
   <body>
     <template id="app"></template>
+    <script>
+      <%
+        var resources = [];
+        var keys = ["manifest", "vendor", "app"];
+        var dependencies = [0, [keys[0]],
+          [keys[0], keys[1]]
+        ];
+        // css
+        for (var css in htmlWebpackPlugin.files.css) {
+          resources.push({
+            url: htmlWebpackPlugin.files.css[css],
+            key: "style"
+          });
+        }
+        // js
+        var i = -1;
+        for (var chunk in htmlWebpackPlugin.files.chunks) {
+          i++;
+          resources.push({
+            url: htmlWebpackPlugin.files.chunks[chunk].entry,
+            key: keys[i],
+            dependencies: dependencies[i] || []
+          });
+        }
+      %>
+      <% if(process.env.NODE_ENV === 'production'){ %>
+        var b = new Bowl();
+        b.add(<%=JSON.stringify(resources) %>);
+        b.inject();
+      <% } %>
+    </script>
   </body>
 </html>
