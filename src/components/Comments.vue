@@ -2,7 +2,7 @@
   <div id="comment" class="article-comments">
     <section class="item" v-for="item in comments">
       <div class="avatar">
-        <img v-lazy="'http://ccforward.sinaapp.com/api/proxy.php?url='+item.avatar">
+        <img v-lazy="item.avatar">
       </div>
       <div class="content">
         <p class="author">{{ item.author }} <span :class="item.likes>10 && 'hot' "><i class="icon like"></i>{{ item.likes }}</span></p>

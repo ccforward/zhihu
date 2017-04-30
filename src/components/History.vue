@@ -15,8 +15,8 @@
         <li v-for="item in day.data">
           <router-link :to="{path: 'detail', query:{aid: item.id}}">
             <span class="title">{{item.title}}</span>
-            <img v-if="view" :src="'http://ccforward.sinaapp.com/api/proxy.php?url='+item.image">
-            <img v-else v-lazy="'http://ccforward.sinaapp.com/api/proxy.php?url='+item.image">
+            <img v-if="view" :src="item.image">
+            <img v-else v-lazy="item.image">
             <p class="sns">
               <i :class="item.popularity>500 && 'hot' ">{{ item.popularity }} likes</i> |
               <i>{{ item.comments }} comments</i>
