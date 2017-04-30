@@ -54,10 +54,6 @@ module.exports = {
         test: /\.json$/,
         loader: 'json-loader'
       },
-      // {
-      //   test: /\.html$/,
-      //   loader: 'vue-html-loader'
-      // },
       {
         test: /\.styl$/,
         use: ExtractTextPlugin.extract({
