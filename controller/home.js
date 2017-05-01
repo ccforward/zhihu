@@ -36,11 +36,11 @@ var Home = {
                 if(data.length){
                     var result = data[0]
                     //  HTML实体转换 http://www.cnblogs.com/zichi/p/5135636.html
-                    var $ = cheerio.load(result.body, {decodeEntities: false});
-                    $('img').each(function(idx, item){
-                        $(item).attr('src','http://ccforward.sinaapp.com/api/proxy.php?url=' + $(item).attr('src'))
-                    });
-                    result.body = $.root().html();
+                    // var $ = cheerio.load(result.body, {decodeEntities: false});
+                    // $('img').each(function(idx, item){
+                    //     $(item).attr('src','http://ccforward.sinaapp.com/api/proxy.php?url=' + $(item).attr('src'))
+                    // });
+                    // result.body = $.root().html();
                 }
                 res.json(result)
             });
