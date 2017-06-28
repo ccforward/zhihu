@@ -10,6 +10,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    img: '',
     loadingDay: false,
     date: new DateCalc().now(),
     latest: [],

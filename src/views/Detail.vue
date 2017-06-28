@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import Articles from '../components/Articles.vue'
 import Comments from '../components/Comments.vue'
 
@@ -86,7 +85,6 @@ export default {
             API.fetchComments(_self.$store);
           }, 1000)
         }
-
       }
     }
   }
