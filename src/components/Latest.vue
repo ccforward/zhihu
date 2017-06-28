@@ -5,7 +5,7 @@
     </div>
     <ul>
       <li v-for="item in data.latest">
-          <router-link :to="{path: 'top-detail', query:{aid: item.id}, params: { userId: 123 }}"> 
+          <router-link :to="{path: 'top-detail', query:{aid: item.id}}"> 
             <span class="title">{{item.title}}</span>
             <!-- <div class="img" v-lazy:background-image="'http://ccforward.sinaapp.com/api/proxy.php?url='+item.image"></div> -->
             <div class="img" v-lazy:background-image="item.image"></div>
