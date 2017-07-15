@@ -9,7 +9,9 @@
       <span v-else>最新点评</span>
     </button>
     <i v-show="showLoading" class="loading"></i>
-    <Comments :comments="comments"></Comments>
+    <template v-if="cmt">
+      <Comments :comments="comments"></Comments>
+    </template>
     <router-link :to="{path: '/'}">返回首页</router-link>
   </div>
 </template>
@@ -30,17 +32,18 @@ const API = {
   }
 }
 
-
 export default {
   name: 'detail',
   data() {
     return {
+      cmt: false,
       showLoading: false
     }
   },
   components: {
     Articles,
     Comments
+    // Comments: resolve => resolve(require('../components/Comments.vue'))
   },
   computed: {
     showDayLik(){
@@ -75,15 +78,13 @@ export default {
   },
   methods: {
     getComments(){
+      this.cmt = true;
       if(this.comments.length == 0){
-        let _self = this;
         this.showLoading = true;
         if(this.$store.state.route.name == 'top-detail'){
-          API.fetchAPIComments(_self.$store);
+          API.fetchAPIComments(this.$store);
         }else {
-          setTimeout(function(){
-            API.fetchComments(_self.$store);
-          }, 1000)
+          API.fetchComments(this.$store);
         }
       }
     }

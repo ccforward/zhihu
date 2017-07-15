@@ -2,8 +2,11 @@
   <div class="article">
     <div class="img-wrap" :style="{'background-image':`url(${article.image})`}">
       <h1>{{ article.title }}</h1>
-      <span>{{  article.imageSource }}</span>
+      <span>{{ article.imageSource }}</span>
       <div class="img-mask"></div>
+      <!-- <div class="">
+        <img :src="article.image">
+      </div> -->
     </div>
     <article v-html="article.body"></article>
   </div>
